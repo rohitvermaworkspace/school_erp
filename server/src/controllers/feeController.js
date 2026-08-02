@@ -145,14 +145,10 @@ const deleteFee = async (req, res) => {
 
 // ================= STUDENT FEES (FIXED ERP LOGIC) =================
 const getMyFees = async (req, res) => {
-  console.log("ALL FEES IN DB:");
-console.log(await Fee.find({}));
   try {
     const userId = req.user._id;
 
-    console.log("USER ID:", userId);
-
-    // STEP 1: find student
+    // find student
     const student = await Student.findOne({ userId });
 
     if (!student) {
@@ -162,14 +158,10 @@ console.log(await Fee.find({}));
       });
     }
 
-    console.log("STUDENT FOUND:", student._id);
-
-    // STEP 2: IMPORTANT FIX HERE
+    // find fees
     const fees = await Fee.find({
-      student: student._id,   // 🔥 THIS MUST MATCH SCHEMA FIELD
+      student: student._id,
     });
-
-    console.log("FEES FOUND:", fees.length);
 
     return res.json({
       success: true,

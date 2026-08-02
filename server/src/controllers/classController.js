@@ -65,9 +65,6 @@ exports.getClassById = async (req, res) => {
 // CREATE CLASS
 exports.createClass = async (req, res) => {
   try {
-    console.log("BODY:", req.body);
-    console.log("USER:", req.user);
-
     const newClass = await Class.create({
       ...req.body,
       createdBy: req.user._id,
@@ -75,8 +72,6 @@ exports.createClass = async (req, res) => {
 
     res.status(201).json(newClass);
   } catch (error) {
-    console.log("CREATE CLASS ERROR:", error);
-
     res.status(500).json({
       message: "Failed to create class",
     });

@@ -60,6 +60,7 @@ router.get(
 router.post(
   "/mark",
   protect,
+  authorizeRoles("teacher", "admin"),
   markAttendance
 );
 router.post(

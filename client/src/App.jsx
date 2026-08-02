@@ -4,9 +4,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 
-// LANDING
-import SchoolManagementLanding from "./pages/landingPage/SchoolManagementLanding";
-
 // PROTECTED ROUTE
 import ProtectedRoute from "./routes/ProtectedRoutes";
 
@@ -35,9 +32,9 @@ import Profile from "./pages/admin/Profile";
 import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentProfile from "./pages/student/StudentProfile";
 import StudentAttendance from "./pages/student/StudentAttendance";
-import StudentFees  from "./pages/student/StudentFees";
-import StudentNotices  from "./pages/student/StudentNotices";
-import StudentTimetable  from "./pages/student/StudentTimetable";
+import StudentFees from "./pages/student/StudentFees";
+import StudentNotices from "./pages/student/StudentNotices";
+import StudentTimetable from "./pages/student/StudentTimetable";
 import StudentSubjects from "./pages/student/StudentSubjects";
 import StudentResults from "./pages/student/results/StudentResults";
 import StudentReportCard from "./pages/student/results/StudentReportCard";
@@ -57,11 +54,6 @@ import TeacherReportCard from "./pages/teacher/TeacherReportCard";
 import TeacherLeaveRequest from "./pages/teacher/TeacherLeaveRequest";
 import TeacherStudentAttendance from "./pages/teacher/TeacherStudentAttendance";
 
-
-// COMMON
-import AppLayout from "./components/layout/AppLayout";
-import TeacherLayout from "./components/layout/TeacherLayout";
-
 function App() {
   return (
     <BrowserRouter>
@@ -69,25 +61,13 @@ function App() {
 
         {/* ROOT */}
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/index" element={<SchoolManagementLanding />} />
 
         {/* AUTH */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* ADMIN DASHBOARD */}
-        <Route
-          path="/admin/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={["admin"]}>
-              <AppLayout>
-                <AdminDashboard />
-              </AppLayout>
-            </ProtectedRoute>
-          }
-        />
-
-        {/* ADMIN MODULES */}
+        {/* ADMIN */}
+        <Route path="/admin/dashboard" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
         <Route path="/admin/academic-sessions" element={<ProtectedRoute allowedRoles={["admin"]}><AcademicSessions /></ProtectedRoute>} />
         <Route path="/admin/students" element={<ProtectedRoute allowedRoles={["admin"]}><Students /></ProtectedRoute>} />
         <Route path="/admin/student-admission" element={<ProtectedRoute allowedRoles={["admin"]}><StudentAdmission /></ProtectedRoute>} />
@@ -107,15 +87,6 @@ function App() {
         <Route path="/admin/results" element={<ProtectedRoute allowedRoles={["admin"]}><Results /></ProtectedRoute>} />
 
         {/* STUDENT */}
-        <Route
-          path="/student/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={["student"]}>
-              <StudentDashboard />
-            </ProtectedRoute>
-          }
-        />
-        {/* Student MODULES */}
         <Route path="/student/dashboard" element={<ProtectedRoute allowedRoles={["student"]}><StudentDashboard /></ProtectedRoute>} />
         <Route path="/student/profile" element={<ProtectedRoute allowedRoles={["student"]}><StudentProfile /></ProtectedRoute>} />
         <Route path="/student/attendance" element={<ProtectedRoute allowedRoles={["student"]}><StudentAttendance /></ProtectedRoute>} />
@@ -123,23 +94,12 @@ function App() {
         <Route path="/student/notices" element={<ProtectedRoute allowedRoles={["student"]}><StudentNotices /></ProtectedRoute>} />
         <Route path="/student/timetable" element={<ProtectedRoute allowedRoles={["student"]}><StudentTimetable /></ProtectedRoute>} />
         <Route path="/student/subjects" element={<ProtectedRoute allowedRoles={["student"]}><StudentSubjects /></ProtectedRoute>} />
-        <Route path="/student/results"element={<ProtectedRoute allowedRoles={["student"]}><StudentResults /></ProtectedRoute>} />
+        <Route path="/student/results" element={<ProtectedRoute allowedRoles={["student"]}><StudentResults /></ProtectedRoute>} />
         <Route path="/student/report-card/:id" element={<ProtectedRoute allowedRoles={["student"]}><StudentReportCard /></ProtectedRoute>} />
         <Route path="/student/leave" element={<ProtectedRoute allowedRoles={["student"]}><StudentLeave /></ProtectedRoute>} />
 
-        {/* TEACHER DASHBOARD */}
-        <Route
-          path="/teacher/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={["teacher"]}>
-              <AppLayout>
-                <TeacherDashboard />
-              </AppLayout>
-            </ProtectedRoute>
-          }
-        />
-
-        {/* TEACHER MODULES */}
+        {/* TEACHER */}
+        <Route path="/teacher/dashboard" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherDashboard /></ProtectedRoute>} />
         <Route path="/teacher/students" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherStudents /></ProtectedRoute>} />
         <Route path="/teacher/attendance" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherAttendance /></ProtectedRoute>} />
         <Route path="/teacher/attendance-history" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherAttendanceHistory /></ProtectedRoute>} />
@@ -150,16 +110,10 @@ function App() {
         <Route path="/teacher/results" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherResults /></ProtectedRoute>} />
         <Route path="/teacher/report-cards" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherReportCard /></ProtectedRoute>} />
         <Route path="/teacher/leaves" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherLeaveRequest /></ProtectedRoute>} />
-        <Route path="/teacher/students/:id/attendance" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherStudentAttendance /></ProtectedRoute> }/>;
-        {/* PROFILE (COMMON) */}
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute allowedRoles={["admin", "teacher", "student"]}>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/teacher/students/:id/attendance" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherStudentAttendance /></ProtectedRoute>} />
+
+        {/* COMMON */}
+        <Route path="/profile" element={<ProtectedRoute allowedRoles={["admin", "teacher", "student"]}><Profile /></ProtectedRoute>} />
 
         {/* 404 */}
         <Route path="*" element={<h1>404 Page Not Found</h1>} />

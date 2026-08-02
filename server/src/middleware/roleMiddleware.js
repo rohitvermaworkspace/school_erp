@@ -1,9 +1,7 @@
 const authorizeRoles = (...allowedRoles) => {
   return (req, res, next) => {
     try {
-      const userRole = req.user?.role; // ✅ SAFE CHECK
-
-      console.log("USER ROLE:", userRole);
+      const userRole = req.user?.role;
 
       if (!userRole || !allowedRoles.includes(userRole)) {
         return res.status(403).json({

@@ -5,16 +5,17 @@ const sendNotification = async (req, data) => {
     const io = req.app.get("io");
 
     const notification = await Notification.create({
-      title: data.type,
+      title: data.title || "Notification",
       message: data.message,
-      type: data.type,
-      role: data.role || "admin",
-      user: data.user || null,
+      category: data.category || "GENERAL",
+      audience: data.audience || "ALL",
+      priority: data.priority || "MEDIUM",
+      publishDate: data.publishDate || new Date(),
+      expiryDate: data.expiryDate || null,
+      createdBy: req.user?._id || null,
     });
 
     io.emit("notification", notification);
-
-    console.log("Notification saved:", notification);
 
     return notification;
   } catch (error) {

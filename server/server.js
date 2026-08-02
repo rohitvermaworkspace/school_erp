@@ -4,6 +4,8 @@ const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
 const path = require("path");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 
 // Config
 const connectDB = require("./src/config/db");
@@ -19,21 +21,19 @@ const analyticsRoutes = require("./src/routes/analyticsRoutes");
 const dashboardRoutes = require("./src/routes/dashboardRoutes");
 const notificationRoutes = require("./src/routes/notificationRoutes");
 const timetableRoutes = require("./src/routes/timetableRoutes");
-const noticeRoutes = require('./src//routes/noticeRoutes');
-const feeRoutes = require('./src/routes/feeRoutes');
-const userRoutes = require('./src/routes/userRoutes');
-const settingsRoutes = require('./src/routes/settingsRoutes');
-const auditLogRoutes = require('./src/routes/auditLogRoutes');
-const markRoutes = require('./src/routes/markRoutes');
-const resultRoutes = require('./src/routes/resultRoutes');
-const reportCardRoutes = require('./src/routes/reportCardRoutes');
-const leaveRoutes = require('./src/routes/leaveRoutes');
+const noticeRoutes = require("./src/routes/noticeRoutes");
+const feeRoutes = require("./src/routes/feeRoutes");
+const userRoutes = require("./src/routes/userRoutes");
+const settingsRoutes = require("./src/routes/settingsRoutes");
+const auditLogRoutes = require("./src/routes/auditLogRoutes");
+const markRoutes = require("./src/routes/markRoutes");
+const resultRoutes = require("./src/routes/resultRoutes");
+const reportCardRoutes = require("./src/routes/reportCardRoutes");
+const leaveRoutes = require("./src/routes/leaveRoutes");
 const teacherAnalyticsRoutes = require("./src/routes/teacherAnalyticsRoutes");
-const studentResultRoutes = require('./src/routes/studentResultRoutes');
+const studentResultRoutes = require("./src/routes/studentResultRoutes");
 const sessionRoutes = require("./src/routes/sessionRoutes");
 const adminAnalyticsRoutes = require("./src/routes/adminAnalyticsRoutes");
-
-
 
 // Load environment variables
 dotenv.config();
@@ -44,12 +44,31 @@ connectDB();
 // Initialize express app
 const app = express();
 
+// Security middleware
+app.use(helmet());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  message: { message: "Too many requests, please try again later." },
+});
+app.use("/api/", limiter);
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  message: { message: "Too many auth attempts, please try again later." },
+});
+app.use("/api/auth/loginUser", authLimiter);
+app.use("/api/auth/signup", authLimiter);
+
 // Middleware
 app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // React Vite frontend
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
     credentials: true,
   }),
 );
@@ -60,7 +79,7 @@ const server = http.createServer(app);
 // Initialize socket.io
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -71,17 +90,14 @@ app.set("io", io);
 
 // Socket connection
 io.on("connection", (socket) => {
-  console.log("⚡ User connected:", socket.id);
+  console.log("User connected:", socket.id);
 
-  // Join room example:
   socket.on("join_room", (room) => {
     socket.join(room);
-
-    console.log(`User joined room: ${room}`);
   });
 
   socket.on("disconnect", () => {
-    console.log("❌ User disconnected:", socket.id);
+    console.log("User disconnected:", socket.id);
   });
 });
 
@@ -122,12 +138,23 @@ app.use('/api/student-results', studentResultRoutes);
 
 // Health route
 app.get("/", (req, res) => {
-  res.send("🚀 School ERP API running...");
+  res.send("School ERP API running...");
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("Unhandled Error:", err.stack);
+  res.status(500).json({ message: "Internal server error" });
 });
 
 // Start server
 const PORT = process.env.PORT || 8000;
 
 server.listen(PORT, () => {
-  console.log(`🚀 Server running on ${PORT}`);
+  console.log(`Server running on ${PORT}`);
 });

@@ -1,7 +1,7 @@
 const Student = require("../models/Student");
 const Teacher = require("../models/Teacher");
 const Class = require("../models/Class");
-const FeePayment = require("../models/FeePayment");
+const Fee = require("../models/Fee");
 const Attendance = require("../models/Attendance");
 
 // ADMIN DASHBOARD SUMMARY
@@ -12,17 +12,15 @@ const getDashboardStats = async (req, res) => {
     const totalClasses = await Class.countDocuments();
 
     // FEES CALCULATION
-    const feePayments = await FeePayment.find();
+    const fees = await Fee.find();
 
-    const totalFeesCollected = feePayments.reduce(
-      (acc, item) => acc + item.amountPaid,
-      0
-    );
+    const totalFeesCollected = fees
+      .filter((f) => f.status === "Paid")
+      .reduce((acc, item) => acc + item.amount, 0);
 
-    const pendingFees = feePayments.reduce(
-      (acc, item) => acc + (item.remainingFee || 0),
-      0
-    );
+    const pendingFees = fees
+      .filter((f) => f.status === "Pending")
+      .reduce((acc, item) => acc + item.amount, 0);
 
     // ATTENDANCE CALCULATION
     const attendance = await Attendance.find();
@@ -57,18 +55,18 @@ const getDashboardStats = async (req, res) => {
 
 const getMonthlyRevenue = async (req, res) => {
   try {
-    const payments = await FeePayment.find();
+    const payments = await Fee.find({ status: "Paid" });
 
     const monthly = {};
 
     payments.forEach((p) => {
-      const month = new Date(p.paidAt).getMonth() + 1;
+      const month = new Date(p.paymentDate || p.createdAt).getMonth() + 1;
 
       if (!monthly[month]) {
         monthly[month] = 0;
       }
 
-      monthly[month] += p.amountPaid;
+      monthly[month] += p.amount;
     });
 
     res.json(monthly);
