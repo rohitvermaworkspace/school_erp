@@ -7,6 +7,9 @@ import Signup from "./pages/auth/Signup";
 // PROTECTED ROUTE
 import ProtectedRoute from "./routes/ProtectedRoutes";
 
+// LAYOUT
+import AppLayout from "./components/layout/AppLayout";
+
 // ADMIN
 import AcademicSessions from "./pages/admin/AcademicSessions";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -67,7 +70,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
         {/* ADMIN */}
-        <Route path="/admin/dashboard" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/admin/dashboard" element={<ProtectedRoute allowedRoles={["admin"]}><AppLayout><AdminDashboard /></AppLayout></ProtectedRoute>} />
         <Route path="/admin/academic-sessions" element={<ProtectedRoute allowedRoles={["admin"]}><AcademicSessions /></ProtectedRoute>} />
         <Route path="/admin/students" element={<ProtectedRoute allowedRoles={["admin"]}><Students /></ProtectedRoute>} />
         <Route path="/admin/student-admission" element={<ProtectedRoute allowedRoles={["admin"]}><StudentAdmission /></ProtectedRoute>} />
@@ -99,7 +102,7 @@ function App() {
         <Route path="/student/leave" element={<ProtectedRoute allowedRoles={["student"]}><StudentLeave /></ProtectedRoute>} />
 
         {/* TEACHER */}
-        <Route path="/teacher/dashboard" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherDashboard /></ProtectedRoute>} />
+        <Route path="/teacher/dashboard" element={<ProtectedRoute allowedRoles={["teacher"]}><AppLayout><TeacherDashboard /></AppLayout></ProtectedRoute>} />
         <Route path="/teacher/students" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherStudents /></ProtectedRoute>} />
         <Route path="/teacher/attendance" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherAttendance /></ProtectedRoute>} />
         <Route path="/teacher/attendance-history" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherAttendanceHistory /></ProtectedRoute>} />
