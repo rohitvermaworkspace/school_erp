@@ -6,12 +6,14 @@ const Notice = require(
 // CREATE NOTICE
 const createNotice = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const { title, description, audience } = req.body;
 
     const notice = await Notice.create({
       title,
       description,
       audience,
+      schoolId,
       createdBy: req.user._id,
     });
 
@@ -32,9 +34,11 @@ const createNotice = async (req, res) => {
 // GET ALL NOTICES
 const getNotices = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const userRole = req.user.role;
 
     let filter = {
+      schoolId,
       $or: [
         { audience: "all" },
         { audience: userRole === "student" ? "students" : "teachers" },
@@ -62,8 +66,9 @@ const getNotices = async (req, res) => {
 // UPDATE NOTICE
 const updateNotice = async (req, res) => {
   try {
-    const notice = await Notice.findByIdAndUpdate(
-      req.params.id,
+    const schoolId = req.schoolId;
+    const notice = await Notice.findOneAndUpdate(
+      { _id: req.params.id, schoolId },
       req.body,
       { new: true }
     );
@@ -92,7 +97,8 @@ const updateNotice = async (req, res) => {
 // DELETE NOTICE
 const deleteNotice = async (req, res) => {
   try {
-    const notice = await Notice.findById(req.params.id);
+    const schoolId = req.schoolId;
+    const notice = await Notice.findOne({ _id: req.params.id, schoolId });
 
     if (!notice) {
       return res.status(404).json({
@@ -101,7 +107,7 @@ const deleteNotice = async (req, res) => {
       });
     }
 
-    await Notice.findByIdAndDelete(req.params.id);
+    await Notice.findOneAndDelete({ _id: req.params.id, schoolId });
 
     return res.json({
       success: true,

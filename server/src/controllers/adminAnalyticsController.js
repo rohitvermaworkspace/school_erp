@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Attendance = require("../models/Attendance");
 const Student = require("../models/Student");
 const Fee = require("../models/Fee");
@@ -8,8 +9,9 @@ const Teacher = require("../models/Teacher");
 // ===============================
 const getAdminDashboard = async (req, res) => {
   try {
-    const students = await Student.find().sort({ createdAt: -1 });
-    const attendanceRecords = await Attendance.find();
+    const schoolId = req.schoolId;
+    const students = await Student.find({ schoolId }).sort({ createdAt: -1 });
+    const attendanceRecords = await Attendance.find({ schoolId });
     const totalStudents = students.length;
     const present = attendanceRecords.filter(
       (r) => r.status === "present"
@@ -64,7 +66,7 @@ const getAdminDashboard = async (req, res) => {
 
     const totalCollectedResult = await Fee.aggregate([
       {
-        $match: { status: "Paid" }
+        $match: { schoolId: new mongoose.Types.ObjectId(schoolId), status: "Paid" }
       },
       {
         $group: {
@@ -76,7 +78,7 @@ const getAdminDashboard = async (req, res) => {
 
     const pendingFeesResult = await Fee.aggregate([
       {
-        $match: { status: "Pending" }
+        $match: { schoolId: new mongoose.Types.ObjectId(schoolId), status: "Pending" }
       },
       {
         $group: {
@@ -92,6 +94,7 @@ const getAdminDashboard = async (req, res) => {
     const todayCollectionResult = await Fee.aggregate([
       {
         $match: {
+          schoolId: new mongoose.Types.ObjectId(schoolId),
           status: "Paid",
           paymentDate: { $gte: startOfDay }
         }
@@ -107,6 +110,7 @@ const getAdminDashboard = async (req, res) => {
     const monthlyCollectionResult = await Fee.aggregate([
       {
         $match: {
+          schoolId: new mongoose.Types.ObjectId(schoolId),
           status: "Paid"
         }
       },
@@ -126,6 +130,9 @@ const getAdminDashboard = async (req, res) => {
       "Jul","Aug","Sep","Oct","Nov","Dec"
     ];
     const admissionTrend = await Student.aggregate([
+      {
+        $match: { schoolId: new mongoose.Types.ObjectId(schoolId) }
+      },
       {
         $group: {
           _id: {
@@ -156,14 +163,16 @@ const getAdminDashboard = async (req, res) => {
       }))
     };
 
-     const totalTeachers = await Teacher.countDocuments();
+     const totalTeachers = await Teacher.countDocuments({ schoolId });
       const activeTeachers =
         await Teacher.countDocuments({
+          schoolId,
           status: "Active"
         });
 
       const leaveTeachers =
         await Teacher.countDocuments({
+          schoolId,
           status: "Leave"
         });
 
@@ -224,10 +233,11 @@ const getAdminDashboard = async (req, res) => {
 // ===============================
 const getClassDrilldown = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const className = req.params.className;
 
-    const records = await Attendance.find({ className });
-    const students = await Student.find({ className });
+    const records = await Attendance.find({ schoolId, className });
+    const students = await Student.find({ schoolId, className });
 
     const studentMap = {};
 
@@ -262,9 +272,10 @@ const getClassDrilldown = async (req, res) => {
 // ===============================
 const getStudentDrilldown = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const studentId = req.params.studentId;
 
-    const records = await Attendance.find({ student: studentId });
+    const records = await Attendance.find({ schoolId, student: studentId });
 
     const timeline = records.map(r => ({
       date: r.date,
@@ -289,7 +300,8 @@ const getStudentDrilldown = async (req, res) => {
 // ===============================
 const getFeeAnalytics = async (req, res) => {
   try {
-    const fees = await Fee.find();
+    const schoolId = req.schoolId;
+    const fees = await Fee.find({ schoolId });
 
     const totalCollected = fees
       .filter(f => f.status === "Paid")

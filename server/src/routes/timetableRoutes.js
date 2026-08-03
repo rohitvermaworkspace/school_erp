@@ -17,12 +17,15 @@ const protect = require("../middleware/authMiddleware");
 const authorizeRoles =
   require("../middleware/roleMiddleware");
 
+const tenantScope = require("../middleware/tenantMiddleware");
+
 // =====================================
 // CREATE TIMETABLE
 // =====================================
 router.post(
   "/",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   createTimetable
 );
@@ -33,6 +36,7 @@ router.post(
 router.get(
   "/",
   protect,
+  tenantScope,
   authorizeRoles(
     "admin",
     "teacher"
@@ -48,6 +52,7 @@ router.get(
 router.get(
   "/teacher",
   protect,
+  tenantScope,
   authorizeRoles("teacher", "admin"),
   (req, res, next) => {
     console.log("Teacher timetable route hit");
@@ -58,6 +63,7 @@ router.get(
 router.get(
   "/student",
   protect,
+  tenantScope,
   authorizeRoles("student"),
   getStudentTimetable
 );
@@ -69,6 +75,7 @@ router.get(
 router.get(
   "/:id",
   protect,
+  tenantScope,
   getTimetable
 );
 
@@ -78,6 +85,7 @@ router.get(
 router.put(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   updateTimetable
 );
@@ -88,6 +96,7 @@ router.put(
 router.delete(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   deleteTimetable
 );

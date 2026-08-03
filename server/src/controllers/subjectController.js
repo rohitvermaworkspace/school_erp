@@ -1,9 +1,12 @@
 const Subject = require('../models/Subject');
 const Student = require('../models/Student');
+const mongoose = require('mongoose');
 
 // CREATE SUBJECT
 const createSubject = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const { subjectName, subjectCode, className, teacher } = req.body;
 
     const subject = await Subject.create({
@@ -11,6 +14,7 @@ const createSubject = async (req, res) => {
       subjectCode,
       className,
       teacher,
+      schoolId,
       createdBy: req.user.id,
     });
 
@@ -25,8 +29,11 @@ const createSubject = async (req, res) => {
 // All ALL STUDENT SUBJECT
 const getStudentSubjects = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const student = await Student.findOne({
       userId: req.user.id,
+      schoolId,
     });
 
     if (!student) {
@@ -38,6 +45,7 @@ const getStudentSubjects = async (req, res) => {
 
     const subjects = await Subject.find({
       className: student.className,
+      schoolId,
     })
       .populate('teacher', 'name email')
       .sort({ subjectName: 1 });
@@ -58,11 +66,14 @@ const getStudentSubjects = async (req, res) => {
 
 const getSubjectDashboard = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     // Total Subjects
-    const totalSubjects = await Subject.countDocuments();
+    const totalSubjects = await Subject.countDocuments({ schoolId });
 
     // Subjects By Class
     const classWiseSubjects = await Subject.aggregate([
+      { $match: { schoolId: new mongoose.Types.ObjectId(schoolId) } },
       {
         $group: {
           _id: "$className",
@@ -78,6 +89,7 @@ const getSubjectDashboard = async (req, res) => {
 
     // Teacher Allocation
     const teacherAllocation = await Subject.aggregate([
+      { $match: { schoolId: new mongoose.Types.ObjectId(schoolId) } },
       {
         $match: {
           teacher: { $ne: null }
@@ -137,7 +149,9 @@ const getSubjectDashboard = async (req, res) => {
 // GET ALL SUBJECTS
 const getSubjects = async (req, res) => {
   try {
-    const subjects = await Subject.find().populate('teacher', 'name email subject').populate('createdBy', 'name role');
+    const schoolId = req.schoolId;
+
+    const subjects = await Subject.find({ schoolId }).populate('teacher', 'name email subject').populate('createdBy', 'name role');
 
     res.json(subjects);
   } catch (error) {
@@ -150,7 +164,9 @@ const getSubjects = async (req, res) => {
 // GET SINGLE SUBJECT
 const getSubject = async (req, res) => {
   try {
-    const subject = await Subject.findById(req.params.id);
+    const schoolId = req.schoolId;
+
+    const subject = await Subject.findOne({ _id: req.params.id, schoolId });
 
     if (!subject) {
       return res.status(404).json({
@@ -169,7 +185,9 @@ const getSubject = async (req, res) => {
 // UPDATE SUBJECT
 const updateSubject = async (req, res) => {
   try {
-    const subject = await Subject.findByIdAndUpdate(req.params.id, req.body, {
+    const schoolId = req.schoolId;
+
+    const subject = await Subject.findOneAndUpdate({ _id: req.params.id, schoolId }, req.body, {
       new: true,
     });
 
@@ -184,7 +202,9 @@ const updateSubject = async (req, res) => {
 // DELETE SUBJECT
 const deleteSubject = async (req, res) => {
   try {
-    await Subject.findByIdAndDelete(req.params.id);
+    const schoolId = req.schoolId;
+
+    await Subject.findOneAndDelete({ _id: req.params.id, schoolId });
 
     res.json({
       message: 'Subject deleted successfully',

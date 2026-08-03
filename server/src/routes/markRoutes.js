@@ -15,12 +15,15 @@ const protect = require("../middleware/authMiddleware");
 const authorizeRoles =
   require("../middleware/roleMiddleware");
 
+const tenantScope = require("../middleware/tenantMiddleware");
+
 // =====================================
 // SAVE SINGLE MARK
 // =====================================
 router.post(
   "/",
   protect,
+  tenantScope,
   authorizeRoles(
     "teacher",
     "admin"
@@ -34,6 +37,7 @@ router.post(
 router.post(
   "/bulk",
   protect,
+  tenantScope,
   authorizeRoles(
     "teacher",
     "admin"
@@ -47,6 +51,7 @@ router.post(
 router.get(
   "/class/:className",
   protect,
+  tenantScope,
   authorizeRoles(
     "teacher",
     "admin"
@@ -60,6 +65,7 @@ router.get(
 router.get(
   "/student/:studentId",
   protect,
+  tenantScope,
   getStudentMarks
 );
 
@@ -69,6 +75,7 @@ router.get(
 router.delete(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   deleteMark
 );

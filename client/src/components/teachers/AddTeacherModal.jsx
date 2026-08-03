@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import api from "../../services/api";
 import toast from "react-hot-toast";
 import {
@@ -15,11 +15,31 @@ function AddTeacherModal({ isOpen, onClose, fetchTeachers }) {
     email: "",
     phone: "",
     subject: "",
-    classes: "",
+    classes: [],
     experience: "",
   });
 
   const [loading, setLoading] = useState(false);
+  const [availableClasses, setAvailableClasses] = useState([]);
+  const [showClassDropdown, setShowClassDropdown] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchClasses();
+    }
+  }, [isOpen]);
+
+  const fetchClasses = async () => {
+    try {
+      const res = await api.get("/classes");
+      const classList = res.data.map(
+        (cls) => `${cls.className}${cls.section}`
+      );
+      setAvailableClasses([...new Set(classList)]);
+    } catch (err) {
+      console.error("Failed to fetch classes:", err);
+    }
+  };
 
   const resetForm = () => {
     setFormData({
@@ -27,9 +47,10 @@ function AddTeacherModal({ isOpen, onClose, fetchTeachers }) {
       email: "",
       phone: "",
       subject: "",
-      classes: "",
+      classes: [],
       experience: "",
     });
+    setShowClassDropdown(false);
   };
 
   const handleChange = (e) => {
@@ -37,6 +58,15 @@ function AddTeacherModal({ isOpen, onClose, fetchTeachers }) {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleClassToggle = (cls) => {
+    setFormData((prev) => {
+      const selected = prev.classes.includes(cls)
+        ? prev.classes.filter((c) => c !== cls)
+        : [...prev.classes, cls];
+      return { ...prev, classes: selected };
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -47,10 +77,6 @@ function AddTeacherModal({ isOpen, onClose, fetchTeachers }) {
 
       await api.post("/teachers", {
         ...formData,
-        classes: formData.classes
-          .split(",")
-          .map((cls) => cls.trim())
-          .filter(Boolean),
       });
 
       toast.success("Teacher added successfully");
@@ -198,19 +224,62 @@ function AddTeacherModal({ isOpen, onClose, fetchTeachers }) {
               </div>
             </div>
 
-            {/* Classes */}
-            <div>
+            {/* Classes Multi-Select */}
+            <div className="relative">
               <label className="text-sm font-medium dark:text-gray-300 mb-2 block">
                 Assigned Classes
               </label>
-              <input
-                type="text"
-                name="classes"
-                value={formData.classes}
-                onChange={handleChange}
-                placeholder="10A,10B,9A"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 dark:text-white"
-              />
+              <button
+                type="button"
+                onClick={() => setShowClassDropdown(!showClassDropdown)}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 dark:text-white text-left flex items-center justify-between"
+              >
+                <span className={formData.classes.length ? "" : "text-gray-400"}>
+                  {formData.classes.length
+                    ? formData.classes.join(", ")
+                    : "Select classes"}
+                </span>
+                <svg
+                  className={`w-4 h-4 transition-transform ${
+                    showClassDropdown ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {showClassDropdown && (
+                <div className="absolute z-10 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-lg max-h-48 overflow-y-auto">
+                  {availableClasses.length > 0 ? (
+                    availableClasses.map((cls) => (
+                      <label
+                        key={cls}
+                        className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={formData.classes.includes(cls)}
+                          onChange={() => handleClassToggle(cls)}
+                          className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <span className="dark:text-white">{cls}</span>
+                      </label>
+                    ))
+                  ) : (
+                    <div className="px-4 py-2 text-gray-500 text-sm">
+                      No classes found
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 

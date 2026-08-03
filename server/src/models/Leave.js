@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 
 const leaveSchema = new mongoose.Schema(
 {
+  schoolId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "School",
+    required: true,
+  },
+
   applicant: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

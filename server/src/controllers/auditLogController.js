@@ -7,8 +7,9 @@ const AuditLog = require(
 const getAuditLogs =
   async (req, res) => {
     try {
+      const schoolId = req.schoolId;
       const logs =
-        await AuditLog.find()
+        await AuditLog.find({ schoolId })
           .populate(
             "performedBy",
             "name email role"

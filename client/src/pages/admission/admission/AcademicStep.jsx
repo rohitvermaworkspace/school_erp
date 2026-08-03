@@ -1,8 +1,66 @@
+import { useState, useEffect } from "react";
 import { FaGraduationCap } from "react-icons/fa";
+import api from "../../../services/api";
 
 function AcademicStep({ formData, handleChange, errors }) {
   const admission = formData?.admission || {};
   const academic = formData?.academic || {};
+
+  const [classOptions, setClassOptions] = useState([]);
+  const [sections, setSections] = useState([]);
+  const [loadingRoll, setLoadingRoll] = useState(false);
+
+  useEffect(() => {
+    fetchClassNames();
+  }, []);
+
+  useEffect(() => {
+    if (academic.className) {
+      const selected = classOptions.find(
+        (c) => c.className === academic.className
+      );
+      setSections(selected ? selected.sections : []);
+    } else {
+      setSections([]);
+    }
+  }, [academic.className, classOptions]);
+
+  useEffect(() => {
+    if (academic.className && academic.section) {
+      fetchNextRollNumber();
+    }
+  }, [academic.className, academic.section]);
+
+  const fetchClassNames = async () => {
+    try {
+      const res = await api.get("/classes/names");
+      setClassOptions(res.data);
+    } catch (err) {
+      console.error("Failed to fetch class names:", err);
+    }
+  };
+
+  const fetchNextRollNumber = async () => {
+    try {
+      setLoadingRoll(true);
+      const res = await api.get(
+        `/classes/next-roll-number?className=${academic.className}&section=${academic.section}`
+      );
+      updateNestedField("academic.rollNumber", res.data.rollNumber);
+    } catch (err) {
+      console.error("Failed to fetch roll number:", err);
+    } finally {
+      setLoadingRoll(false);
+    }
+  };
+
+  const updateNestedField = (path, value) => {
+    const event = {
+      target: { name: path, value, type: "text" },
+    };
+    handleChange(event);
+  };
+
   return (
     <div className="space-y-8">
       {/* Section Header */}
@@ -30,23 +88,15 @@ function AcademicStep({ formData, handleChange, errors }) {
           {/* Admission Number */}
           <div>
             <label className="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-              Admission Number *
+              Admission Number
             </label>
             <input
               type="text"
-              name="admission.admissionNo"
-              value={admission.admissionNo}
-              onChange={handleChange}
-              placeholder="ADM2026001"
-              className={`w-full rounded-xl px-4 py-3 border ${
-                errors?.admissionNo
-                  ? "border-red-500"
-                  : "border-slate-300 dark:border-slate-700"
-              } bg-slate-50 dark:bg-slate-800 dark:text-white`}
+              value="Auto-generated on submission"
+              readOnly
+              className="w-full rounded-xl px-4 py-3 border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 cursor-not-allowed"
             />
-            {errors?.admissionNo && (
-              <p className="mt-1 text-sm text-red-500">{errors.admissionNo}</p>
-            )}
+            <p className="mt-1 text-xs text-slate-400">Assigned automatically by the system</p>
           </div>
 
           {/* Admission Date */}
@@ -73,26 +123,30 @@ function AcademicStep({ formData, handleChange, errors }) {
           </div>
 
           {/* Academic Session */}
-          <select
-            name="admission.academicSession"
-            value={admission.academicSession}
-            onChange={handleChange}
-            className={`w-full rounded-xl px-4 py-3 border ${
-              errors?.academicSession
-                ? "border-red-500"
-                : "border-slate-300 dark:border-slate-700"
-            } bg-slate-50 dark:bg-slate-800 dark:text-white`}
-          >
-            <option value="">Select Session</option>
-            <option value="2026-2027">2026-2027</option>
-            <option value="2027-2028">2027-2028</option>
-          </select>
-
-          {errors?.academicSession && (
-            <p className="mt-1 text-sm text-red-500">
-              {errors.academicSession}
-            </p>
-          )}
+          <div>
+            <label className="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+              Academic Session *
+            </label>
+            <select
+              name="admission.academicSession"
+              value={admission.academicSession}
+              onChange={handleChange}
+              className={`w-full rounded-xl px-4 py-3 border ${
+                errors?.academicSession
+                  ? "border-red-500"
+                  : "border-slate-300 dark:border-slate-700"
+              } bg-slate-50 dark:bg-slate-800 dark:text-white`}
+            >
+              <option value="">Select Session</option>
+              <option value="2026-2027">2026-2027</option>
+              <option value="2027-2028">2027-2028</option>
+            </select>
+            {errors?.academicSession && (
+              <p className="mt-1 text-sm text-red-500">
+                {errors.academicSession}
+              </p>
+            )}
+          </div>
 
           {/* Admission Type */}
           <div>
@@ -163,26 +217,9 @@ function AcademicStep({ formData, handleChange, errors }) {
               } bg-slate-50 dark:bg-slate-800 dark:text-white`}
             >
               <option value="">Select Class</option>
-
-              {[
-                "Nursery",
-                "LKG",
-                "UKG",
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-              ].map((cls) => (
-                <option key={cls} value={cls}>
-                  {cls}
+              {classOptions.map((cls) => (
+                <option key={cls.className} value={cls.className}>
+                  {cls.className}
                 </option>
               ))}
             </select>
@@ -201,15 +238,17 @@ function AcademicStep({ formData, handleChange, errors }) {
               name="academic.section"
               value={academic.section}
               onChange={handleChange}
+              disabled={!academic.className}
               className={`w-full rounded-xl px-4 py-3 border ${
                 errors?.section
                   ? "border-red-500"
                   : "border-slate-300 dark:border-slate-700"
-              } bg-slate-50 dark:bg-slate-800 dark:text-white`}
+              } bg-slate-50 dark:bg-slate-800 dark:text-white ${
+                !academic.className ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
               <option value="">Select Section</option>
-
-              {["A", "B", "C", "D"].map((sec) => (
+              {sections.map((sec) => (
                 <option key={sec} value={sec}>
                   {sec}
                 </option>
@@ -229,15 +268,17 @@ function AcademicStep({ formData, handleChange, errors }) {
             <input
               type="text"
               name="academic.rollNumber"
-              value={academic.rollNumber}
-              onChange={handleChange}
+              value={loadingRoll ? "Generating..." : academic.rollNumber}
+              readOnly
               className={`w-full rounded-xl px-4 py-3 border ${
                 errors?.rollNumber
                   ? "border-red-500"
                   : "border-slate-300 dark:border-slate-700"
-              } bg-slate-50 dark:bg-slate-800 dark:text-white`}
+              } bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 cursor-not-allowed`}
             />
-
+            <p className="mt-1 text-xs text-slate-400">
+              Auto-generated based on class and section
+            </p>
             {errors?.rollNumber && (
               <p className="mt-1 text-sm text-red-500">{errors.rollNumber}</p>
             )}

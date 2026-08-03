@@ -2,33 +2,51 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const Student = require("../models/Student");
+const Counter = require("../models/Counter");
 
 const createAuditLog = require("../utils/auditLogger");
+
+const generateAdmissionNo = async (schoolId, session) => {
+  const year = new Date().getFullYear();
+  const counter = await Counter.findOneAndUpdate(
+    { schoolId, type: "admission", year: String(year) },
+    { $inc: { seq: 1 } },
+    { upsert: true, new: true, session }
+  );
+  return `ADM${year}${String(counter.seq).padStart(3, "0")}`;
+};
 
 // ===============================
 // CREATE STUDENT (Transaction)
 // ===============================
 
 const createStudent = async (req, res) => {
+  const schoolId = req.schoolId;
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
 
     // ============================
-    // Parse JSON coming from FormData
+    // Parse JSON (handles both FormData and JSON body)
     // ============================
 
-    const user = JSON.parse(req.body.user || "{}");
-    const admission = JSON.parse(req.body.admission || "{}");
-    const academic = JSON.parse(req.body.academic || "{}");
-    const personal = JSON.parse(req.body.personal || "{}");
-    const family = JSON.parse(req.body.family || "{}");
-    const address = JSON.parse(req.body.address || "{}");
-    const bank = JSON.parse(req.body.bank || "{}");
-    const previousSchool = JSON.parse(req.body.previousSchool || "{}");
-    const facilities = JSON.parse(req.body.facilities || "{}");
-    const notes = JSON.parse(req.body.notes || "{}");
+    const parseField = (field) => {
+      if (!field) return {};
+      if (typeof field === "object") return field;
+      try { return JSON.parse(field); } catch { return {}; }
+    };
+
+    const user = parseField(req.body.user);
+    const admission = parseField(req.body.admission);
+    const academic = parseField(req.body.academic);
+    const personal = parseField(req.body.personal);
+    const family = parseField(req.body.family);
+    const address = parseField(req.body.address);
+    const bank = parseField(req.body.bank);
+    const previousSchool = parseField(req.body.previousSchool);
+    const facilities = parseField(req.body.facilities);
+    const notes = parseField(req.body.notes);
 
     // ============================
     // Uploaded Documents
@@ -66,14 +84,13 @@ const createStudent = async (req, res) => {
     if (!user?.email?.trim())
       throw new Error("Student email is required.");
 
-    if (!admission?.admissionNo?.trim())
-      throw new Error("Admission Number is required.");
-
     if (!academic?.className?.trim())
       throw new Error("Class is required.");
 
     if (!academic?.rollNumber?.trim())
       throw new Error("Roll Number is required.");
+
+    const admissionNo = await generateAdmissionNo(schoolId, session);
 
     // ============================
     // CHECK USER
@@ -81,6 +98,7 @@ const createStudent = async (req, res) => {
 
     const existingUser = await User.findOne({
       email: user.email.trim().toLowerCase(),
+      schoolId,
     }).session(session);
 
     if (existingUser) {
@@ -94,24 +112,6 @@ const createStudent = async (req, res) => {
     }
 
     // ============================
-    // CHECK ADMISSION NO
-    // ============================
-
-    const admissionExists = await Student.findOne({
-      "admission.admissionNo": admission.admissionNo,
-    }).session(session);
-
-    if (admissionExists) {
-      await session.abortTransaction();
-      session.endSession();
-
-      return res.status(400).json({
-        success: false,
-        message: "Admission number already exists.",
-      });
-    }
-
-    // ============================
     // CHECK ROLL NUMBER
     // ============================
 
@@ -119,6 +119,7 @@ const createStudent = async (req, res) => {
       "academic.className": academic.className,
       "academic.section": academic.section,
       "academic.rollNumber": academic.rollNumber,
+      schoolId,
     }).session(session);
 
     if (rollExists) {
@@ -157,6 +158,7 @@ const createStudent = async (req, res) => {
           profileImage: documents.studentPhoto || "",
           password: hashedPassword,
           role: "student",
+          schoolId,
         },
       ],
       { session }
@@ -175,9 +177,11 @@ const createStudent = async (req, res) => {
       [
         {
           userId: createdUser._id,
+          schoolId,
 
           admission: {
             ...admission,
+            admissionNo,
             status: admission.status || "Active",
             medium: admission.medium || "English",
           },
@@ -200,9 +204,10 @@ const createStudent = async (req, res) => {
       { session }
     );
 
-    const student = await Student.findById(
-      students[0]._id
+    const student = await Student.findOne(
+      { _id: students[0]._id, schoolId }
     )
+      .populate("schoolId", "name code email")
       .populate(
         "userId",
         "name email phone profileImage role"
@@ -227,6 +232,7 @@ const createStudent = async (req, res) => {
         action: "CREATE",
         details: `Student ${createdUser.name} admitted`,
         userId: req.user._id,
+        schoolId,
       });
     } catch (err) {
       console.error(err);
@@ -261,7 +267,9 @@ const createStudent = async (req, res) => {
 // =========================
 const getStudents = async (req, res) => {
   try {
-    const students = await Student.find()
+    const schoolId = req.schoolId;
+    const students = await Student.find({ schoolId })
+      .populate("schoolId", "name code email")
       .populate("userId", "name email phone profileImage role")
       .populate("createdBy", "name email role");
 
@@ -303,11 +311,12 @@ const getStudents = async (req, res) => {
         // =========================
         // Normalize Parents
         // =========================
-        fatherName: s.parents?.father?.name || s.fatherName || "",
-        fatherMobile: s.parents?.father?.mobile || s.guardianPhone || "",
-        motherName: s.parents?.mother?.name || s.motherName || "",
-        guardianName: s.parents?.guardian?.name || "",
-        guardianMobile: s.parents?.guardian?.mobile || "",
+        fatherName: s.family?.father?.name || "",
+        fatherPhone: s.family?.father?.phone || "",
+        motherName: s.family?.mother?.name || "",
+        motherPhone: s.family?.mother?.phone || "",
+        guardianName: s.family?.guardian?.name || "",
+        guardianPhone: s.family?.guardian?.phone || "",
 
         // =========================
         // Normalize Admission
@@ -334,7 +343,9 @@ const getStudents = async (req, res) => {
 // =========================
 const getStudentById = async (req, res) => {
   try {
-    const student = await Student.findById(req.params.id)
+    const schoolId = req.schoolId;
+    const student = await Student.findOne({ _id: req.params.id, schoolId })
+      .populate("schoolId", "name code email")
       .populate("userId", "name email phone profileImage role")
       .populate("createdBy", "name email role");
 
@@ -355,7 +366,8 @@ const getStudentById = async (req, res) => {
 // =========================
 const updateStudent = async (req, res) => {
   try {
-    const student = await Student.findById(req.params.id);
+    const schoolId = req.schoolId;
+    const student = await Student.findOne({ _id: req.params.id, schoolId });
 
     if (!student) {
       return res.status(404).json({
@@ -368,8 +380,8 @@ const updateStudent = async (req, res) => {
     // Update User
     // -----------------------------
     if (student.userId && req.body.user) {
-      await User.findByIdAndUpdate(
-        student.userId,
+      await User.findOneAndUpdate(
+        { _id: student.userId, schoolId },
         {
           name: req.body.user.name,
           email: req.body.user.email,
@@ -435,7 +447,8 @@ const updateStudent = async (req, res) => {
 
     await student.save();
 
-    const updatedStudent = await Student.findById(student._id)
+    const updatedStudent = await Student.findOne({ _id: student._id, schoolId })
+      .populate("schoolId", "name code email")
       .populate("userId", "name email phone profileImage role")
       .populate("createdBy", "name email role");
 
@@ -444,6 +457,7 @@ const updateStudent = async (req, res) => {
       action: "UPDATE",
       details: `Updated student ${updatedStudent.userId.name}`,
       userId: req.user._id,
+      schoolId,
     });
 
     return res.json({
@@ -465,7 +479,8 @@ const updateStudent = async (req, res) => {
 // =========================
 const deleteStudent = async (req, res) => {
   try {
-    const student = await Student.findById(req.params.id);
+    const schoolId = req.schoolId;
+    const student = await Student.findOne({ _id: req.params.id, schoolId });
 
     if (!student) {
       return res.status(404).json({
@@ -473,13 +488,14 @@ const deleteStudent = async (req, res) => {
       });
     }
 
-    await Student.findByIdAndDelete(req.params.id);
+    await Student.findOneAndDelete({ _id: req.params.id, schoolId });
 
     await createAuditLog({
       module: "Students",
       action: "DELETE",
       details: `Deleted student ${student.name}`,
       userId: req.user._id,
+      schoolId,
     });
 
     res.json({ message: "Student deleted successfully" });
@@ -493,8 +509,10 @@ const deleteStudent = async (req, res) => {
 // =========================
 const getStudentsByClass = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const students = await Student.find({
       className: req.params.className,
+      schoolId,
     });
 
     res.json(students);
@@ -508,10 +526,12 @@ const getStudentsByClass = async (req, res) => {
 // =========================
 const getStudentDashboard = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     console.log("REQ USER:", req.user);
 
     const student = await Student.findOne({
       userId: req.user._id,
+      schoolId,
     });
 
     if (!student) {
@@ -572,9 +592,11 @@ const getStudentDashboard = async (req, res) => {
 // =========================
 const getMyStudentProfile = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const student = await Student.findOne({
       userId: req.user._id,
-    }).populate("userId", "name email phone profileImage role");
+      schoolId,
+    }).populate("schoolId", "name code email").populate("userId", "name email phone profileImage role");
 
     if (!student) {
       return res.status(404).json({
@@ -598,8 +620,10 @@ const getMyStudentProfile = async (req, res) => {
 // =========================
 const uploadProfileImage = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const student = await Student.findOne({
       userId: req.user._id,
+      schoolId,
     });
 
     if (!student) {
@@ -628,8 +652,10 @@ const uploadProfileImage = async (req, res) => {
 // =========================
 const updateMyStudentProfile = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const student = await Student.findOne({
       userId: req.user._id,
+      schoolId,
     });
 
     if (!student) {
@@ -655,9 +681,10 @@ const updateMyStudentProfile = async (req, res) => {
 
 const changeStudentPassword = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const { oldPassword, newPassword } = req.body;
 
-    const user = await User.findById(req.user.id);
+    const user = await User.findOne({ _id: req.user.id, schoolId });
 
     if (!user) {
       return res.status(404).json({

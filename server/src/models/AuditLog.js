@@ -3,6 +3,12 @@ const mongoose = require("mongoose");
 const auditLogSchema =
   new mongoose.Schema(
     {
+      schoolId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "School",
+        default: null,
+      },
+
       module: {
         type: String,
         required: true,

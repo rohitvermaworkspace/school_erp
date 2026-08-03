@@ -13,6 +13,10 @@ const protect = require(
   "../middleware/authMiddleware"
 );
 
+const tenantScope = require(
+  "../middleware/tenantMiddleware"
+);
+
 const {
   uploadFile,
   getFiles,
@@ -24,6 +28,7 @@ const {
 router.post(
   "/",
   protect,
+  tenantScope,
   upload.single("file"),
   uploadFile
 );
@@ -31,12 +36,14 @@ router.post(
 router.get(
   "/",
   protect,
+  tenantScope,
   getFiles
 );
 
 router.delete(
   "/:id",
   protect,
+  tenantScope,
   deleteFile
 );
 

@@ -6,6 +6,8 @@ const Student = require("../models/Student");
 // =====================================
 const saveMark = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const {
       student,
       className,
@@ -16,7 +18,7 @@ const saveMark = async (req, res) => {
     } = req.body;
 
     const studentExists =
-      await Student.findById(student);
+      await Student.findOne({ _id: student, schoolId });
 
     if (!studentExists) {
       return res.status(404).json({
@@ -30,6 +32,7 @@ const saveMark = async (req, res) => {
           student,
           subject,
           examType,
+          schoolId,
         },
         {
           student,
@@ -38,6 +41,7 @@ const saveMark = async (req, res) => {
           examType,
           marksObtained,
           totalMarks,
+          schoolId,
           teacher: req.user.id,
         },
         {
@@ -64,6 +68,8 @@ const saveBulkMarks = async (
   res
 ) => {
   try {
+    const schoolId = req.schoolId;
+
     const {
       className,
       subject,
@@ -81,6 +87,7 @@ const saveBulkMarks = async (
               item.studentId,
             subject,
             examType,
+            schoolId,
           },
           {
             student:
@@ -91,6 +98,7 @@ const saveBulkMarks = async (
             marksObtained:
               item.marksObtained,
             totalMarks: 100,
+            schoolId,
             teacher:
               req.user.id,
           },
@@ -126,6 +134,8 @@ const getMarksByClass = async (
   res
 ) => {
   try {
+    const schoolId = req.schoolId;
+
     const {
       subject,
       examType,
@@ -134,6 +144,7 @@ const getMarksByClass = async (
     const query = {
       className:
         req.params.className,
+      schoolId,
     };
 
     if (subject) {
@@ -171,10 +182,13 @@ const getMarksByClass = async (
 const getStudentMarks =
   async (req, res) => {
     try {
+      const schoolId = req.schoolId;
+
       const marks =
         await Mark.find({
           student:
             req.params.studentId,
+          schoolId,
         })
           .populate(
             "student",
@@ -202,9 +216,14 @@ const deleteMark = async (
   res
 ) => {
   try {
+    const schoolId = req.schoolId;
+
     const mark =
-      await Mark.findById(
-        req.params.id
+      await Mark.findOne(
+        {
+          _id: req.params.id,
+          schoolId,
+        }
       );
 
     if (!mark) {

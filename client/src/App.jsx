@@ -1,4 +1,7 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// LANDING
+import Landing from "./pages/landingPage/SchoolManagementLanding";
 
 // AUTH
 import Login from "./pages/auth/Login";
@@ -9,6 +12,13 @@ import ProtectedRoute from "./routes/ProtectedRoutes";
 
 // LAYOUT
 import AppLayout from "./components/layout/AppLayout";
+
+// SUPER ADMIN
+import SuperAdminDashboard from "./pages/superAdmin/SuperAdminDashboard";
+import Schools from "./pages/superAdmin/Schools";
+import CreateSchool from "./pages/superAdmin/CreateSchool";
+import SchoolDetail from "./pages/superAdmin/SchoolDetail";
+import PlatformUsers from "./pages/superAdmin/PlatformUsers";
 
 // ADMIN
 import AcademicSessions from "./pages/admin/AcademicSessions";
@@ -63,11 +73,18 @@ function App() {
       <Routes>
 
         {/* ROOT */}
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Landing />} />
 
         {/* AUTH */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+
+        {/* SUPER ADMIN */}
+        <Route path="/super-admin/dashboard" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><SuperAdminDashboard /></AppLayout></ProtectedRoute>} />
+        <Route path="/super-admin/schools" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><Schools /></AppLayout></ProtectedRoute>} />
+        <Route path="/super-admin/schools/create" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><CreateSchool /></AppLayout></ProtectedRoute>} />
+        <Route path="/super-admin/schools/:id" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><SchoolDetail /></AppLayout></ProtectedRoute>} />
+        <Route path="/super-admin/users" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><PlatformUsers /></AppLayout></ProtectedRoute>} />
 
         {/* ADMIN */}
         <Route path="/admin/dashboard" element={<ProtectedRoute allowedRoles={["admin"]}><AppLayout><AdminDashboard /></AppLayout></ProtectedRoute>} />
@@ -116,7 +133,7 @@ function App() {
         <Route path="/teacher/students/:id/attendance" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherStudentAttendance /></ProtectedRoute>} />
 
         {/* COMMON */}
-        <Route path="/profile" element={<ProtectedRoute allowedRoles={["admin", "teacher", "student"]}><Profile /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute allowedRoles={["admin", "teacher", "student", "super_admin"]}><Profile /></ProtectedRoute>} />
 
         {/* 404 */}
         <Route path="*" element={<h1>404 Page Not Found</h1>} />

@@ -20,11 +20,14 @@ const authorizeRoles = require(
   "../middleware/roleMiddleware"
 );
 
+const tenantScope = require("../middleware/tenantMiddleware");
+
 
 // CREATE NOTICE
 router.post(
   "/",
   protect,
+  tenantScope,
   authorizeRoles(
     "admin",
     "teacher"
@@ -37,6 +40,7 @@ router.post(
 router.get(
   "/",
   protect,
+  tenantScope,
   getNotices
 );
 
@@ -45,6 +49,7 @@ router.get(
 router.put(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles(
     "admin",
     "teacher"
@@ -57,6 +62,7 @@ router.put(
 router.delete(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   deleteNotice
 );

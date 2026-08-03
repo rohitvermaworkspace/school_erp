@@ -143,40 +143,60 @@ function StudentStep({ formData, handleChange, errors }) {
               Blood Group
             </label>
 
-            <input
-              type="text"
+            <select
               name="personal.bloodGroup"
               value={formData?.personal?.bloodGroup || ""}
               onChange={handleChange}
-              placeholder="Blood Group"
-              className="w-full rounded-xl border px-4 py-3"
-            />
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 dark:text-white px-4 py-3"
+            >
+              <option value="">Select Blood Group</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+            </select>
           </div>
 
           <div>
             <label className="block mb-2 text-sm font-semibold">Religion</label>
 
-            <input
-              type="text"
+            <select
               name="personal.religion"
               value={formData?.personal?.religion || ""}
               onChange={handleChange}
-              placeholder="Religion"
-              className="w-full rounded-xl border px-4 py-3"
-            />
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 dark:text-white px-4 py-3"
+            >
+              <option value="">Select Religion</option>
+              <option value="Hindu">Hindu</option>
+              <option value="Muslim">Muslim</option>
+              <option value="Christian">Christian</option>
+              <option value="Sikh">Sikh</option>
+              <option value="Buddhist">Buddhist</option>
+              <option value="Jain">Jain</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
 
           <div>
             <label className="block mb-2 text-sm font-semibold">Category</label>
 
-            <input
-              type="text"
+            <select
               name="personal.category"
               value={formData?.personal?.category || ""}
               onChange={handleChange}
-              placeholder="Category"
-              className="w-full rounded-xl border px-4 py-3"
-            />
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 dark:text-white px-4 py-3"
+            >
+              <option value="">Select Category</option>
+              <option value="General">General</option>
+              <option value="OBC">OBC</option>
+              <option value="SC">SC</option>
+              <option value="ST">ST</option>
+              <option value="EWS">EWS</option>
+            </select>
           </div>
 
           <div>

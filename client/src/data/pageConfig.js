@@ -1,4 +1,23 @@
 const pageConfig = {
+  // ================= SUPER ADMIN =================
+  "/super-admin/dashboard": {
+    title: "Platform Dashboard",
+    subtitle: "Manage all schools and platform settings",
+  },
+  "/super-admin/schools": {
+    title: "Schools",
+    subtitle: "Manage all registered schools",
+  },
+  "/super-admin/schools/create": {
+    title: "Create School",
+    subtitle: "Register a new school on the platform",
+  },
+  "/super-admin/users": {
+    title: "Platform Users",
+    subtitle: "Manage users across all schools",
+  },
+
+  // ================= ADMIN =================
   "/admin/dashboard": {
     title: "Dashboard",
     subtitle: "School ERP Overview",

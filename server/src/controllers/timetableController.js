@@ -7,8 +7,10 @@ const Student = require("../models/Student");
 // =====================================
 const createTimetable = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const timetable = await Timetable.create({
       ...req.body,
+      schoolId,
       createdBy: req.user.id,
     });
 
@@ -27,7 +29,8 @@ const createTimetable = async (req, res) => {
 // =====================================
 const getTimetables = async (req, res) => {
   try {
-    const timetables = await Timetable.find()
+    const schoolId = req.schoolId;
+    const timetables = await Timetable.find({ schoolId })
       .populate(
         "periods.subject",
         "subjectName"
@@ -56,8 +59,10 @@ const getTimetables = async (req, res) => {
 // =====================
 const getStudentTimetable = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const student = await Student.findOne({
       userId: req.user._id,
+      schoolId,
     });
 
     if (!student) {
@@ -68,6 +73,7 @@ const getStudentTimetable = async (req, res) => {
 
     const timetables = await Timetable.find({
       className: student.className,
+      schoolId,
     })
       .populate("periods.subject", "subjectName")
       .populate("periods.teacher", "name email");
@@ -90,8 +96,9 @@ const getStudentTimetable = async (req, res) => {
 // =====================================
 const getTimetable = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const timetable =
-      await Timetable.findById(req.params.id)
+      await Timetable.findOne({ _id: req.params.id, schoolId })
         .populate(
           "periods.subject",
           "subjectName"
@@ -122,9 +129,10 @@ const getTimetable = async (req, res) => {
 // =====================================
 const updateTimetable = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const timetable =
-      await Timetable.findByIdAndUpdate(
-        req.params.id,
+      await Timetable.findOneAndUpdate(
+        { _id: req.params.id, schoolId },
         req.body,
         {
           new: true,
@@ -152,8 +160,9 @@ const updateTimetable = async (req, res) => {
 // =====================================
 const deleteTimetable = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const timetable =
-      await Timetable.findById(req.params.id);
+      await Timetable.findOne({ _id: req.params.id, schoolId });
 
     if (!timetable) {
       return res.status(404).json({
@@ -184,9 +193,11 @@ const getTeacherTimetable = async (
   res
 ) => {
   try {
+    const schoolId = req.schoolId;
     const teacher =
       await Teacher.findOne({
         email: req.user.email,
+        schoolId,
       });
 
     if (!teacher) {
@@ -199,6 +210,7 @@ const getTeacherTimetable = async (
       await Timetable.find({
         "periods.teacher":
           teacher._id,
+        schoolId,
       })
         .populate(
           "periods.subject",

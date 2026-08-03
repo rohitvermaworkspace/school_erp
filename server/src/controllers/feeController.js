@@ -8,6 +8,8 @@ const generateReceiptNo = () => {
 // ================= CREATE FEE (ADMIN ONLY) =================
 const createFee = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const { student, amount, feeType, month, year, status } = req.body;
    const isPaid = req.body.status?.trim().toLowerCase() === "paid";
     const fee = await Fee.create({
@@ -18,6 +20,7 @@ const createFee = async (req, res) => {
       year,
       status,
       paymentDate: isPaid ? new Date() : null,
+      schoolId,
       createdBy: req.user._id,
     });
 
@@ -38,7 +41,9 @@ const createFee = async (req, res) => {
 // ================= GET ALL FEES (ADMIN) =================
 const getFees = async (req, res) => {
   try {
-    const fees = await Fee.find()
+    const schoolId = req.schoolId;
+
+    const fees = await Fee.find({ schoolId })
       .populate("student", "name className rollNumber")
       .populate("createdBy", "name role")
       .sort({ createdAt: -1 });
@@ -59,7 +64,9 @@ const getFees = async (req, res) => {
 // ================= GET SINGLE FEE =================
 const getFee = async (req, res) => {
   try {
-    const fee = await Fee.findById(req.params.id)
+    const schoolId = req.schoolId;
+
+    const fee = await Fee.findOne({ _id: req.params.id, schoolId })
       .populate("student", "name className rollNumber");
 
     if (!fee) {
@@ -84,7 +91,9 @@ const getFee = async (req, res) => {
 // ================= UPDATE FEE =================
 const updateFee = async (req, res) => {
   try {
-    const existingFee = await Fee.findById(req.params.id);
+    const schoolId = req.schoolId;
+
+    const existingFee = await Fee.findOne({ _id: req.params.id, schoolId });
 
     if (!existingFee) {
       return res.status(404).json({
@@ -107,7 +116,7 @@ const updateFee = async (req, res) => {
       updateData.paymentDate = null;
     }
 
-    const fee = await Fee.findByIdAndUpdate(req.params.id, updateData, {
+    const fee = await Fee.findOneAndUpdate({ _id: req.params.id, schoolId }, updateData, {
       new: true,
       runValidators: true,
     });
@@ -128,7 +137,9 @@ const updateFee = async (req, res) => {
 // ================= DELETE FEE =================
 const deleteFee = async (req, res) => {
   try {
-    await Fee.findByIdAndDelete(req.params.id);
+    const schoolId = req.schoolId;
+
+    await Fee.findOneAndDelete({ _id: req.params.id, schoolId });
 
     res.status(200).json({
       success: true,
@@ -146,10 +157,12 @@ const deleteFee = async (req, res) => {
 // ================= STUDENT FEES (FIXED ERP LOGIC) =================
 const getMyFees = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const userId = req.user._id;
 
     // find student
-    const student = await Student.findOne({ userId });
+    const student = await Student.findOne({ userId, schoolId });
 
     if (!student) {
       return res.status(404).json({
@@ -161,6 +174,7 @@ const getMyFees = async (req, res) => {
     // find fees
     const fees = await Fee.find({
       student: student._id,
+      schoolId,
     });
 
     return res.json({
@@ -181,8 +195,11 @@ const getMyFees = async (req, res) => {
 // ================= FEES SUMMARY (FOR DASHBOARD) =================
 const getFeeSummary = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const student = await Student.findOne({
       userId: req.user._id,
+      schoolId,
     });
 
     if (!student) {
@@ -194,6 +211,7 @@ const getFeeSummary = async (req, res) => {
 
     const fees = await Fee.find({
       student: student._id,
+      schoolId,
     });
 
     const summary = fees.map((f) => ({
@@ -218,9 +236,11 @@ const getFeeSummary = async (req, res) => {
 
 const payFee = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const { feeId, paymentMethod, transactionId } = req.body;
 
-    const fee = await Fee.findById(feeId);
+    const fee = await Fee.findOne({ _id: feeId, schoolId });
 
     if (!fee) {
       return res.status(404).json({
@@ -259,7 +279,9 @@ const payFee = async (req, res) => {
 
 const getReceipt = async (req, res) => {
   try {
-    const fee = await Fee.findById(req.params.id)
+    const schoolId = req.schoolId;
+
+    const fee = await Fee.findOne({ _id: req.params.id, schoolId })
       .populate("student", "name className rollNumber");
 
     if (!fee) {

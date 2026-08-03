@@ -2,7 +2,9 @@ const AcademicSession = require("../models/AcademicSession");
 
 const createSession = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const exists = await AcademicSession.findOne({
+      schoolId,
       sessionName: req.body.sessionName,
     });
 
@@ -12,7 +14,7 @@ const createSession = async (req, res) => {
       });
     }
 
-    const session = await AcademicSession.create(req.body);
+    const session = await AcademicSession.create({ ...req.body, schoolId });
 
     res.status(201).json(session);
   } catch (error) {
@@ -24,7 +26,8 @@ const createSession = async (req, res) => {
 
 const getSessions = async (req, res) => {
   try {
-    const sessions = await AcademicSession.find().sort({
+    const schoolId = req.schoolId;
+    const sessions = await AcademicSession.find({ schoolId }).sort({
       createdAt: -1,
     });
 
@@ -38,7 +41,9 @@ const getSessions = async (req, res) => {
 
 const getActiveSession = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const session = await AcademicSession.findOne({
+      schoolId,
       isActive: true,
     });
 
@@ -52,9 +57,10 @@ const getActiveSession = async (req, res) => {
 
 const updateSession = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const session =
       await AcademicSession.findByIdAndUpdate(
-        req.params.id,
+        { _id: req.params.id, schoolId },
         req.body,
         { new: true }
       );
@@ -69,8 +75,9 @@ const updateSession = async (req, res) => {
 
 const activateSession = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     await AcademicSession.updateMany(
-      {},
+      { schoolId },
       {
         isActive: false,
         status: "Archived",
@@ -79,7 +86,7 @@ const activateSession = async (req, res) => {
 
     const session =
       await AcademicSession.findByIdAndUpdate(
-        req.params.id,
+        { _id: req.params.id, schoolId },
         {
           isActive: true,
           status: "Active",
@@ -99,9 +106,10 @@ const activateSession = async (req, res) => {
 
 const deleteSession = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const session =
-      await AcademicSession.findById(
-        req.params.id
+      await AcademicSession.findOne(
+        { _id: req.params.id, schoolId }
       );
 
     if (!session) {
@@ -117,8 +125,8 @@ const deleteSession = async (req, res) => {
       });
     }
 
-    await AcademicSession.findByIdAndDelete(
-      req.params.id
+    await AcademicSession.findOneAndDelete(
+      { _id: req.params.id, schoolId }
     );
 
     res.json({

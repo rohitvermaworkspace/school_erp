@@ -19,9 +19,32 @@ import {
   FaAward,
   FaSoundcloud,
   FaClipboardList,
+  FaSchool,
+  FaUserShield,
 } from "react-icons/fa";
 
 const sidebarMenu = [
+  // ================= SUPER ADMIN =================
+  {
+    role: "super_admin",
+    items: [
+      { title: "Dashboard", path: "/super-admin/dashboard", icon: FaHome },
+      { title: "Schools", path: "/super-admin/schools", icon: FaSchool },
+      { title: "Users", path: "/super-admin/users", icon: FaUsers },
+      { title: "Profile", path: "/profile", icon: FaUser },
+    ],
+  },
+
+  // ================= ADMIN =================
+  {
+    role: "super_admin",
+    items: [
+      { title: "Dashboard", path: "/super-admin/dashboard", icon: FaHome },
+      { title: "Schools", path: "/super-admin/schools", icon: FaSchool },
+      { title: "Users", path: "/super-admin/users", icon: FaUsers },
+    ],
+  },
+
   // ================= ADMIN =================
   {
     role: "admin",

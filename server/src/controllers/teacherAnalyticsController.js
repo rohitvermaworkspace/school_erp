@@ -6,10 +6,11 @@ const Student = require("../models/Student");
 // ===============================
 const getTeacherDashboardAnalytics = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const teacherId = req.user.id;
 
-    const records = await Attendance.find({ teacher: teacherId });
-    const students = await Student.find({ createdBy: teacherId });
+    const records = await Attendance.find({ schoolId, teacher: teacherId });
+    const students = await Student.find({ schoolId, createdBy: teacherId });
 
     // ================= KPI =================
     const total = records.length;

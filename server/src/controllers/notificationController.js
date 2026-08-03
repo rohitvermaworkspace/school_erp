@@ -3,7 +3,8 @@ const Notification = require('../models/Notification');
 // GET ALL NOTIFICATIONS
 const getNotifications = async (req, res) => {
   try {
-    const notifications = await Notification.find().sort({ createdAt: -1 });
+    const schoolId = req.schoolId;
+    const notifications = await Notification.find({ schoolId }).sort({ createdAt: -1 });
 
     res.json(notifications);
   } catch (error) {
@@ -14,9 +15,14 @@ const getNotifications = async (req, res) => {
 // MARK AS READ
 const markAsRead = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const { id } = req.params;
 
-    const notification = await Notification.findByIdAndUpdate(id, { isRead: true }, { new: true });
+    const notification = await Notification.findOneAndUpdate(
+      { _id: id, schoolId },
+      { isRead: true },
+      { new: true }
+    );
 
     res.json(notification);
   } catch (error) {
@@ -26,6 +32,7 @@ const markAsRead = async (req, res) => {
 // CREATE
 const createNotification = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const notification =
       await Notification.create({
         title: req.body.title,
@@ -35,6 +42,7 @@ const createNotification = async (req, res) => {
         priority: req.body.priority,
         publishDate: req.body.publishDate,
         expiryDate: req.body.expiryDate,
+        schoolId,
         createdBy: req.user._id,
       });
     res.status(201).json(notification);
@@ -48,17 +56,21 @@ const createNotification = async (req, res) => {
 // GET Notification Stats
 const getNotificationStats = async (req, res) => {
   try {
-    const total = await Notification.countDocuments();
+    const schoolId = req.schoolId;
+    const total = await Notification.countDocuments({ schoolId });
 
     const active = await Notification.countDocuments({
+      schoolId,
       isActive: true,
     });
 
     const holidays = await Notification.countDocuments({
+      schoolId,
       category: 'HOLIDAY',
     });
 
     const exams = await Notification.countDocuments({
+      schoolId,
       category: 'EXAM',
     });
 
@@ -78,10 +90,11 @@ const getNotificationStats = async (req, res) => {
 // UPDATE
 const updateNotification = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const { title, message, category, audience, priority, publishDate, expiryDate } = req.body;
 
-    const notification = await Notification.findByIdAndUpdate(
-      req.params.id,
+    const notification = await Notification.findOneAndUpdate(
+      { _id: req.params.id, schoolId },
       {
         title,
         message,
@@ -114,7 +127,8 @@ const updateNotification = async (req, res) => {
 // DELETE
 const deleteNotification = async (req, res) => {
   try {
-    await Notification.findByIdAndDelete(req.params.id);
+    const schoolId = req.schoolId;
+    await Notification.findOneAndDelete({ _id: req.params.id, schoolId });
 
     res.json({
       message: 'Notification deleted successfully',

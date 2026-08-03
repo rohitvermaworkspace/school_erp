@@ -172,9 +172,6 @@ function StudentForm({
     const validationErrors = {};
 
     if (step === 1) {
-      if (!formData.admission.admissionNo?.trim()) {
-        validationErrors.admissionNo = "Admission Number is required";
-      }
       if (!formData.admission.admissionDate) {
         validationErrors.admissionDate = "Admission Date is required";
       }
@@ -208,11 +205,11 @@ function StudentForm({
     }
 
     if (step === 3) {
-      if (!formData.family.father.name?.trim()) {
-        validationErrors.fatherName = "Father Name is required";
+      if (!formData.family.guardian.name?.trim()) {
+        validationErrors.guardianName = "Guardian Name is required";
       }
-      if (!formData.family.father.phone?.trim()) {
-        validationErrors.fatherPhone = "Father Phone is required";
+      if (!formData.family.guardian.phone?.trim()) {
+        validationErrors.guardianPhone = "Guardian Phone is required";
       }
     }
 

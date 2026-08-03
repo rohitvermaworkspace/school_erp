@@ -3,6 +3,15 @@ const mongoose = require("mongoose");
 const studentSchema = new mongoose.Schema(
   {
     // =========================
+    // SCHOOL REFERENCE
+    // =========================
+    schoolId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "School",
+      required: true,
+    },
+
+    // =========================
     // USER REFERENCE
     // =========================
     userId: {
@@ -76,7 +85,8 @@ const studentSchema = new mongoose.Schema(
       primaryContactType: String,
       father: {
         name: String,
-        mobile: String,
+        phone: String,
+        email: String,
         qualification: String,
         occupation: String,
         aadhaar: String,
@@ -84,7 +94,8 @@ const studentSchema = new mongoose.Schema(
 
       mother: {
         name: String,
-        mobile: String,
+        phone: String,
+        email: String,
         qualification: String,
         occupation: String,
         aadhaar: String,
@@ -92,7 +103,9 @@ const studentSchema = new mongoose.Schema(
 
       guardian: {
         name: String,
-        mobile: String,
+        phone: String,
+        email: String,
+        relationship: String,
         qualification: String,
         occupation: String,
       },

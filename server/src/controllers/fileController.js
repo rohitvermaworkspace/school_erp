@@ -28,6 +28,9 @@ const uploadFile = async (
 
         uploadedBy:
           req.user.id,
+
+        schoolId:
+          req.schoolId,
       });
 
     res.status(201).json(file);
@@ -43,8 +46,9 @@ const getFiles = async (
   res
 ) => {
   try {
+    const schoolId = req.schoolId;
     const files =
-      await File.find()
+      await File.find({ schoolId })
         .populate(
           "uploadedBy",
           "name role"
@@ -67,8 +71,9 @@ const deleteFile = async (
   res
 ) => {
   try {
-    await File.findByIdAndDelete(
-      req.params.id
+    const schoolId = req.schoolId;
+    await File.findOneAndDelete(
+      { _id: req.params.id, schoolId }
     );
 
     res.json({

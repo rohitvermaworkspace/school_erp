@@ -7,12 +7,13 @@ const Attendance = require("../models/Attendance");
 // ADMIN DASHBOARD SUMMARY
 const getDashboardStats = async (req, res) => {
   try {
-    const totalStudents = await Student.countDocuments();
-    const totalTeachers = await Teacher.countDocuments();
-    const totalClasses = await Class.countDocuments();
+    const schoolId = req.schoolId;
+    const totalStudents = await Student.countDocuments({ schoolId });
+    const totalTeachers = await Teacher.countDocuments({ schoolId });
+    const totalClasses = await Class.countDocuments({ schoolId });
 
     // FEES CALCULATION
-    const fees = await Fee.find();
+    const fees = await Fee.find({ schoolId });
 
     const totalFeesCollected = fees
       .filter((f) => f.status === "Paid")
@@ -23,7 +24,7 @@ const getDashboardStats = async (req, res) => {
       .reduce((acc, item) => acc + item.amount, 0);
 
     // ATTENDANCE CALCULATION
-    const attendance = await Attendance.find();
+    const attendance = await Attendance.find({ schoolId });
 
     const totalAttendance = attendance.length;
     const present = attendance.filter(
@@ -55,7 +56,8 @@ const getDashboardStats = async (req, res) => {
 
 const getMonthlyRevenue = async (req, res) => {
   try {
-    const payments = await Fee.find({ status: "Paid" });
+    const schoolId = req.schoolId;
+    const payments = await Fee.find({ status: "Paid", schoolId });
 
     const monthly = {};
 
@@ -77,7 +79,8 @@ const getMonthlyRevenue = async (req, res) => {
 
 const getTopClasses = async (req, res) => {
   try {
-    const attendance = await Attendance.find();
+    const schoolId = req.schoolId;
+    const attendance = await Attendance.find({ schoolId });
 
     const classMap = {};
 

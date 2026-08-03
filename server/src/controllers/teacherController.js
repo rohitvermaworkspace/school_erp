@@ -8,6 +8,7 @@ const User = require('../models/User');
 // CREATE TEACHER
 const createTeacher = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const {
       name,
       email,
@@ -20,6 +21,7 @@ const createTeacher = async (req, res) => {
     let user = await User.findOne({
       email,
       role: "teacher",
+      schoolId,
     });
 
     if (!user) {
@@ -37,11 +39,13 @@ const createTeacher = async (req, res) => {
         email,
         password: hashedPassword,
         role: "teacher",
+        schoolId,
       });
     }
 
     const teacherExists = await Teacher.findOne({
       email,
+      schoolId,
     });
 
     if (teacherExists) {
@@ -60,11 +64,15 @@ const createTeacher = async (req, res) => {
       experience,
       status: "Active",
       createdBy: req.user._id,
+      schoolId,
     });
+
+    const populatedTeacher = await Teacher.findById(teacher._id)
+      .populate('schoolId', 'name code email');
 
     res.status(201).json({
       message: "Teacher created successfully",
-      teacher,
+      teacher: populatedTeacher,
     });
 
   } catch (error) {
@@ -77,9 +85,11 @@ const createTeacher = async (req, res) => {
 // Add Teacher Profile APIs
 const getMyTeacherProfile = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const teacher = await Teacher.findOne({
       email: req.user.email,
-    }).populate('user', 'name email role');
+      schoolId,
+    }).populate('schoolId', 'name code email').populate('user', 'name email role');
 
     if (!teacher) {
       return res.status(404).json({
@@ -101,8 +111,10 @@ const getMyTeacherProfile = async (req, res) => {
 // Update Profile
 const updateMyTeacherProfile = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const teacher = await Teacher.findOne({
       email: req.user.email,
+      schoolId,
     });
 
     if (!teacher) {
@@ -129,8 +141,10 @@ const updateMyTeacherProfile = async (req, res) => {
 
 const uploadTeacherProfileImage = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const teacher = await Teacher.findOne({
       email: req.user.email,
+      schoolId,
     });
 
     if (!teacher) {
@@ -156,9 +170,10 @@ const uploadTeacherProfileImage = async (req, res) => {
 
 const changeTeacherPassword = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const { oldPassword, newPassword } = req.body;
 
-    const user = await User.findById(req.user._id);
+    const user = await User.findOne({ _id: req.user._id, schoolId });
 
     const isMatch = await bcrypt.compare(oldPassword, user.password);
 
@@ -187,7 +202,10 @@ const changeTeacherPassword = async (req, res) => {
 // GET ALL TEACHERS
 const getTeachers = async (req, res) => {
   try {
-    const teachers = await Teacher.find().populate('createdBy', 'name email role');
+    const schoolId = req.schoolId;
+    const teachers = await Teacher.find({ schoolId })
+      .populate('schoolId', 'name code email')
+      .populate('createdBy', 'name email role');
 
     res.json(teachers);
   } catch (error) {
@@ -198,7 +216,9 @@ const getTeachers = async (req, res) => {
 // GET SINGLE TEACHER
 const getTeacherById = async (req, res) => {
   try {
-    const teacher = await Teacher.findById(req.params.id);
+    const schoolId = req.schoolId;
+    const teacher = await Teacher.findOne({ _id: req.params.id, schoolId })
+      .populate('schoolId', 'name code email');
 
     if (!teacher) {
       return res.status(404).json({ message: 'Teacher not found' });
@@ -213,7 +233,8 @@ const getTeacherById = async (req, res) => {
 // UPDATE TEACHER
 const updateTeacher = async (req, res) => {
   try {
-    const teacher = await Teacher.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const schoolId = req.schoolId;
+    const teacher = await Teacher.findOneAndUpdate({ _id: req.params.id, schoolId }, req.body, { new: true });
 
     res.json(teacher);
   } catch (error) {
@@ -224,7 +245,8 @@ const updateTeacher = async (req, res) => {
 // DELETE TEACHER
 const deleteTeacher = async (req, res) => {
   try {
-    await Teacher.findByIdAndDelete(req.params.id);
+    const schoolId = req.schoolId;
+    await Teacher.findOneAndDelete({ _id: req.params.id, schoolId });
 
     res.json({ message: 'Teacher deleted successfully' });
   } catch (error) {
@@ -234,14 +256,16 @@ const deleteTeacher = async (req, res) => {
 
 const getTeacherDashboard = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     console.log('User Email:', req.user.email);
 
     const teacher = await Teacher.findOne({
       email: req.user.email,
+      schoolId,
     });
 
     if (!teacher) {
-      const allTeachers = await Teacher.find();
+      const allTeachers = await Teacher.find({ schoolId });
       return res.status(404).json({
         message: 'Teacher not found',
         loggedInEmail: req.user.email,
@@ -251,6 +275,7 @@ const getTeacherDashboard = async (req, res) => {
 
     const totalStudents = await Student.countDocuments({
       className: { $in: teacher.classes },
+      schoolId,
     });
 
     const today = new Date().toISOString().split('T')[0];
@@ -258,9 +283,10 @@ const getTeacherDashboard = async (req, res) => {
     const todayAttendance = await Attendance.countDocuments({
       className: { $in: teacher.classes },
       date: today,
+      schoolId,
     });
 
-    const totalNotices = await Notice.countDocuments();
+    const totalNotices = await Notice.countDocuments({ schoolId });
 
     res.json({
       totalStudents,

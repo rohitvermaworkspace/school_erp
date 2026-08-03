@@ -3,9 +3,11 @@ const Student = require("../models/Student");
 
 const getStudentResults = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     console.log("USER =>", req.user);
 
     const student = await Student.findOne({
+      schoolId,
       userId: req.user._id,
     });
 
@@ -19,6 +21,7 @@ const getStudentResults = async (req, res) => {
     }
 
     const results = await Result.find({
+      schoolId,
       student: student._id,
       published: true
     })
@@ -50,9 +53,10 @@ const getStudentResults = async (req, res) => {
 const getStudentResultDetails =
   async (req, res) => {
     try {
+      const schoolId = req.schoolId;
       const result =
-        await Result.findById(
-          req.params.id
+        await Result.findOne(
+          { _id: req.params.id, schoolId }
         )
           .populate(
             "student",

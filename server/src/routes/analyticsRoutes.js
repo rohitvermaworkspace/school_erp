@@ -10,6 +10,7 @@ const {
 
 const protect = require("../middleware/authMiddleware");
 const authorizeRoles = require("../middleware/roleMiddleware");
+const tenantScope = require("../middleware/tenantMiddleware");
 
 // ===============================
 // STUDENT ANALYTICS
@@ -17,6 +18,7 @@ const authorizeRoles = require("../middleware/roleMiddleware");
 router.get(
   "/student/:studentId",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
   getStudentAttendanceStats
 );
@@ -27,6 +29,7 @@ router.get(
 router.get(
   "/monthly/:studentId/:month/:year",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
   getMonthlyAttendance
 );
@@ -37,6 +40,7 @@ router.get(
 router.get(
   "/class/:className",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
   getClassAttendanceStats
 );
@@ -47,6 +51,7 @@ router.get(
 router.get(
   "/teacher-dashboard",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
   getTeacherDashboardAnalytics
 );

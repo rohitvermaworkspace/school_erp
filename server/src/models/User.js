@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
     },
@@ -23,8 +22,14 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["admin", "teacher", "student"],
+      enum: ["super_admin", "admin", "teacher", "student"],
       default: "student",
+    },
+
+    schoolId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "School",
+      default: null,
     },
 
     phone: {
@@ -47,5 +52,7 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+userSchema.index({ email: 1, schoolId: 1 }, { unique: true });
 
 module.exports = mongoose.model("User", userSchema);

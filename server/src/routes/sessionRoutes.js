@@ -11,14 +11,15 @@ const {
 
 const protect = require("../middleware/authMiddleware");
 const authorizeRoles = require("../middleware/roleMiddleware");
+const tenantScope = require("../middleware/tenantMiddleware");
 
 const router = express.Router();
 
 router.get("/active", getActiveSession);
-router.get("/", protect, getSessions);
-router.post("/", protect, authorizeRoles("admin"), createSession);
-router.put("/:id", protect, authorizeRoles("admin"), updateSession);
-router.put("/:id/activate", protect, authorizeRoles("admin"), activateSession);
-router.delete("/:id", protect, authorizeRoles("admin"), deleteSession);
+router.get("/", protect, tenantScope, getSessions);
+router.post("/", protect, tenantScope, authorizeRoles("admin"), createSession);
+router.put("/:id", protect, tenantScope, authorizeRoles("admin"), updateSession);
+router.put("/:id/activate", protect, tenantScope, authorizeRoles("admin"), activateSession);
+router.delete("/:id", protect, tenantScope, authorizeRoles("admin"), deleteSession);
 
 module.exports = router;

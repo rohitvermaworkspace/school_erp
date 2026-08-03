@@ -24,6 +24,8 @@ const protect = async (req, res, next) => {
         });
       }
 
+      req.schoolId = decoded.schoolId || req.user.schoolId || null;
+
       next();
     } else {
       return res.status(401).json({

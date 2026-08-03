@@ -20,6 +20,7 @@ const {
 
 const protect = require("../middleware/authMiddleware");
 const authorizeRoles = require("../middleware/roleMiddleware");
+const tenantScope = require("../middleware/tenantMiddleware");
 
 // =====================
 // STUDENT ROUTES
@@ -28,6 +29,7 @@ const authorizeRoles = require("../middleware/roleMiddleware");
 router.get(
   "/dashboard",
   protect,
+  tenantScope,
   authorizeRoles("student"),
   getStudentDashboard
 );
@@ -35,6 +37,7 @@ router.get(
 router.get(
   "/me",
   protect,
+  tenantScope,
   authorizeRoles("student"),
   getMyStudentProfile
 );
@@ -42,6 +45,7 @@ router.get(
 router.put(
   "/profile",
   protect,
+  tenantScope,
   authorizeRoles("student"),
   updateMyStudentProfile
 );
@@ -49,6 +53,7 @@ router.put(
 router.put(
   "/change-password",
   protect,
+  tenantScope,
   authorizeRoles("student"),
   changeStudentPassword
 );
@@ -56,6 +61,7 @@ router.put(
 router.post(
   "/profile-image",
   protect,
+  tenantScope,
   authorizeRoles("student"),
   upload.single("image"),
   uploadProfileImage
@@ -68,6 +74,7 @@ router.post(
 router.post(
   "/",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
 
   upload.fields([
@@ -85,6 +92,7 @@ router.post(
 router.get(
   "/",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
   getStudents
 );
@@ -92,6 +100,7 @@ router.get(
 router.get(
   "/class/:className",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
   getStudentsByClass
 );
@@ -99,6 +108,7 @@ router.get(
 router.get(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
   getStudentById
 );
@@ -106,6 +116,7 @@ router.get(
 router.put(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
   updateStudent
 );
@@ -113,6 +124,7 @@ router.put(
 router.delete(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   deleteStudent
 );

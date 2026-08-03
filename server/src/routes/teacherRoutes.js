@@ -4,6 +4,7 @@ const router = express.Router();
 const protect = require("../middleware/authMiddleware");
 const authorizeRoles = require("../middleware/roleMiddleware");
 const upload = require('../middleware/uploadMiddleware');
+const tenantScope = require("../middleware/tenantMiddleware");
 
 const {
   createTeacher,
@@ -21,6 +22,7 @@ const {
 router.get(
   "/me",
   protect,
+  tenantScope,
   authorizeRoles("teacher"),
   getMyTeacherProfile
 );
@@ -28,6 +30,7 @@ router.get(
 router.put(
   "/profile",
   protect,
+  tenantScope,
   authorizeRoles("teacher"),
   updateMyTeacherProfile
 );
@@ -35,6 +38,7 @@ router.put(
 router.post(
   "/profile-image",
   protect,
+  tenantScope,
   authorizeRoles("teacher"),
   upload.single("image"),
   uploadTeacherProfileImage
@@ -43,6 +47,7 @@ router.post(
 router.put(
   "/change-password",
   protect,
+  tenantScope,
   authorizeRoles("teacher"),
   changeTeacherPassword
 );
@@ -55,6 +60,7 @@ router.put(
 router.get(
   "/dashboard",
   protect,
+  tenantScope,
   authorizeRoles("teacher", "admin"),
   getTeacherDashboard
 );
@@ -64,6 +70,7 @@ router.get(
 router.get(
   "/",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
   getTeachers
 );
@@ -74,6 +81,7 @@ router.get(
 router.get(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
   getTeacherById
 );
@@ -83,6 +91,7 @@ router.get(
 router.post(
   "/",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   createTeacher
 );
@@ -93,6 +102,7 @@ router.post(
 router.put(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   updateTeacher
 );
@@ -103,6 +113,7 @@ router.put(
 router.delete(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   deleteTeacher
 );

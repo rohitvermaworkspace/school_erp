@@ -6,6 +6,8 @@ const protect = require("../middleware/authMiddleware");
 
 const authorizeRoles = require("../middleware/roleMiddleware");
 
+const tenantScope = require("../middleware/tenantMiddleware");
+
 const {
   createResult,
   getResults,
@@ -29,6 +31,7 @@ const {
 router.post(
   "/",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   createResult
 );
@@ -36,6 +39,7 @@ router.post(
 router.get(
   "/",
   protect,
+  tenantScope,
   authorizeRoles(
     "admin",
     "teacher"
@@ -46,6 +50,7 @@ router.get(
 router.get(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles(
     "admin",
     "teacher"
@@ -56,6 +61,7 @@ router.get(
 router.put(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   updateResult
 );
@@ -63,6 +69,7 @@ router.put(
 router.delete(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   deleteResult
 );
@@ -70,6 +77,7 @@ router.delete(
 router.put(
   "/:id/publish",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   publishResult
 );
@@ -82,6 +90,7 @@ router.put(
 router.get(
   "/class/:className",
   protect,
+  tenantScope,
   authorizeRoles(
     "admin",
     "teacher"
@@ -92,6 +101,7 @@ router.get(
 router.get(
   "/top-performers/:className",
   protect,
+  tenantScope,
   authorizeRoles(
     "admin",
     "teacher"
@@ -102,6 +112,7 @@ router.get(
 router.get(
   "/subject-summary/:className",
   protect,
+  tenantScope,
   authorizeRoles(
     "admin",
     "teacher"

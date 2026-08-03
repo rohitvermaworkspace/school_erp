@@ -26,6 +26,12 @@ const periodSchema = new mongoose.Schema({
 
 const timetableSchema = new mongoose.Schema(
   {
+    schoolId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "School",
+      required: true,
+    },
+
     className: {
       type: String,
       required: true,

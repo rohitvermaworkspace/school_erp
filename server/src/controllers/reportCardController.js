@@ -8,12 +8,13 @@ const generateReportCard = async (
   res
 ) => {
   try {
+    const schoolId = req.schoolId;
     const { studentId } =
       req.params;
 
     const student =
-      await Student.findById(
-        studentId
+      await Student.findOne(
+        { _id: studentId, schoolId }
       );
 
     if (!student) {
@@ -25,6 +26,7 @@ const generateReportCard = async (
 
     const marks =
       await Mark.find({
+        schoolId,
         student: studentId,
       });
 

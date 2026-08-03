@@ -11,6 +11,7 @@ const {
 
 const protect = require("../middleware/authMiddleware");
 const authorizeRoles = require("../middleware/roleMiddleware");
+const tenantScope = require("../middleware/tenantMiddleware");
 
 // ======================================
 // APPLY LEAVE (Teacher + Student)
@@ -19,6 +20,7 @@ const authorizeRoles = require("../middleware/roleMiddleware");
 router.post(
   "/apply",
   protect,
+  tenantScope,
   authorizeRoles("teacher", "student"),
   createLeave
 );
@@ -27,6 +29,7 @@ router.post(
 router.post(
   "/",
   protect,
+  tenantScope,
   authorizeRoles("teacher", "student"),
   createLeave
 );
@@ -38,6 +41,7 @@ router.post(
 router.get(
   "/me",
   protect,
+  tenantScope,
   authorizeRoles("teacher", "student"),
   getMyLeaves
 );
@@ -49,6 +53,7 @@ router.get(
 router.get(
   "/",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   getAllLeaves
 );
@@ -60,6 +65,7 @@ router.get(
 router.put(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   updateLeaveStatus
 );
@@ -67,6 +73,7 @@ router.put(
 router.get(
   "/leave-stats",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   getLeaveStats
 );

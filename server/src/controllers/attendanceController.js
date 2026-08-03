@@ -2,22 +2,28 @@ const Attendance = require('../models/Attendance');
 const Student = require('../models/Student');
 const { Parser } = require('json2csv');
 const Class = require('../models/Class');
+const mongoose = require('mongoose');
 
 const getAttendanceDashboard = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const present = await Attendance.countDocuments({
+      schoolId,
       status: 'present',
     });
 
     const absent = await Attendance.countDocuments({
+      schoolId,
       status: 'absent',
     });
 
     const late = await Attendance.countDocuments({
+      schoolId,
       status: 'late',
     });
 
-    const totalStudents = await Student.countDocuments();
+    const totalStudents = await Student.countDocuments({ schoolId });
 
     const total = present + absent + late;
 
@@ -26,6 +32,11 @@ const getAttendanceDashboard = async (req, res) => {
     // ==========================
 
     const attendanceTrend = await Attendance.aggregate([
+      {
+        $match: {
+          schoolId: new mongoose.Types.ObjectId(schoolId),
+        },
+      },
       {
         $group: {
           _id: '$date',
@@ -57,6 +68,11 @@ const getAttendanceDashboard = async (req, res) => {
     // ==========================
 
     const classAttendance = await Attendance.aggregate([
+      {
+        $match: {
+          schoolId: new mongoose.Types.ObjectId(schoolId),
+        },
+      },
       {
         $match: {
           className: {
@@ -109,9 +125,11 @@ const getAttendanceDashboard = async (req, res) => {
 // MARK ATTENDANCE
 const markAttendance = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const { studentId, date, status } = req.body;
 
-    const studentExists = await Student.findById(studentId);
+    const studentExists = await Student.findOne({ _id: studentId, schoolId });
 
     if (!studentExists) {
       return res.status(404).json({
@@ -122,6 +140,7 @@ const markAttendance = async (req, res) => {
     const existingAttendance = await Attendance.findOne({
       studentId,
       date,
+      schoolId,
     });
 
     if (existingAttendance) {
@@ -135,10 +154,11 @@ const markAttendance = async (req, res) => {
       className: studentExists.className,
       date,
       status,
+      schoolId,
       markedBy: req.user.id,
     });
 
-    const populatedAttendance = await Attendance.findById(attendance._id).populate('studentId', 'name rollNumber className').populate('markedBy', 'name role');
+    const populatedAttendance = await Attendance.findOne({ _id: attendance._id, schoolId }).populate('studentId', 'name rollNumber className').populate('markedBy', 'name role');
 
     res.status(201).json({
       message: 'Attendance marked successfully',
@@ -158,7 +178,9 @@ const getAllAttendance = async (req, res) => {
   try {
     const { date, className } = req.query;
 
-    let filter = {};
+    const schoolId = req.schoolId;
+
+    let filter = { schoolId };
 
     if (date) filter.date = date;
 
@@ -179,9 +201,11 @@ const getAllAttendance = async (req, res) => {
 // GET STUDENT ATTENDANCE
 const getStudentAttendance = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const { studentId } = req.params;
 
-    const studentExists = await Student.findById(studentId);
+    const studentExists = await Student.findOne({ _id: studentId, schoolId });
 
     if (!studentExists) {
       return res.status(404).json({
@@ -190,7 +214,8 @@ const getStudentAttendance = async (req, res) => {
     }
 
     const records = await Attendance.find({
-      studentId, // ✅ FIXED
+      studentId,
+      schoolId,
     })
       .populate('studentId', 'name rollNumber className')
       .populate('markedBy', 'name role')
@@ -208,10 +233,13 @@ const getStudentAttendance = async (req, res) => {
 // GET ATTENDANCE BY CLASS
 const getAttendanceByClass = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const { className } = req.params;
 
     const records = await Attendance.find({
       className,
+      schoolId,
     })
       .populate('studentId', 'name rollNumber className')
       .populate('markedBy', 'name role')
@@ -227,13 +255,16 @@ const getAttendanceByClass = async (req, res) => {
 
 const getStudentsByClassId = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     console.log('Class Id:', req.params.classId);
 
-    const classData = await Class.findById(req.params.classId);
+    const classData = await Class.findOne({ _id: req.params.classId, schoolId });
 
     console.log('Class Data:', classData);
 
     const students = await Student.find({
+      schoolId,
       className: `${classData.className}${classData.section.replace(classData.className, '')}`,
     });
 
@@ -250,9 +281,12 @@ const getStudentsByClassId = async (req, res) => {
 
 const getStudentAttendanceForLoggedUser = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     // 1. FIND STUDENT PROFILE FIRST
     const student = await Student.findOne({
       userId: req.user._id,
+      schoolId,
     });
 
     if (!student) {
@@ -264,6 +298,7 @@ const getStudentAttendanceForLoggedUser = async (req, res) => {
     // 2. FETCH ATTENDANCE USING STUDENT ID
     const records = await Attendance.find({
       studentId: student._id,
+      schoolId,
     }).sort({ date: 1 });
 
     res.json(records);
@@ -277,7 +312,9 @@ const getStudentAttendanceForLoggedUser = async (req, res) => {
 // DELETE ATTENDANCE
 const deleteAttendance = async (req, res) => {
   try {
-    const attendance = await Attendance.findById(req.params.id);
+    const schoolId = req.schoolId;
+
+    const attendance = await Attendance.findOne({ _id: req.params.id, schoolId });
 
     if (!attendance) {
       return res.status(404).json({
@@ -301,8 +338,11 @@ const deleteAttendance = async (req, res) => {
 
 const getStudentsByClass = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const students = await Student.find({
       className: req.params.className,
+      schoolId,
     });
 
     res.json(students);
@@ -318,6 +358,8 @@ const getStudentsByClass = async (req, res) => {
 // =====================================
 const markClassAttendance = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
+
     const { attendanceData } = req.body;
 
     const today = new Date().toISOString().split('T')[0];
@@ -326,6 +368,7 @@ const markClassAttendance = async (req, res) => {
 
     const students = await Student.find({
       _id: { $in: studentIds },
+      schoolId,
     });
 
     const studentMap = {};
@@ -345,12 +388,14 @@ const markClassAttendance = async (req, res) => {
         {
           studentId: item.studentId,
           date: today,
+          schoolId,
         },
         {
           studentId: item.studentId,
           className: student.className,
           date: today,
           status: item.status,
+          schoolId,
           markedBy: req.user.id,
         },
         {
@@ -376,7 +421,9 @@ const markClassAttendance = async (req, res) => {
 
 const exportAttendanceCSV = async (req, res) => {
   try {
-    const attendance = await Attendance.find().populate('studentId', 'name rollNumber');
+    const schoolId = req.schoolId;
+
+    const attendance = await Attendance.find({ schoolId }).populate('studentId', 'name rollNumber');
 
     const rows = attendance.map((item) => ({
       student: item.studentId?.name,

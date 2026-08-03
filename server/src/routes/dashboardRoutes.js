@@ -9,11 +9,13 @@ const {
 
 const protect = require("../middleware/authMiddleware");
 const authorizeRoles = require("../middleware/roleMiddleware");
+const tenantScope = require("../middleware/tenantMiddleware");
 
 // MAIN DASHBOARD
 router.get(
   "/stats",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   getDashboardStats
 );
@@ -22,6 +24,7 @@ router.get(
 router.get(
   "/revenue",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   getMonthlyRevenue
 );
@@ -30,6 +33,7 @@ router.get(
 router.get(
   "/top-classes",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   getTopClasses
 );

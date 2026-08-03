@@ -1,8 +1,10 @@
 const Leave = require("../models/Leave");
+const mongoose = require("mongoose");
 
 // CREATE LEAVE (COMMON FOR BOTH TEACHER/STUDENT)
 const createLeave = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const { leaveType, reason, fromDate, toDate } = req.body;
 
     if (!leaveType || !reason || !fromDate || !toDate) {
@@ -19,6 +21,7 @@ const createLeave = async (req, res) => {
       fromDate,
       toDate,
       status: "pending",
+      schoolId,
     });
 
     res.status(201).json(leave);
@@ -31,8 +34,10 @@ const createLeave = async (req, res) => {
 // GET MY LEAVES
 const getMyLeaves = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const leaves = await Leave.find({
       applicant: req.user._id || req.user.id,
+      schoolId,
     }).sort({ createdAt: -1 });
 
     res.json(leaves);
@@ -44,7 +49,8 @@ const getMyLeaves = async (req, res) => {
 // ADMIN ALL LEAVES
 const getAllLeaves = async (req, res) => {
   try {
-    const leaves = await Leave.find()
+    const schoolId = req.schoolId;
+    const leaves = await Leave.find({ schoolId })
       .populate("applicant", "name email role")
       .sort({ createdAt: -1 });
 
@@ -57,8 +63,9 @@ const getAllLeaves = async (req, res) => {
 // UPDATE STATUS
 const updateLeaveStatus = async (req, res) => {
   try {
-    const leave = await Leave.findByIdAndUpdate(
-      req.params.id,
+    const schoolId = req.schoolId;
+    const leave = await Leave.findOneAndUpdate(
+      { _id: req.params.id, schoolId },
       { status: req.body.status },
       { new: true }
     );
@@ -72,7 +79,11 @@ const updateLeaveStatus = async (req, res) => {
 
 const getLeaveStats = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const stats = await Leave.aggregate([
+      {
+        $match: { schoolId: new mongoose.Types.ObjectId(schoolId) },
+      },
       {
         $group: {
           _id: {

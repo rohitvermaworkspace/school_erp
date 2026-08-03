@@ -3,6 +3,12 @@ const mongoose = require("mongoose");
 const noticeSchema =
   new mongoose.Schema(
     {
+      schoolId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "School",
+        required: true,
+      },
+
       title: {
         type: String,
         required: true,

@@ -17,10 +17,12 @@ const {
 
 const protect = require("../middleware/authMiddleware");
 const authorizeRoles = require("../middleware/roleMiddleware");
+const tenantScope = require("../middleware/tenantMiddleware");
 
 router.get(
   "/dashboard",
   protect,
+  tenantScope,
   authorizeRoles(
     "admin",
     "teacher"
@@ -32,6 +34,7 @@ router.get(
 router.get(
   "/",
   protect,
+  tenantScope,
   authorizeRoles("teacher", "admin"),
   getAllAttendance
 );
@@ -40,6 +43,7 @@ router.get(
 router.get(
   "/class/:className",
   protect,
+  tenantScope,
   authorizeRoles("teacher", "admin"),
   getAttendanceByClass
 );
@@ -48,6 +52,7 @@ router.get(
 router.get(
   "/student/:studentId",
   protect,
+  tenantScope,
   getStudentAttendance
 );
 
@@ -55,17 +60,20 @@ router.get(
 router.get(
   "/students/:className",
   protect,
+  tenantScope,
   getStudentsByClass
 );
 router.post(
   "/mark",
   protect,
+  tenantScope,
   authorizeRoles("teacher", "admin"),
   markAttendance
 );
 router.post(
   "/teacher/mark",
   protect,
+  tenantScope,
   authorizeRoles(
     "teacher",
     "admin"
@@ -76,6 +84,7 @@ router.post(
 router.get(
   "/my",
   protect,
+  tenantScope,
   authorizeRoles("student"),
   getStudentAttendanceForLoggedUser
 );
@@ -83,6 +92,7 @@ router.get(
 router.get(
   "/export",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   exportAttendanceCSV
 );
@@ -90,6 +100,7 @@ router.get(
 router.get(
   "/class-id/:classId",
   protect,
+  tenantScope,
   authorizeRoles("admin", "teacher"),
   getStudentsByClassId
 );

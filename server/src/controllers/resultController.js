@@ -3,6 +3,7 @@ const Result = require("../models/Result");
 
 const createResult = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const {
       student,
       examName,
@@ -49,6 +50,7 @@ const createResult = async (req, res) => {
         grade,
         status,
 
+        schoolId,
         createdBy: req.user.id,
       });
 
@@ -69,8 +71,9 @@ const getResults = async (
   res
 ) => {
   try {
+    const schoolId = req.schoolId;
     const results =
-      await Result.find()
+      await Result.find({ schoolId })
         .populate(
           "student",
           "name rollNumber className"
@@ -100,9 +103,10 @@ const getResult = async (
   res
 ) => {
   try {
+    const schoolId = req.schoolId;
     const result =
-      await Result.findById(
-        req.params.id
+      await Result.findOne(
+        { _id: req.params.id, schoolId }
       )
         .populate(
           "student",
@@ -135,8 +139,9 @@ const getResult = async (
 
 const updateResult = async (req, res) => {
   try {
-    const existingResult = await Result.findById(
-      req.params.id
+    const schoolId = req.schoolId;
+    const existingResult = await Result.findOne(
+      { _id: req.params.id, schoolId }
     );
 
     if (!existingResult) {
@@ -214,8 +219,8 @@ const updateResult = async (req, res) => {
     }
 
     const result =
-      await Result.findByIdAndUpdate(
-        req.params.id,
+      await Result.findOneAndUpdate(
+        { _id: req.params.id, schoolId },
         {
           ...req.body,
           totalMarks,
@@ -246,8 +251,9 @@ const deleteResult = async (
   res
 ) => {
   try {
-    await Result.findByIdAndDelete(
-      req.params.id
+    const schoolId = req.schoolId;
+    await Result.findOneAndDelete(
+      { _id: req.params.id, schoolId }
     );
 
     res.json({
@@ -266,9 +272,10 @@ const deleteResult = async (
 const publishResult =
   async (req, res) => {
     try {
+      const schoolId = req.schoolId;
       const result =
-        await Result.findByIdAndUpdate(
-          req.params.id,
+        await Result.findOneAndUpdate(
+          { _id: req.params.id, schoolId },
           {
             published: true,
           },
@@ -297,12 +304,14 @@ const getClassResults = async (
   res
 ) => {
   try {
+    const schoolId = req.schoolId;
     const { className } =
       req.params;
 
     const marks =
       await Mark.find({
         className,
+        schoolId,
       }).populate(
         "student",
         "name rollNumber"
@@ -393,12 +402,14 @@ const getClassResults = async (
 const getTopPerformers =
   async (req, res) => {
     try {
+      const schoolId = req.schoolId;
       const { className } =
         req.params;
 
       const marks =
         await Mark.find({
           className,
+          schoolId,
         }).populate(
           "student",
           "name rollNumber"
@@ -465,12 +476,14 @@ const getTopPerformers =
 const getSubjectSummary =
   async (req, res) => {
     try {
+      const schoolId = req.schoolId;
       const { className } =
         req.params;
 
       const marks =
         await Mark.find({
           className,
+          schoolId,
         });
 
       const subjectMap = {};

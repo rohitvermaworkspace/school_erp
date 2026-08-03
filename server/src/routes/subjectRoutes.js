@@ -23,11 +23,14 @@ const authorizeRoles = require(
   "../middleware/roleMiddleware"
 );
 
+const tenantScope = require("../middleware/tenantMiddleware");
+
 
 // CREATE
 router.post(
   "/",
   protect,
+  tenantScope,
   authorizeRoles(
     "admin",
     "teacher"
@@ -38,12 +41,14 @@ router.post(
 router.get(
   "/student",
   protect,
+  tenantScope,
   authorizeRoles("student"),
   getStudentSubjects
 );
 router.get(
   "/dashboard",
   protect,
+  tenantScope,
   getSubjectDashboard
 );
 
@@ -51,6 +56,7 @@ router.get(
 router.get(
   "/",
   protect,
+  tenantScope,
   getSubjects
 );
 
@@ -59,6 +65,7 @@ router.get(
 router.get(
   "/:id",
   protect,
+  tenantScope,
   getSubject
 );
 
@@ -67,6 +74,7 @@ router.get(
 router.put(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles(
     "admin",
     "teacher"
@@ -79,6 +87,7 @@ router.put(
 router.delete(
   "/:id",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   deleteSubject
 );

@@ -5,6 +5,7 @@ const createAuditLog = async ({
   action,
   details,
   userId,
+  schoolId,
 }) => {
   try {
     await AuditLog.create({
@@ -12,6 +13,7 @@ const createAuditLog = async ({
       action,
       details,
       performedBy: userId,
+      schoolId: schoolId || null,
     });
   } catch (error) {
     console.error(

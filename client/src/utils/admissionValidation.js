@@ -3,9 +3,6 @@ export const validateStep = (step, formData) => {
 
   switch (step) {
     case 0:
-      if (!formData.admission.admissionNo?.trim())
-        errors.admissionNo = "Admission Number is required";
-
       if (!formData.admission.admissionDate)
         errors.admissionDate = "Admission Date is required";
 

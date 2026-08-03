@@ -3,6 +3,8 @@ const router = express.Router();
 
 const {
   getClasses,
+  getClassNames,
+  getNextRollNumber,
   getClassById,
   createClass,
   updateClass,
@@ -11,12 +13,15 @@ const {
 
 const protect = require("../middleware/authMiddleware");
 const authorizeRoles = require("../middleware/roleMiddleware");
+const tenantScope = require("../middleware/tenantMiddleware");
 
-router.get("/", protect, getClasses);
-router.get("/:id", protect, getClassById);
+router.get("/", protect, tenantScope, getClasses);
+router.get("/names", protect, tenantScope, getClassNames);
+router.get("/next-roll-number", protect, tenantScope, getNextRollNumber);
+router.get("/:id", protect, tenantScope, getClassById);
 
-router.post("/", protect, authorizeRoles("admin"), createClass);
-router.put("/:id", protect, authorizeRoles("admin"), updateClass);
-router.delete("/:id", protect, authorizeRoles("admin"), deleteClass);
+router.post("/", protect, tenantScope, authorizeRoles("admin"), createClass);
+router.put("/:id", protect, tenantScope, authorizeRoles("admin"), updateClass);
+router.delete("/:id", protect, tenantScope, authorizeRoles("admin"), deleteClass);
 
 module.exports = router;

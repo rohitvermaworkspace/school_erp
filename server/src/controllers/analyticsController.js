@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Attendance = require("../models/Attendance");
 const Student = require("../models/Student");
 const Notice = require("../models/Notice");
@@ -8,9 +9,10 @@ const Notice = require("../models/Notice");
 
 const getStudentAttendanceStats = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const studentId = req.params.studentId;
 
-    const records = await Attendance.find({ student: studentId });
+    const records = await Attendance.find({ schoolId, student: studentId });
 
     const total = records.length;
     const present = records.filter(r => r.status === "present").length;
@@ -33,9 +35,10 @@ const getStudentAttendanceStats = async (req, res) => {
 
 const getMonthlyAttendance = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const { studentId, month, year } = req.params;
 
-    const records = await Attendance.find({ student: studentId });
+    const records = await Attendance.find({ schoolId, student: studentId });
 
     const filtered = records.filter(record => {
       const date = new Date(record.date);
@@ -61,9 +64,10 @@ const getMonthlyAttendance = async (req, res) => {
 
 const getClassAttendanceStats = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const className = req.params.className;
 
-    const records = await Attendance.find({ className });
+    const records = await Attendance.find({ schoolId, className });
 
     const total = records.length;
     const present = records.filter(r => r.status === "present").length;
@@ -87,9 +91,10 @@ const getClassAttendanceStats = async (req, res) => {
 
 const getTeacherDashboardAnalytics = async (req, res) => {
   try {
+    const schoolId = req.schoolId;
     const teacherId = req.user.id;
 
-    const records = await Attendance.find({});
+    const records = await Attendance.find({ schoolId });
 
     const total = records.length;
     const present = records.filter(r => r.status === "present").length;
@@ -105,6 +110,9 @@ const getTeacherDashboardAnalytics = async (req, res) => {
 
     const classData = await Student.aggregate([
       {
+        $match: { schoolId: new mongoose.Types.ObjectId(schoolId) }
+      },
+      {
         $group: {
           _id: "$className",
           count: { $sum: 1 },
@@ -117,8 +125,8 @@ const getTeacherDashboardAnalytics = async (req, res) => {
       value: item.count,
     }));
 
-    const totalStudents = await Student.countDocuments();
-    const totalNotices = await Notice.countDocuments();
+    const totalStudents = await Student.countDocuments({ schoolId });
+    const totalNotices = await Notice.countDocuments({ schoolId });
 
     const overview = [
       { name: "Students", value: totalStudents },

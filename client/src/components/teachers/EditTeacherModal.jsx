@@ -21,10 +21,18 @@ function EditTeacherModal({
     phone: "",
     subject: "",
     experience: "",
-    classes: "",
+    classes: [],
   });
 
   const [loading, setLoading] = useState(false);
+  const [availableClasses, setAvailableClasses] = useState([]);
+  const [showClassDropdown, setShowClassDropdown] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchClasses();
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (teacher) {
@@ -34,16 +42,37 @@ function EditTeacherModal({
         phone: teacher.phone || "",
         subject: teacher.subject || "",
         experience: teacher.experience || "",
-        classes: teacher.classes?.join(", ") || "",
+        classes: teacher.classes || [],
       });
     }
   }, [teacher]);
+
+  const fetchClasses = async () => {
+    try {
+      const res = await api.get("/classes");
+      const classList = res.data.map(
+        (cls) => `${cls.className}${cls.section}`
+      );
+      setAvailableClasses([...new Set(classList)]);
+    } catch (err) {
+      console.error("Failed to fetch classes:", err);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleClassToggle = (cls) => {
+    setFormData((prev) => {
+      const selected = prev.classes.includes(cls)
+        ? prev.classes.filter((c) => c !== cls)
+        : [...prev.classes, cls];
+      return { ...prev, classes: selected };
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -211,21 +240,61 @@ function EditTeacherModal({
               </div>
             </div>
 
-            <div>
+            <div className="relative">
               <label className="block text-sm font-medium mb-2 dark:text-white">
                 Assigned Classes
               </label>
-              <input
-                type="text"
-                name="classes"
-                value={formData.classes}
-                onChange={handleChange}
-                placeholder="10A,10B,9A"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
-              />
-              <p className="text-xs text-gray-500 mt-2">
-                Separate multiple classes using commas
-              </p>
+              <button
+                type="button"
+                onClick={() => setShowClassDropdown(!showClassDropdown)}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 dark:text-white text-left flex items-center justify-between focus:ring-2 focus:ring-indigo-500 outline-none"
+              >
+                <span className={formData.classes.length ? "" : "text-gray-400"}>
+                  {formData.classes.length
+                    ? formData.classes.join(", ")
+                    : "Select classes"}
+                </span>
+                <svg
+                  className={`w-4 h-4 transition-transform ${
+                    showClassDropdown ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {showClassDropdown && (
+                <div className="absolute z-10 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-lg max-h-48 overflow-y-auto">
+                  {availableClasses.length > 0 ? (
+                    availableClasses.map((cls) => (
+                      <label
+                        key={cls}
+                        className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={formData.classes.includes(cls)}
+                          onChange={() => handleClassToggle(cls)}
+                          className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <span className="dark:text-white">{cls}</span>
+                      </label>
+                    ))
+                  ) : (
+                    <div className="px-4 py-2 text-gray-500 text-sm">
+                      No classes found
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 

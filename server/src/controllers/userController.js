@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Student = require('../models/Student');
 const bcrypt = require('bcryptjs');
 
 // ================= GET PROFILE =================
@@ -39,9 +40,9 @@ const updateProfile = async (req, res) => {
       });
     }
 
-    // OPTIONAL: prevent duplicate email
+    // OPTIONAL: prevent duplicate email within same school
     if (email && email !== user.email) {
-      const existing = await User.findOne({ email });
+      const existing = await User.findOne({ email, schoolId: user.schoolId });
 
       if (existing) {
         return res.status(400).json({
@@ -113,7 +114,7 @@ const uploadProfileImage = async (req, res) => {
     user.profileImage = req.file.filename;
     await user.save();
     await Student.updateOne(
-      { userId: user._id },
+      { userId: user._id, schoolId: user.schoolId },
       {
         $set: {
           'documents.studentPhoto': req.file.filename,

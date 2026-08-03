@@ -6,6 +6,7 @@ const router =
 const protect = require("../middleware/authMiddleware");
 
 const authorizeRoles = require("../middleware/roleMiddleware");
+const tenantScope = require("../middleware/tenantMiddleware");
 
 const {
   generateReportCard,
@@ -14,6 +15,7 @@ const {
 router.get(
   "/:studentId",
   protect,
+  tenantScope,
   authorizeRoles(
     "teacher",
     "admin"

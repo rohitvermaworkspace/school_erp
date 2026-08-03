@@ -10,11 +10,13 @@ const {
 
 const protect = require("../middleware/authMiddleware");
 const authorizeRoles = require("../middleware/roleMiddleware");
+const tenantScope = require("../middleware/tenantMiddleware");
 
 // ADMIN DASHBOARD
 router.get(
   "/dashboard",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   getAdminDashboard
 );
@@ -23,6 +25,7 @@ router.get(
 router.get(
   "/class/:className",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   getClassDrilldown
 );
@@ -31,6 +34,7 @@ router.get(
 router.get(
   "/student/:studentId",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   getStudentDrilldown
 );
@@ -38,6 +42,7 @@ router.get(
 router.get(
   "/fees",
   protect,
+  tenantScope,
   authorizeRoles("admin"),
   getFeeAnalytics
 );

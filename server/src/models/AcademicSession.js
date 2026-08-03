@@ -2,16 +2,20 @@ const mongoose = require("mongoose");
 
 const academicSessionSchema = new mongoose.Schema(
 {
+  schoolId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "School",
+    required: true,
+  },
+
   sessionName: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
 
   sessionCode: {
     type: String,
-    unique: true,
   },
 
   startDate: {
@@ -39,6 +43,9 @@ const academicSessionSchema = new mongoose.Schema(
   timestamps: true,
 }
 );
+
+academicSessionSchema.index({ schoolId: 1, sessionName: 1 }, { unique: true });
+academicSessionSchema.index({ schoolId: 1, sessionCode: 1 }, { unique: true });
 
 academicSessionSchema.pre("save", function () {
   if (!this.sessionCode) {

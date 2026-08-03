@@ -4,6 +4,12 @@ const mongoose =
 const resourceSchema =
   new mongoose.Schema(
     {
+      schoolId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "School",
+        required: true,
+      },
+
       subject: {
         type:
           mongoose.Schema.Types.ObjectId,

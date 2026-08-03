@@ -15,9 +15,14 @@ const protect = require(
   "../middleware/authMiddleware"
 );
 
+const tenantScope = require(
+  "../middleware/tenantMiddleware"
+);
+
 router.get(
   "/",
   protect,
+  tenantScope,
   getAuditLogs
 );
 
