@@ -34,6 +34,7 @@ const teacherAnalyticsRoutes = require("./src/routes/teacherAnalyticsRoutes");
 const studentResultRoutes = require("./src/routes/studentResultRoutes");
 const sessionRoutes = require("./src/routes/sessionRoutes");
 const adminAnalyticsRoutes = require("./src/routes/adminAnalyticsRoutes");
+const academicConfigRoutes = require("./src/routes/academicConfigRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -123,6 +124,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
 app.use('/api/files', require('./src/routes/fileRoutes'));
 app.use("/api/sessions", sessionRoutes);
 app.use("/api/admin-analytics", adminAnalyticsRoutes);
+app.use("/api/academic-config", academicConfigRoutes);
 
 app.use('/api/teacher', teacherRoutes);
 app.use('/api/marks', markRoutes);

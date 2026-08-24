@@ -1,33 +1,50 @@
 import { useEffect, useState } from "react";
-import schoolService from "../../services/schoolService";
-import { FaSchool, FaUsers, FaCheckCircle, FaBan, FaChalkboardTeacher, FaGraduationCap, FaBookOpen } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import platformService from "../../services/platformService";
+import {
+  FaSchool,
+  FaUsers,
+  FaCheckCircle,
+  FaBan,
+  FaChalkboardTeacher,
+  FaGraduationCap,
+  FaBookOpen,
+  FaUserShield,
+} from "react-icons/fa";
 
 const SuperAdminDashboard = () => {
+  const navigate = useNavigate();
   const [schools, setSchools] = useState([]);
+  const [totals, setTotals] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchSchools();
+    const fetchData = async () => {
+      try {
+        const [schoolsRes, statsRes] = await Promise.all([
+          platformService.getSchools(),
+          platformService.getPlatformStats(),
+        ]);
+        setSchools(schoolsRes.data || []);
+        setTotals(statsRes.data?.totals || null);
+      } catch (err) {
+        console.error("Failed to fetch dashboard data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const fetchSchools = async () => {
-    try {
-      const res = await schoolService.getSchools();
-      setSchools(res.data);
-    } catch (err) {
-      console.error("Failed to fetch schools:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const totalSchools = schools.length;
+  const totalSchools = totals?.schools ?? schools.length;
   const totalUsers = schools.reduce((acc, school) => acc + (school.userCount || 0), 0);
-  const totalTeachers = schools.reduce((acc, school) => acc + (school.teacherCount || 0), 0);
-  const totalStudents = schools.reduce((acc, school) => acc + (school.studentCount || 0), 0);
+  const totalTeachers = totals?.teachers ?? schools.reduce((acc, school) => acc + (school.teacherCount || 0), 0);
+  const totalStudents = totals?.students ?? schools.reduce((acc, school) => acc + (school.studentCount || 0), 0);
   const totalClasses = schools.reduce((acc, school) => acc + (school.classCount || 0), 0);
-  const activeSchools = schools.filter((s) => s.status === "Active").length;
-  const suspendedSchools = schools.filter((s) => s.status === "Suspended").length;
+  const activeSchools = totals?.activeSchools ?? schools.filter((s) => s.status === "Active").length;
+  const inactiveSchools = totals?.inactiveSchools ?? (totalSchools - activeSchools);
+  const totalSchoolAdmins = totals?.schoolAdmins ?? 0;
 
   if (loading) {
     return (
@@ -128,7 +145,7 @@ const SuperAdminDashboard = () => {
       </div>
 
       {/* Second Row Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
         {/* Total Classes */}
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-rose-500 to-pink-600 p-6 text-white shadow-lg">
           <div className="absolute top-0 right-0 w-28 h-28 bg-white/10 rounded-full -translate-y-6 translate-x-6" />
@@ -142,6 +159,23 @@ const SuperAdminDashboard = () => {
             </div>
           </div>
         </div>
+
+        {/* School Admins */}
+        <button
+          onClick={() => navigate("/super-admin/school-admins")}
+          className="text-left relative overflow-hidden rounded-2xl bg-gradient-to-r from-orange-500 to-amber-600 p-6 text-white shadow-lg hover:scale-[1.02] transition"
+        >
+          <div className="absolute top-0 right-0 w-28 h-28 bg-white/10 rounded-full -translate-y-6 translate-x-6" />
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-amber-100 text-sm font-medium">School Admins</p>
+              <h2 className="text-3xl font-black mt-2">{totalSchoolAdmins}</h2>
+            </div>
+            <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+              <FaUserShield className="text-2xl" />
+            </div>
+          </div>
+        </button>
 
         {/* Active Schools */}
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-teal-500 to-emerald-600 p-6 text-white shadow-lg">
@@ -157,19 +191,22 @@ const SuperAdminDashboard = () => {
           </div>
         </div>
 
-        {/* Suspended Schools */}
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-red-500 to-rose-600 p-6 text-white shadow-lg">
+        {/* Inactive Schools */}
+        <button
+          onClick={() => navigate("/super-admin/schools")}
+          className="text-left relative overflow-hidden rounded-2xl bg-gradient-to-r from-red-500 to-rose-600 p-6 text-white shadow-lg hover:scale-[1.02] transition"
+        >
           <div className="absolute top-0 right-0 w-28 h-28 bg-white/10 rounded-full -translate-y-6 translate-x-6" />
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-red-100 text-sm font-medium">Suspended Schools</p>
-              <h2 className="text-3xl font-black mt-2">{suspendedSchools}</h2>
+              <p className="text-red-100 text-sm font-medium">Inactive Schools</p>
+              <h2 className="text-3xl font-black mt-2">{inactiveSchools}</h2>
             </div>
             <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
               <FaBan className="text-2xl" />
             </div>
           </div>
-        </div>
+        </button>
       </div>
 
       {/* Recent Schools */}
@@ -234,7 +271,7 @@ const SuperAdminDashboard = () => {
                     <td className="px-6 py-4">
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-medium ${
-                          school.status === "active"
+                          school.status === "Active"
                             ? "bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300"
                             : "bg-red-100 dark:bg-red-500/20 text-red-700 dark:text-red-300"
                         }`}

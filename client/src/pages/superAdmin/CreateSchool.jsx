@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import schoolService from "../../services/schoolService";
-import SuperAdminLayout from "./SuperAdminLayout";
 import { FaSchool, FaSave, FaArrowLeft } from "react-icons/fa";
 
 const CreateSchool = () => {
@@ -10,11 +9,14 @@ const CreateSchool = () => {
   const [formData, setFormData] = useState({
     name: "",
     code: "",
+    board: "",
     email: "",
     phone: "",
     address: "",
     city: "",
     state: "",
+    country: "",
+    academicYear: "",
     principalName: "",
     adminName: "",
     adminEmail: "",
@@ -45,7 +47,7 @@ const CreateSchool = () => {
     "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2";
 
   return (
-    <SuperAdminLayout>
+    
       <div className="space-y-6 max-w-4xl mx-auto">
         {/* Hero Section */}
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 p-8 shadow-xl">
@@ -97,9 +99,27 @@ const CreateSchool = () => {
                   value={formData.code}
                   onChange={handleChange}
                   required
-                  placeholder="Enter school code"
+                  placeholder="Unique login code, e.g. ABPS01"
+                  className={`${inputClass} uppercase`}
+                />
+              </div>
+
+              <div>
+                <label className={labelClass}>Board</label>
+                <input
+                  type="text"
+                  name="board"
+                  list="create-school-board-options"
+                  value={formData.board}
+                  onChange={handleChange}
+                  placeholder='e.g. "CBSE"'
                   className={inputClass}
                 />
+                <datalist id="create-school-board-options">
+                  {["CBSE", "ICSE", "State Board", "IB"].map((b) => (
+                    <option key={b} value={b} />
+                  ))}
+                </datalist>
               </div>
 
               <div>
@@ -160,6 +180,30 @@ const CreateSchool = () => {
                   value={formData.state}
                   onChange={handleChange}
                   placeholder="Enter state"
+                  className={inputClass}
+                />
+              </div>
+
+              <div>
+                <label className={labelClass}>Country</label>
+                <input
+                  type="text"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  placeholder="Enter country"
+                  className={inputClass}
+                />
+              </div>
+
+              <div>
+                <label className={labelClass}>Academic Year</label>
+                <input
+                  type="text"
+                  name="academicYear"
+                  value={formData.academicYear}
+                  onChange={handleChange}
+                  placeholder='e.g. "2026-2027"'
                   className={inputClass}
                 />
               </div>
@@ -247,7 +291,7 @@ const CreateSchool = () => {
           </div>
         </form>
       </div>
-    </SuperAdminLayout>
+    
   );
 };
 

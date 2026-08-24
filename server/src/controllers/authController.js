@@ -29,6 +29,13 @@ const signup = async (req, res) => {
       return res.status(404).json({ message: "School not found" });
     }
 
+    if (school.status !== "Active") {
+      return res.status(403).json({
+        message:
+          "This school is currently deactivated. New signups are not accepted.",
+      });
+    }
+
     const existingUser = await User.findOne({ email, schoolId });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists in this school" });
@@ -112,6 +119,25 @@ const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    // Blocked / deactivated accounts cannot log in.
+    if (user.status && user.status !== "Active") {
+      return res.status(403).json({
+        message: "Your account has been deactivated. Please contact the platform administrator.",
+      });
+    }
+
+    // Users of a deactivated school are blocked at the gate as well
+    // (tenantScope middleware enforces this on every subsequent request).
+    if (user.role !== "super_admin" && user.schoolId) {
+      const school = await School.findById(user.schoolId).select("status");
+      if (!school || school.status !== "Active") {
+        return res.status(403).json({
+          message:
+            "Your school has been deactivated by the platform administrator. Please contact support.",
+        });
+      }
+    }
+
     const token = generateToken(user);
 
     await createAuditLog({
@@ -140,7 +166,22 @@ const loginUser = async (req, res) => {
 
 const createSchool = async (req, res) => {
   try {
-    const { name, code, email, phone, address, city, state, principalName, adminEmail, adminName, adminPassword } = req.body;
+    const {
+      name,
+      code,
+      email,
+      phone,
+      address,
+      city,
+      state,
+      country,
+      board,
+      academicYear,
+      principalName,
+      adminEmail,
+      adminName,
+      adminPassword,
+    } = req.body;
 
     if (!name || !code || !adminEmail || !adminName || !adminPassword) {
       return res.status(400).json({ message: "Name, code, and admin credentials are required" });
@@ -159,6 +200,9 @@ const createSchool = async (req, res) => {
       address: address || "",
       city: city || "",
       state: state || "",
+      country: country || "",
+      board: board || "",
+      academicYear: academicYear || "",
       principalName: principalName || "",
       createdBy: req.user._id,
     });
@@ -262,6 +306,23 @@ const getSchoolById = async (req, res) => {
   }
 };
 
+const SCHOOL_EDITABLE_FIELDS = [
+  "name",
+  "code",
+  "email",
+  "phone",
+  "address",
+  "city",
+  "state",
+  "country",
+  "board",
+  "academicYear",
+  "principalName",
+  "logo",
+  "plan",
+  "status",
+];
+
 const updateSchool = async (req, res) => {
   try {
     const school = await School.findById(req.params.id);
@@ -269,15 +330,67 @@ const updateSchool = async (req, res) => {
       return res.status(404).json({ message: "School not found" });
     }
 
-    const updates = req.body;
+    // Only known school fields can be changed — never touch related
+    // users/students/etc. from here.
+    const updates = {};
+    for (const field of SCHOOL_EDITABLE_FIELDS) {
+      if (req.body[field] !== undefined) {
+        updates[field] = req.body[field];
+      }
+    }
+
+    if (updates.code) {
+      updates.code = String(updates.code).toUpperCase();
+      const duplicate = await School.findOne({
+        code: updates.code,
+        _id: { $ne: school._id },
+      });
+      if (duplicate) {
+        return res.status(400).json({ message: "School code already exists" });
+      }
+    }
+
     Object.assign(school, updates);
     await school.save();
 
-    return res.json({ message: "School updated", school });
+    await createAuditLog({
+      module: "School Management",
+      action: "UPDATE_SCHOOL",
+      details: `Updated school "${school.name}" (${school.code})`,
+      userId: req.user._id,
+      schoolId: school._id,
+    });
+
+    return res.json({ message: "School updated successfully", school });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
+
+// All tenant-scoped collections. Used when permanently removing a school
+// so that no orphaned data is left behind.
+const SCHOOL_SCOPED_MODELS = () => ({
+  User,
+  Student,
+  Teacher,
+  Class,
+  Subject: require("../models/Subject"),
+  Attendance: require("../models/Attendance"),
+  Mark: require("../models/Mark"),
+  Result: require("../models/Result"),
+  Fee: require("../models/Fee"),
+  FeePayment: require("../models/FeePayment"),
+  Notice: require("../models/Notice"),
+  Notification: require("../models/Notification"),
+  Timetable: require("../models/Timetable"),
+  Settings: require("../models/Settings"),
+  AuditLog: require("../models/AuditLog"),
+  Leave: require("../models/Leave"),
+  AcademicSession: require("../models/AcademicSession"),
+  File: require("../models/File"),
+  SubjectResource: require("../models/SubjectResource"),
+  Counter: require("../models/Counter"),
+});
 
 const deleteSchool = async (req, res) => {
   try {
@@ -286,9 +399,33 @@ const deleteSchool = async (req, res) => {
       return res.status(404).json({ message: "School not found" });
     }
 
-    await School.findByIdAndDelete(req.params.id);
+    const models = SCHOOL_SCOPED_MODELS();
 
-    return res.json({ message: "School deleted" });
+    // Count everything first so the caller gets an honest deletion report.
+    const deletedCounts = {};
+    let totalDeleted = 0;
+
+    for (const [name, model] of Object.entries(models)) {
+      const result = await model.deleteMany({ schoolId: school._id });
+      deletedCounts[name.toLowerCase()] = result.deletedCount || 0;
+      totalDeleted += result.deletedCount || 0;
+    }
+
+    await School.findByIdAndDelete(school._id);
+
+    await createAuditLog({
+      module: "School Management",
+      action: "DELETE_SCHOOL",
+      details: `Permanently deleted school "${school.name}" (${school.code}) along with ${totalDeleted} related records`,
+      userId: req.user._id,
+      schoolId: null,
+    });
+
+    return res.json({
+      message: `School "${school.name}" and all its data were deleted`,
+      totalDeleted,
+      deletedCounts,
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

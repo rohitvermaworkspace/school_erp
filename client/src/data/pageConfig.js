@@ -12,9 +12,33 @@ const pageConfig = {
     title: "Create School",
     subtitle: "Register a new school on the platform",
   },
+  "/super-admin/classes": {
+    title: "Classes Configuration",
+    subtitle: "Manage classes for every school on the platform",
+  },
+  "/super-admin/subjects": {
+    title: "Subjects Configuration",
+    subtitle: "Manage subjects for every school on the platform",
+  },
+  "/super-admin/class-subjects": {
+    title: "Class Subjects",
+    subtitle: "Assign subjects to classes per school",
+  },
+  "/super-admin/school-admins": {
+    title: "School Admins",
+    subtitle: "Create and manage administrators for each school",
+  },
   "/super-admin/users": {
     title: "Platform Users",
     subtitle: "Manage users across all schools",
+  },
+  "/super-admin/reports": {
+    title: "Platform Reports",
+    subtitle: "School-wise statistics and comparisons",
+  },
+  "/super-admin/settings": {
+    title: "Settings",
+    subtitle: "Platform administrator account and preferences",
   },
 
   // ================= ADMIN =================

@@ -43,6 +43,21 @@ const schoolSchema = new mongoose.Schema(
       default: "",
     },
 
+    country: {
+      type: String,
+      default: "",
+    },
+
+    board: {
+      type: String,
+      default: "",
+    },
+
+    academicYear: {
+      type: String,
+      default: "",
+    },
+
     logo: {
       type: String,
       default: "",

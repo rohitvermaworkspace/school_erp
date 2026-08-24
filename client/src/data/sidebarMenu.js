@@ -29,19 +29,28 @@ const sidebarMenu = [
     role: "super_admin",
     items: [
       { title: "Dashboard", path: "/super-admin/dashboard", icon: FaHome },
-      { title: "Schools", path: "/super-admin/schools", icon: FaSchool },
+      {
+        title: "Schools",
+        icon: FaSchool,
+        children: [
+          { title: "All Schools", path: "/super-admin/schools" },
+          { title: "Add School", path: "/super-admin/schools/create" },
+        ],
+      },
+      {
+        title: "Academic Configuration",
+        icon: FaBookOpen,
+        children: [
+          { title: "Classes", path: "/super-admin/classes" },
+          { title: "Subjects", path: "/super-admin/subjects" },
+          { title: "Class Subjects", path: "/super-admin/class-subjects" },
+        ],
+      },
+      { title: "School Admins", path: "/super-admin/school-admins", icon: FaUserShield },
       { title: "Users", path: "/super-admin/users", icon: FaUsers },
+      { title: "Reports", path: "/super-admin/reports", icon: FaChartBar },
+      { title: "Settings", path: "/super-admin/settings", icon: FaCog },
       { title: "Profile", path: "/profile", icon: FaUser },
-    ],
-  },
-
-  // ================= ADMIN =================
-  {
-    role: "super_admin",
-    items: [
-      { title: "Dashboard", path: "/super-admin/dashboard", icon: FaHome },
-      { title: "Schools", path: "/super-admin/schools", icon: FaSchool },
-      { title: "Users", path: "/super-admin/users", icon: FaUsers },
     ],
   },
 

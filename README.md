@@ -35,25 +35,25 @@ A plain-language manual for the people who run a school every day: **school admi
 
 Instead of keeping information in different places, EduPulse keeps everything together:
 
-| Instead of… | You use… |
-|---|---|
-| Paper admission forms | The **New Student Admission** wizard |
-| Attendance registers | The **Attendance** screen |
-| Fee receipt books | The **Fees** module |
-| Handwritten report cards | The **Results** module and downloadable **report cards** |
-| Notice boards and circulars | The **Notice Board** and **Notifications** |
-| Printed timetables | The **Timetable** module |
+| Instead of…                 | You use…                                                 |
+| --------------------------- | -------------------------------------------------------- |
+| Paper admission forms       | The **New Student Admission** wizard                     |
+| Attendance registers        | The **Attendance** screen                                |
+| Fee receipt books           | The **Fees** module                                      |
+| Handwritten report cards    | The **Results** module and downloadable **report cards** |
+| Notice boards and circulars | The **Notice Board** and **Notifications**               |
+| Printed timetables          | The **Timetable** module                                 |
 
 ### Who uses it?
 
 The system supports four kinds of users:
 
-| User | What they typically do |
-|---|---|
-| **Super Admin** | Sets up schools on the platform |
+| User                                       | What they typically do                                                                    |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------- |
+| **Super Admin**                            | Sets up schools on the platform                                                           |
 | **School Admin** (Principal / Office head) | Manages students, teachers, classes, fees, notices, results and settings for their school |
-| **Teacher** | Takes attendance, enters marks, views timetables and notices, applies for leave |
-| **Student** | Views their own attendance, fees, timetable, subjects, results and applies for leave |
+| **Teacher**                                | Takes attendance, enters marks, views timetables and notices, applies for leave           |
+| **Student**                                | Views their own attendance, fees, timetable, subjects, results and applies for leave      |
 
 > Parent/guardian details are recorded as part of student information, but there is **no separate parent login** in the current version of the application.
 
@@ -74,7 +74,7 @@ From this page you can:
 
 1. Open the application and select **Login**.
 2. Enter your **Email Address**.
-3. Enter your **School Code** — every school has its own code (for example, `DPS001`). Ask your school administrator for this code. *(Type it in CAPITALS — the box converts letters automatically.)*
+3. Enter your **School Code** — every school has its own code (for example, `DPS001`). Ask your school administrator for this code. _(Type it in CAPITALS — the box converts letters automatically.)_
 4. Enter your **Password**. Select the eye icon to show/hide what you typed.
 5. Select **Sign In**.
 
@@ -82,12 +82,12 @@ You will land on your own dashboard depending on your role (see [Dashboards](#3-
 
 **If something goes wrong:**
 
-| Message | What it means | What to do |
-|---|---|---|
-| *Please fill all fields* | One of the three boxes is empty | Fill in Email, School Code and Password |
-| *Login failed* (or another message) | Email, password or school code is incorrect | Check your entries and try again |
+| Message                             | What it means                               | What to do                              |
+| ----------------------------------- | ------------------------------------------- | --------------------------------------- |
+| _Please fill all fields_            | One of the three boxes is empty             | Fill in Email, School Code and Password |
+| _Login failed_ (or another message) | Email, password or school code is incorrect | Check your entries and try again        |
 
-> **Note:** There is a *"Forgot password?"* link on the login screen. In the current version this link does not perform any action. If you forget your password, contact your school administrator, who can reset it from their Profile tools or issue you new credentials. *(Self-service password recovery could not be confirmed from the current application.)*
+> **Note:** There is a _"Forgot password?"_ link on the login screen. In the current version this link does not perform any action. If you forget your password, contact your school administrator, who can reset it from their Profile tools or issue you new credentials. _(Self-service password recovery could not be confirmed from the current application.)_
 
 ## 2.3 Creating a New Account (Signup)
 
@@ -104,10 +104,10 @@ You will be signed straight into the application.
 
 Messages you may see during signup:
 
-| Message | What to do |
-|---|---|
-| *Please fill all fields* | Name, email and password are all required |
-| *Password must be at least 6 characters* | Choose a longer password |
+| Message                                  | What to do                                |
+| ---------------------------------------- | ----------------------------------------- |
+| _Please fill all fields_                 | Name, email and password are all required |
+| _Password must be at least 6 characters_ | Choose a longer password                  |
 
 ## 2.4 What You See After Logging In
 
@@ -131,13 +131,13 @@ Every screen has the same layout:
 - **Sidebar (left):** Your personal menu. Only the items you are allowed to use appear. The current page is highlighted in blue.
 - **Hamburger button:** Collapses the sidebar to icons only, or expands it again. On phones/tablets it slides the menu in and out.
 - **Top bar:** Shows the page you are on, a moon/sun button to switch between light and dark appearance, a notification bell 🔔 showing unread alerts, and your name and role.
-- **Notification bell:** Select it to see recent alerts in a pop-up list. An empty list shows *"No notifications"*.
+- **Notification bell:** Select it to see recent alerts in a pop-up list. An empty list shows _"No notifications"_.
 
 ## 2.5 Moving Around
 
 - Select any menu item in the sidebar to open that module.
 - To return to your home screen, select **Dashboard** at the top of the sidebar.
-- Use the **Back** arrow or *Back*-style buttons inside pages (for example, in the admission wizard or a student detail page) to return to the previous list.
+- Use the **Back** arrow or _Back_-style buttons inside pages (for example, in the admission wizard or a student detail page) to return to the previous list.
 
 ## 2.6 Logging Out
 
@@ -157,12 +157,12 @@ Open **Dashboard** in the sidebar. You will see:
 
 - **Welcome banner** with the current **Academic Session**, **Total Students** and **Total Teachers**, plus a **↻ Refresh Dashboard** button to reload the latest figures.
 - **Four big summary cards:**
-  - *Total Students* — everyone enrolled
-  - *New Admissions* — recently admitted students
-  - *Enquiries* — admission enquiries received
-  - *Pending Fees* — total money still owed (shown in ₹)
-- **Today-at-a-glance strip:** today's *Attendance* percentage, *Present Students*, *Absent Students*, *Teachers Present*, *Teachers Absent* and *Total Teachers*.
-- **Fee collection boxes:** *Total Collection*, *Pending Fees* and *Today's Collection*.
+  - _Total Students_ — everyone enrolled
+  - _New Admissions_ — recently admitted students
+  - _Enquiries_ — admission enquiries received
+  - _Pending Fees_ — total money still owed (shown in ₹)
+- **Today-at-a-glance strip:** today's _Attendance_ percentage, _Present Students_, _Absent Students_, _Teachers Present_, _Teachers Absent_ and _Total Teachers_.
+- **Fee collection boxes:** _Total Collection_, _Pending Fees_ and _Today's Collection_.
 - **Charts:** monthly fee collection, admission trends, students per class, and teacher/attendance analytics. Selecting the attendance analytics card takes you to the Attendance module.
 - **Recent Notices** (latest five) with a **View All** shortcut, or **Create Notice** if none exist yet.
 - **Recent Activities** — a running list of who did what, and when.
@@ -172,9 +172,9 @@ Open **Dashboard** in the sidebar. You will see:
 
 Open **Dashboard** in the teacher sidebar. You will see:
 
-- A **"Welcome, {your name}"** banner with quick counts: *Students*, *Classes* and *Attendance* percentage.
+- A **"Welcome, {your name}"** banner with quick counts: _Students_, _Classes_ and _Attendance_ percentage.
 - Four stat cards: **Students**, **Attendance**, **Classes**, **Notices**.
-- **Quick-action shortcuts:** *Attendance* (take today's attendance), *Marks Entry* (type in marks), *Results* (view class performance), *Report Cards* (download PDFs).
+- **Quick-action shortcuts:** _Attendance_ (take today's attendance), _Marks Entry_ (type in marks), _Results_ (view class performance), _Report Cards_ (download PDFs).
 - Charts: **Attendance Trend**, **Class Distribution** (select a slice to see class details) and **Overview of Classes**.
 - **Today's Schedule** — your next classes with timings.
 - **Recent Notices** from the administration.
@@ -184,15 +184,15 @@ Open **Dashboard** in the teacher sidebar. You will see:
 After logging in, a student sees:
 
 - A **welcome banner** with their photo/initials, class, roll number and email.
-- Four key cards: **Attendance** (%), **Present Days**, **Fees Status** (*Paid* or *Pending*) and **Subjects**.
-- **Attendance Trend** chart and a **Fees Analytics** chart with totals *Paid ₹…* / *Pending ₹…*.
-- Extra tiles such as *Class Rank*, *Assignments*, *Upcoming Exams* and *Attendance Streak*.
+- Four key cards: **Attendance** (%), **Present Days**, **Fees Status** (_Paid_ or _Pending_) and **Subjects**.
+- **Attendance Trend** chart and a **Fees Analytics** chart with totals _Paid ₹…_ / _Pending ₹…_.
+- Extra tiles such as _Class Rank_, _Assignments_, _Upcoming Exams_ and _Attendance Streak_.
 - An **Attendance Heatmap** and **Attendance Calendar**.
-- **Recent Attendance** (recent days with *present / absent / late*) and **Latest Notices** from school.
+- **Recent Attendance** (recent days with _present / absent / late_) and **Latest Notices** from school.
 
 ## 3.4 Platform Dashboard (Super Admin)
 
-Shows counts across **all schools** on the platform: *Total Schools*, *Total Users*, *Total Teachers*, *Total Students*, *Total Classes*, *Active Schools*, *Suspended Schools*, plus a **Recent Schools** list of the latest five registered schools with their codes and status.
+Shows counts across **all schools** on the platform: _Total Schools_, _Total Users_, _Total Teachers_, _Total Students_, _Total Classes_, _Active Schools_, _Suspended Schools_, plus a **Recent Schools** list of the latest five registered schools with their codes and status.
 
 ---
 
@@ -207,6 +207,7 @@ Only four roles exist in the application. Each person sees only the menu for the
 **Can access:** Dashboard, Schools, Users, Profile.
 
 **Can manage:**
+
 - Register new schools together with each school's admin account.
 - Browse all schools and their statistics (users, teachers, students, classes).
 - View details of every school and its user list.
@@ -229,6 +230,7 @@ Only four roles exist in the application. Each person sees only the menu for the
 **Can access:** Dashboard, Students, Attendance, Attendance History, Timetable, Notices, Profile, Marks, Results, Report Cards, Leave Requests, Leave History.
 
 **Can manage:**
+
 - Take and save daily class attendance (with bulk marking).
 - Enter and save student marks for tests/exams.
 - View class results and top performers (read-only).
@@ -246,6 +248,7 @@ Only four roles exist in the application. Each person sees only the menu for the
 **Can access:** Student Dashboard, Student Profile, Student Attendance, Student Fees, Student Notices, Student Timetable, Student Subjects, Student Results, Leave Management.
 
 **Can manage:**
+
 - View their attendance, fees, timetable, subjects and published results.
 - Pay pending fees through the fee screen and print receipts.
 - Download their timetable and report card as PDF.
@@ -270,26 +273,26 @@ This section explains every menu item, organised by role.
 
 **What you can do:**
 
-- See every school with its name, code, email, phone, status (*Active* shown green, other values red) and counts of Users, Teachers, Students and Classes.
-- Search for a school using the box *"Search by school name, code, or email..."*
+- See every school with its name, code, email, phone, status (_Active_ shown green, other values red) and counts of Users, Teachers, Students and Classes.
+- Search for a school using the box _"Search by school name, code, or email..."_
 - Open a school's detail page with the **view (eye)** or **edit (pencil)** icon.
-- Delete a school with the **trash** icon. A warning appears: *"Are you sure you want to delete this school? This action cannot be undone."* Select **OK** to permanently remove the school, or cancel to keep it.
+- Delete a school with the **trash** icon. A warning appears: _"Are you sure you want to delete this school? This action cannot be undone."_ Select **OK** to permanently remove the school, or cancel to keep it.
 
 #### Adding a New School
 
 1. Open **Schools** and select **+ Add School**.
 2. Under **School Information**, fill in:
-   - **School Name** *(required)*
-   - **School Code** *(required — this is the code staff will type at login, e.g. DPS001)*
-   - **Email** *(required)* and **Phone** *(required)*
-   - **Address, City, State, Principal Name** *(optional)*
+   - **School Name** _(required)_
+   - **School Code** _(required — this is the code staff will type at login, e.g. DPS001)_
+   - **Email** _(required)_ and **Phone** _(required)_
+   - **Address, City, State, Principal Name** _(optional)_
 3. Under **Admin Account**, create the login for the school's administrator:
-   - **Admin Name** *(required)*
-   - **Admin Email** *(required)*
-   - **Admin Password** *(required)*
-4. Select **Create School** (shows *Creating...* while saving) or **Cancel** to go back.
+   - **Admin Name** _(required)_
+   - **Admin Email** _(required)_
+   - **Admin Password** _(required)_
+4. Select **Create School** (shows _Creating..._ while saving) or **Cancel** to go back.
 
-**What happens after saving:** You are returned to the Schools list, where the new school appears. Share the School Code and admin credentials with the school — the administrator logs in with the admin email + password + school code. If the code is already used, a message appears: *"School code already exists"* — choose a different code.
+**What happens after saving:** You are returned to the Schools list, where the new school appears. Share the School Code and admin credentials with the school — the administrator logs in with the admin email + password + school code. If the code is already used, a message appears: _"School code already exists"_ — choose a different code.
 
 ### School Detail Page
 
@@ -304,13 +307,13 @@ Selecting a school opens its detail page (read-only):
 
 ### Users
 
-Sidebar → **Users** shows the **Platform Users** page. In the current version it displays the message *"Platform-wide user management coming soon"*. No user actions are available here yet.
+Sidebar → **Users** shows the **Platform Users** page. In the current version it displays the message _"Platform-wide user management coming soon"_. No user actions are available here yet.
 
 ---
 
 ## 5B. School Administration Modules
 
-*(All of the following are found in the School Admin sidebar.)*
+_(All of the following are found in the School Admin sidebar.)_
 
 ### 5B.1 Academic Session
 
@@ -322,14 +325,14 @@ Sidebar → **Users** shows the **Platform Users** page. In the current version 
 
 1. Type the session name (e.g. `2026-2027`).
 2. Pick the **start date** and **end date**.
-3. Select **Create Session**. A confirmation appears: *Session created*.
+3. Select **Create Session**. A confirmation appears: _Session created_.
 
 #### Managing Sessions
 
 The **Session Records** table lists every session with its start/end dates and status. For each row:
 
-- **Activate** — makes that session the active one (only one session is active at a time). Confirmation: *Session activated*.
-- **Delete** — a browser pop-up asks *"Delete session?"*. Confirm to remove it (*Session deleted*).
+- **Activate** — makes that session the active one (only one session is active at a time). Confirmation: _Session activated_.
+- **Delete** — a browser pop-up asks _"Delete session?"_. Confirm to remove it (_Session deleted_).
 
 > Set up the academic session **before** admitting students, so records belong to the correct year.
 
@@ -341,22 +344,22 @@ The **Session Records** table lists every session with its start/end dates and s
 
 **What you see:**
 
-- Summary cards: *Total Students*, *Active Classes* and other counters.
-- Quick filter chips: **All Students**, **Active**, **New Admission**, **Pending Fees**. *(These chips are display-only in the current version — selecting them does not filter the list.)*
-- Search box: *"Search by student name..."*
+- Summary cards: _Total Students_, _Active Classes_ and other counters.
+- Quick filter chips: **All Students**, **Active**, **New Admission**, **Pending Fees**. _(These chips are display-only in the current version — selecting them does not filter the list.)_
+- Search box: _"Search by student name..."_
 - Class filter dropdown starting with **All Classes**.
 - The **Student List** table with columns: **Student**, **Admission No**, **Class**, **Roll No**, **Gender**, **Guardian**, **Status**, **Actions**.
-- Page controls: *"Page X of Y"* with **Prev**, page numbers and **Next** (10 students per page).
+- Page controls: _"Page X of Y"_ with **Prev**, page numbers and **Next** (10 students per page).
 
-If nothing matches, the table shows *"No Students Found"*.
+If nothing matches, the table shows _"No Students Found"_.
 
 #### Row actions (three small buttons)
 
-| Icon | Action |
-|---|---|
-| 👁 Eye | **View** — opens the full *Student Profile* panel (details below) |
-| ✏️ Pencil (blue) | **Edit** — opens the *Edit Student* form (same wizard steps as admission) |
-| 🗑 Bin (red) | **Delete** — asks *"Are you sure you want to delete this student? This action cannot be undone."* Select **Cancel** or **Delete** |
+| Icon             | Action                                                                                                                            |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| 👁 Eye           | **View** — opens the full _Student Profile_ panel (details below)                                                                 |
+| ✏️ Pencil (blue) | **Edit** — opens the _Edit Student_ form (same wizard steps as admission)                                                         |
+| 🗑 Bin (red)     | **Delete** — asks _"Are you sure you want to delete this student? This action cannot be undone."_ Select **Cancel** or **Delete** |
 
 #### Viewing a Student (Student Profile panel)
 
@@ -370,7 +373,7 @@ The view panel shows the complete record, grouped into sections:
 - **Bank Account Details** — Account Number, Account Holder, Bank Name, Branch, IFSC Code.
 - **School Facilities** — Transport, Hostel, RTE (YES/NO), Scholarship.
 - **Previous Academic Record** — Previous School, Previous Class, Session, Percentage / Grade.
-- **Uploaded Documents** — Student Aadhaar, Birth Certificate, Transfer Certificate, Passport Photo (each shows *Uploaded* or *Not Uploaded*).
+- **Uploaded Documents** — Student Aadhaar, Birth Certificate, Transfer Certificate, Passport Photo (each shows _Uploaded_ or _Not Uploaded_).
 - **Student Analytics** — sample figures for attendance, CGPA, pending fees and achievements.
 
 Buttons at the bottom: **Edit Student**, **Print Profile** (opens your browser's print window — allow pop-ups if blocked) and **Close**.
@@ -378,8 +381,8 @@ Buttons at the bottom: **Edit Student**, **Print Profile** (opens your browser's
 #### Deleting a Student
 
 1. Select the red bin icon on the student's row.
-2. Read the confirmation: *"Delete Student — Are you sure you want to delete this student? This action cannot be undone."*
-3. Select **Delete** (shows *Deleting...*). Confirmation message: *Student deleted successfully*.
+2. Read the confirmation: _"Delete Student — Are you sure you want to delete this student? This action cannot be undone."_
+3. Select **Delete** (shows _Deleting..._). Confirmation message: _Student deleted successfully_.
 
 Deletion is permanent — the student disappears from all lists.
 
@@ -389,7 +392,7 @@ Deletion is permanent — the student disappears from all lists.
 
 **How to get there:** Sidebar → **Students** → **+ Add Student** (top right).
 
-A progress panel on the left shows all ten steps and marks each one *Currently Editing*, *Completed ✓* or *Pending*:
+A progress panel on the left shows all ten steps and marks each one _Currently Editing_, _Completed ✓_ or _Pending_:
 
 1. **Academic**
 2. **Student**
@@ -408,65 +411,65 @@ Use **Next** to move forward (the system checks required fields first), **Previo
 
 #### Step 1 — Academic Information
 
-| Field | What should be entered? |
-|---|---|
-| Admission Number | Left blank — *"Auto-generated on submission"* |
-| Admission Date * | The date the student joins |
-| Academic Session * | Select the session, e.g. 2026-2027 |
-| Admission Type | New / Transfer / Re-Admission |
-| Medium | English / Hindi / Kannada |
-| Admission Status | Active / Inactive / Transferred (default Active) |
-| Current Class * | Select from your school's class list |
-| Section * | Sections appear after choosing the class |
-| Roll Number | Auto-generated based on class and section |
-| House | Red / Blue / Green / Yellow |
-| Board | CBSE / ICSE / State Board / IB |
-| Stream | Science / Commerce / Arts |
+| Field               | What should be entered?                          |
+| ------------------- | ------------------------------------------------ |
+| Admission Number    | Left blank — _"Auto-generated on submission"_    |
+| Admission Date \*   | The date the student joins                       |
+| Academic Session \* | Select the session, e.g. 2026-2027               |
+| Admission Type      | New / Transfer / Re-Admission                    |
+| Medium              | English / Hindi / Kannada                        |
+| Admission Status    | Active / Inactive / Transferred (default Active) |
+| Current Class \*    | Select from your school's class list             |
+| Section \*          | Sections appear after choosing the class         |
+| Roll Number         | Auto-generated based on class and section        |
+| House               | Red / Blue / Green / Yellow                      |
+| Board               | CBSE / ICSE / State Board / IB                   |
+| Stream              | Science / Commerce / Arts                        |
 
-Fields marked \* must be filled before **Next** works. Messages shown: *Admission Date is required*, *Academic Session is required*, *Class is required*, *Section is required*, *Roll Number is required*.
+Fields marked \* must be filled before **Next** works. Messages shown: _Admission Date is required_, _Academic Session is required_, _Class is required_, _Section is required_, _Roll Number is required_.
 
 #### Step 2 — Student Information
 
-| Field | Required? | Notes |
-|---|---|---|
-| Student Name * | Yes | Full name |
-| Email * | Yes | Student/guardian email |
-| Mobile Number | Optional | Contact number |
-| Date of Birth * | Yes | Date picker |
-| Gender * | Yes | Male / Female / Other |
-| Blood Group | Optional | A+, A-, B+, B-, O+, O-, AB+, AB-, |
-| Religion | Optional | Hindu, Muslim, Christian, Sikh, Buddhist, Jain, Other |
-| Category | Optional | General, OBC, SC, ST, EWS |
-| Caste / Nationality / Birth Place / Mother Tongue | Optional | Typed text (Nationality defaults to Indian) |
-| Aadhaar Number / PEN Number / APAAR ID | Optional | Government IDs |
+| Field                                             | Required? | Notes                                                 |
+| ------------------------------------------------- | --------- | ----------------------------------------------------- |
+| Student Name \*                                   | Yes       | Full name                                             |
+| Email \*                                          | Yes       | Student/guardian email                                |
+| Mobile Number                                     | Optional  | Contact number                                        |
+| Date of Birth \*                                  | Yes       | Date picker                                           |
+| Gender \*                                         | Yes       | Male / Female / Other                                 |
+| Blood Group                                       | Optional  | A+, A-, B+, B-, O+, O-, AB+, AB-,                     |
+| Religion                                          | Optional  | Hindu, Muslim, Christian, Sikh, Buddhist, Jain, Other |
+| Category                                          | Optional  | General, OBC, SC, ST, EWS                             |
+| Caste / Nationality / Birth Place / Mother Tongue | Optional  | Typed text (Nationality defaults to Indian)           |
+| Aadhaar Number / PEN Number / APAAR ID            | Optional  | Government IDs                                        |
 
-Required-field messages: *Student Name is required*, *Email is required*, *Gender is required*, *Date of Birth is required*.
+Required-field messages: _Student Name is required_, _Email is required_, _Gender is required_, _Date of Birth is required_.
 
 #### Step 3 — Parent / Guardian Details
 
-| Field | Required? |
-|---|---|
-| Primary Contact | Choose Father / Mother / Guardian (label of the name field changes accordingly) |
-| {Father/Mother/Guardian} Name * | Yes |
-| Relationship | Father, Mother, Brother, Sister, Grandfather, Grandmother, Uncle, Aunt, Guardian |
-| Mobile Number * | Yes — 10-digit number |
-| Email / Qualification / Occupation | Optional |
+| Field                              | Required?                                                                        |
+| ---------------------------------- | -------------------------------------------------------------------------------- |
+| Primary Contact                    | Choose Father / Mother / Guardian (label of the name field changes accordingly)  |
+| {Father/Mother/Guardian} Name \*   | Yes                                                                              |
+| Relationship                       | Father, Mother, Brother, Sister, Grandfather, Grandmother, Uncle, Aunt, Guardian |
+| Mobile Number \*                   | Yes — 10-digit number                                                            |
+| Email / Qualification / Occupation | Optional                                                                         |
 
-Required-field messages: *Guardian Name is required*, *Guardian Phone is required*.
+Required-field messages: _Guardian Name is required_, _Guardian Phone is required_.
 
 #### Step 4 — Address Details
 
-Enter **Current Address** (address line, city, state, country, pincode). Tick *"Permanent Address is same as Current Address"* (already ticked) or untick it to enter a separate permanent address.
+Enter **Current Address** (address line, city, state, country, pincode). Tick _"Permanent Address is same as Current Address"_ (already ticked) or untick it to enter a separate permanent address.
 
-#### Step 5 — Bank Details *(optional)*
+#### Step 5 — Bank Details _(optional)_
 
 Account Holder Name, Account Number, Bank Name, Branch Name, IFSC Code (typed in capitals automatically).
 
-#### Step 6 — Previous School Details *(optional)*
+#### Step 6 — Previous School Details _(optional)_
 
 School Name, Board, Medium, Last Studied Class, Academic Session, Transfer Certificate No., Percentage / CGPA, Reason For Leaving.
 
-#### Step 7 — School Facilities *(optional)*
+#### Step 7 — School Facilities _(optional)_
 
 Three tick-boxes that unlock extra choices:
 
@@ -478,25 +481,25 @@ Three tick-boxes that unlock extra choices:
 
 Upload up to six documents (PDF, JPG or PNG):
 
-| Document | Mandatory |
-|---|---|
-| Student Photo * | Yes |
-| Birth Certificate * | Yes |
-| Guardian Photo / Aadhaar Card / Transfer Certificate / Previous Marksheet | Optional |
+| Document                                                                  | Mandatory |
+| ------------------------------------------------------------------------- | --------- |
+| Student Photo \*                                                          | Yes       |
+| Birth Certificate \*                                                      | Yes       |
+| Guardian Photo / Aadhaar Card / Transfer Certificate / Previous Marksheet | Optional  |
 
 After choosing a file its name appears in green.
 
-#### Step 9 — Notes & Remarks *(optional)*
+#### Step 9 — Notes & Remarks _(optional)_
 
 Future Goal and Admission Remarks. These notes are visible only to school administrators and staff.
 
 #### Step 10 — Review Admission
 
-All entered information is summarised section-by-section (bank account numbers are partially hidden). Scroll through and verify, then select **Complete Admission** (shows *Saving...*).
+All entered information is summarised section-by-section (bank account numbers are partially hidden). Scroll through and verify, then select **Complete Admission** (shows _Saving..._).
 
 **What happens after saving:**
 
-- Confirmation message: ***"Student admitted successfully"***
+- Confirmation message: **_"Student admitted successfully"_**
 - The **Admission Number** is generated automatically and appears in the Students list.
 - You return to the Students page where the new student is listed with status **Active**.
 
@@ -508,45 +511,45 @@ To fix mistakes afterwards, use the pencil (edit) icon on the student's row.
 
 **How to get there:** Sidebar → **Teachers**.
 
-**What you see:** stat cards (*Total Teachers*, *Subjects Covered*, *Senior Faculty*, *Avg Experience*), a search box *"Search by teacher name or email..."*, a subject filter (**All Subjects**) and the **Teacher Directory** table: **Teacher** (with ID), **Email**, **Phone**, **Subject**, **Experience**, **Classes**, **Created By**, **Joined**, **Actions** (edit pencil / delete bin). Five teachers per page.
+**What you see:** stat cards (_Total Teachers_, _Subjects Covered_, _Senior Faculty_, _Avg Experience_), a search box _"Search by teacher name or email..."_, a subject filter (**All Subjects**) and the **Teacher Directory** table: **Teacher** (with ID), **Email**, **Phone**, **Subject**, **Experience**, **Classes**, **Created By**, **Joined**, **Actions** (edit pencil / delete bin). Five teachers per page.
 
 #### Adding a Teacher
 
 1. Select **+ Add Teacher**.
 2. Fill in the **Add Teacher** form:
-   - **Teacher Name** *(required)*
-   - **Email** *(required)*
-   - **Phone** *(optional)*
-   - **Subject** *(optional — main subject taught, e.g. Mathematics)*
-   - **Experience** *(years)*
-   - **Assigned Classes** — tick the class-sections this teacher teaches (e.g. *Grade 10 A*). If no classes exist yet you'll see *"No classes found"* — create classes first (see 5B.5).
-3. Select **Add Teacher** (shows *Saving...*). Confirmation: *Teacher added successfully*.
+   - **Teacher Name** _(required)_
+   - **Email** _(required)_
+   - **Phone** _(optional)_
+   - **Subject** _(optional — main subject taught, e.g. Mathematics)_
+   - **Experience** _(years)_
+   - **Assigned Classes** — tick the class-sections this teacher teaches (e.g. _Grade 10 A_). If no classes exist yet you'll see _"No classes found"_ — create classes first (see 5B.5).
+3. Select **Add Teacher** (shows _Saving..._). Confirmation: _Teacher added successfully_.
 
 #### Editing / Deleting
 
-- **Pencil icon** opens *Edit Teacher* — update name, email, phone, subject, experience and assigned classes, then **Update Teacher**. Confirmation: *Teacher updated successfully*.
-- **Bin icon** asks *"Are you sure you want to delete this teacher?"* → **Delete** removes the record permanently (*Teacher deleted successfully*).
+- **Pencil icon** opens _Edit Teacher_ — update name, email, phone, subject, experience and assigned classes, then **Update Teacher**. Confirmation: _Teacher updated successfully_.
+- **Bin icon** asks _"Are you sure you want to delete this teacher?"_ → **Delete** removes the record permanently (_Teacher deleted successfully_).
 
 ### 5B.5 Classes
 
-**What is it?** The list of classes and sections (e.g. *Grade 10 — Section A*) and who teaches each.
+**What is it?** The list of classes and sections (e.g. _Grade 10 — Section A_) and who teaches each.
 
 **How to get there:** Sidebar → **Classes**.
 
-**What you see:** stat cards (*Total Classes*, *Students*, *Teachers Assigned*, *Avg Students/Class*), a **Students Per Class** bar chart, search box *"Search class..."*, section filter (**All Sections**) and a **Clear Filters** button. Table columns: **Class Name**, **Section**, **Class Teacher**, **Total Students**, **Created By**, **Actions**.
+**What you see:** stat cards (_Total Classes_, _Students_, _Teachers Assigned_, _Avg Students/Class_), a **Students Per Class** bar chart, search box _"Search class..."_, section filter (**All Sections**) and a **Clear Filters** button. Table columns: **Class Name**, **Section**, **Class Teacher**, **Total Students**, **Created By**, **Actions**.
 
-> Tip: one record holds **one class + one section**. For two sections of Grade 10, add *Grade 10 / A* and *Grade 10 / B* separately.
+> Tip: one record holds **one class + one section**. For two sections of Grade 10, add _Grade 10 / A_ and _Grade 10 / B_ separately.
 
 #### Adding a Class
 
 1. Select **+ Add Class**.
-2. Enter **Class Name** *(required, e.g. "Grade 10")*, **Section** *(required, e.g. "A")* and choose the **Class Teacher** *(required)*.
-3. Select **Create Class**. Confirmation: *Class added successfully*.
+2. Enter **Class Name** _(required, e.g. "Grade 10")_, **Section** _(required, e.g. "A")_ and choose the **Class Teacher** _(required)_.
+3. Select **Create Class**. Confirmation: _Class added successfully_.
 
 #### Editing / Deleting
 
-- Pencil icon → *Edit Class*: rename, change section or reassign the teacher → **Update Class**.
-- Bin icon → *"Are you sure you want to delete this class?"* → **Delete**.
+- Pencil icon → _Edit Class_: rename, change section or reassign the teacher → **Update Class**.
+- Bin icon → _"Are you sure you want to delete this class?"_ → **Delete**.
 
 Once classes exist, they appear automatically in the admission wizard, subject allocation and timetable screens.
 
@@ -556,15 +559,15 @@ Once classes exist, they appear automatically in the admission wizard, subject a
 
 **How to get there:** Sidebar → **Subjects**.
 
-**What you see:** stat cards (*Total Subjects*, *Classes*, *Teachers*, *Subjects / Class*), charts (**Subject by Class**, **Teacher Allocation**), search box *"Search Subject..."* (matches name or code), class filter (**All Classes**) and **Clear Filters**. Table columns: **Subject Name**, **Subject Code**, **Class**, **Teacher**, **Created By**, **Actions**.
+**What you see:** stat cards (_Total Subjects_, _Classes_, _Teachers_, _Subjects / Class_), charts (**Subject by Class**, **Teacher Allocation**), search box _"Search Subject..."_ (matches name or code), class filter (**All Classes**) and **Clear Filters**. Table columns: **Subject Name**, **Subject Code**, **Class**, **Teacher**, **Created By**, **Actions**.
 
 #### Adding a Subject
 
 1. Select **+ Add Subject**.
 2. Enter **Subject Name**, **Subject Code** (e.g. MATH101), select the **Class** and assign the **Teacher**.
-3. Select **Add Subject**. Confirmation: *Subject added successfully*.
+3. Select **Add Subject**. Confirmation: _Subject added successfully_.
 
-Editing (pencil) and deletion (bin with confirmation *"Are you sure you want to delete this subject?"*) work the same way as elsewhere.
+Editing (pencil) and deletion (bin with confirmation _"Are you sure you want to delete this subject?"_) work the same way as elsewhere.
 
 > Create teachers and classes first — the subject form needs both.
 
@@ -578,7 +581,7 @@ Editing (pencil) and deletion (bin with confirmation *"Are you sure you want to 
 
 - Five stat cards: **Total Students**, **Present**, **Absent**, **Late**, **Attendance %**.
 - Charts: attendance trend over time and class-wise attendance.
-- Filters: *"Search Student..."*, **All Classes** dropdown, **All Status** dropdown (*Present / Absent / Late*), a **date picker**, and **Clear Filters**.
+- Filters: _"Search Student..."_, **All Classes** dropdown, **All Status** dropdown (_Present / Absent / Late_), a **date picker**, and **Clear Filters**.
 - Two action buttons: **+ Mark Attendance** and **Export CSV**.
 - The records table: **Student**, **Roll Number**, **Class**, **Date**, **Status** (green/red/yellow pill), **Marked By** — 10 rows per page.
 
@@ -588,13 +591,13 @@ Editing (pencil) and deletion (bin with confirmation *"Are you sure you want to 
 2. Pick the student from **Select Student** (names show roll numbers too). Their class fills in automatically.
 3. Choose the **Date** (defaults to today).
 4. Choose the status: **Present** (default), **Absent** or **Late**.
-5. Select **Mark Attendance**. Confirmation: *Attendance marked successfully*.
+5. Select **Mark Attendance**. Confirmation: _Attendance marked successfully_.
 
 > The admin screen marks **one student at a time**. For a whole classroom at once, teachers use their own Attendance screen (section 5C.3), which supports bulk marking.
 
 #### Exporting Records
 
-Select **Export CSV** to download an Excel-compatible file (`attendance-….csv`) containing Student, RollNumber, Class, Date, Status and MarkedBy for whatever is on screen. If nothing matches the filters you'll see *"No records available to export"*.
+Select **Export CSV** to download an Excel-compatible file (`attendance-….csv`) containing Student, RollNumber, Class, Date, Status and MarkedBy for whatever is on screen. If nothing matches the filters you'll see _"No records available to export"_.
 
 ### 5B.8 Notices
 
@@ -602,18 +605,18 @@ Select **Export CSV** to download an Excel-compatible file (`attendance-….csv`
 
 **How to get there:** Sidebar → **Notices**.
 
-**What you see:** stat cards (*Total Notices*, *Public Notices*, *Student Notices*, *Teacher Notices*), quick trackers (*Latest Notice*, *Active Notices*, …), search box *"Search notice..."* and an audience filter (**All Audience** / **Students** / **Teachers**). Table columns: **NOTICE**, **AUDIENCE**, **CREATED BY**, **PUBLISHED**, **ACTIONS**.
+**What you see:** stat cards (_Total Notices_, _Public Notices_, _Student Notices_, _Teacher Notices_), quick trackers (_Latest Notice_, _Active Notices_, …), search box _"Search notice..."_ and an audience filter (**All Audience** / **Students** / **Teachers**). Table columns: **NOTICE**, **AUDIENCE**, **CREATED BY**, **PUBLISHED**, **ACTIONS**.
 
 #### Publishing a Notice
 
 1. Select **+ Add Notice**.
 2. In the **Create Notice** form enter:
-   - **Notice Title** *(required)*
-   - **Target Audience** — *All Audience*, *Students* or *Teachers*
-   - **Description** *(required — the full announcement text)*
-3. Select **Publish Notice** (shows *Publishing...*). Confirmation: *Notice added successfully*.
+   - **Notice Title** _(required)_
+   - **Target Audience** — _All Audience_, _Students_ or _Teachers_
+   - **Description** _(required — the full announcement text)_
+3. Select **Publish Notice** (shows _Publishing..._). Confirmation: _Notice added successfully_.
 
-The notice immediately appears on the Notice Board of the chosen audience. Notices can be edited (pencil) or removed (bin → *"Are you sure you want to delete this notice?"*).
+The notice immediately appears on the Notice Board of the chosen audience. Notices can be edited (pencil) or removed (bin → _"Are you sure you want to delete this notice?"_).
 
 > Notices here have no attachments, pinning or priority levels — just title, audience and description.
 
@@ -627,25 +630,25 @@ The notice immediately appears on the Notice Board of the chosen audience. Notic
 
 - Money cards: **Total Fees**, **Collected**, **Pending**, **Records** (count).
 - Second strip: **Collection Rate** (%), **Paid Records**, **Pending Records**, **Outstanding Amount**.
-- Search box *"Search student..."* (matches name **or roll number**) and status filter **All Status / Paid / Pending**.
-- Table: **Student**, **Class**, **Fee Type**, **Amount** (₹), **Month**, **Payment Date**, **Status** (*Paid* green / *Pending* red), **Actions**.
+- Search box _"Search student..."_ (matches name **or roll number**) and status filter **All Status / Paid / Pending**.
+- Table: **Student**, **Class**, **Fee Type**, **Amount** (₹), **Month**, **Payment Date**, **Status** (_Paid_ green / _Pending_ red), **Actions**.
 
 #### Adding a Fee Record
 
 1. Select **+ Add Fee**.
 2. Fill in the **Add Fee Record** form:
-   - **Student** *(required — pick from the list; entries show name • roll number • class)*
-   - **Amount** *(required, in ₹)*
+   - **Student** _(required — pick from the list; entries show name • roll number • class)_
+   - **Amount** _(required, in ₹)_
    - **Fee Type** — Tuition, Admission, Transport, Exam, Library, Sports or Other
-   - **Month** *(required)* and **Year**
-   - **Payment Status** — *Pending* (default) or *Paid*
-3. Select **Save Fee**. Confirmation: *Fee added successfully*.
+   - **Month** _(required)_ and **Year**
+   - **Payment Status** — _Pending_ (default) or _Paid_
+3. Select **Save Fee**. Confirmation: _Fee added successfully_.
 
 #### Updating a Payment
 
-When money is collected, open the record with the pencil icon, change **Payment Status** to **Paid**, and **Update Fee** (*Fee updated successfully*). The **Payment Date** column then reflects the paid record.
+When money is collected, open the record with the pencil icon, change **Payment Status** to **Paid**, and **Update Fee** (_Fee updated successfully_). The **Payment Date** column then reflects the paid record.
 
-Deleting a fee record uses the usual red-bin confirmation (*"Are you sure you want to delete this fee record?"*).
+Deleting a fee record uses the usual red-bin confirmation (_"Are you sure you want to delete this fee record?"_).
 
 > The admin fee screen tracks records and amounts. Printable receipts are issued from the **student's** fee screen (section 5D.4). Discounts, due-date reminders and payment modes could not be confirmed from the current application.
 
@@ -657,25 +660,25 @@ Deleting a fee record uses the usual red-bin confirmation (*"Are you sure you wa
 
 **How it works:** One record = one **Class + one Day + a list of periods**. So a class needs one record per weekday (Monday to Saturday). There is no drag-and-drop board — you build each day's periods in a form.
 
-**What you see:** stat cards (*Total Timetables*, *Classes Covered*, *Teachers Assigned*, *Total Periods*), search box *"Search by class..."*, day filter (**All Days**, Monday–Saturday), and the records table: **Class**, **Day**, **Periods** (each showing time range, subject and teacher), **Period Count**, **Created By**, **Created At**, **Actions**.
+**What you see:** stat cards (_Total Timetables_, _Classes Covered_, _Teachers Assigned_, _Total Periods_), search box _"Search by class..."_, day filter (**All Days**, Monday–Saturday), and the records table: **Class**, **Day**, **Periods** (each showing time range, subject and teacher), **Period Count**, **Created By**, **Created At**, **Actions**.
 
 #### Creating a Day's Timetable
 
 1. Select **+ Add Timetable**.
 2. Choose the **Class** and the **Day**.
 3. Under **Class Periods**, select **+ Add Period** for each period of the day. For every period enter:
-   - **Start Time** and **End Time** *(both required)*
-   - **Subject** *(required)*
-   - **Teacher** *(required)*
+   - **Start Time** and **End Time** _(both required)_
+   - **Subject** _(required)_
+   - **Teacher** _(required)_
 4. Remove a mistake with the bin icon beside that period.
-5. Select **Save Timetable**. Confirmation: *Timetable created successfully*.
+5. Select **Save Timetable**. Confirmation: _Timetable created successfully_.
 
 Repeat for the remaining days of the week.
 
 #### Maintaining Timetables
 
 - Pencil icon → **Edit Timetable**: adjust times, swap subjects/teachers, add or remove periods → **Update Timetable**.
-- Bin icon → *"Are you sure you want to delete this timetable record?"* → **Delete** removes that class-day schedule.
+- Bin icon → _"Are you sure you want to delete this timetable record?"_ → **Delete** removes that class-day schedule.
 
 > The application does not warn about double-booked teachers on this screen; check assignments carefully when scheduling.
 
@@ -691,13 +694,13 @@ Repeat for the remaining days of the week.
 
 **How to get there:** Sidebar → **Results**.
 
-**What you see:** stat cards (*Total Results*, *Published*, *Draft*, *Pass Rate*), three filter boxes (*"Search Student..."*, *"Filter by Class..."*, *"Filter by Exam..."*) and the **Examination Results** table: **Student**, **Exam**, **Class**, **Percentage**, **Grade** (purple pill), **Status** (*Pass* green / fail red), **Published** (*Published* green / *Draft* yellow), **Actions**.
+**What you see:** stat cards (_Total Results_, _Published_, _Draft_, _Pass Rate_), three filter boxes (_"Search Student..."_, _"Filter by Class..."_, _"Filter by Exam..."_) and the **Examination Results** table: **Student**, **Exam**, **Class**, **Percentage**, **Grade** (purple pill), **Status** (_Pass_ green / fail red), **Published** (_Published_ green / _Draft_ yellow), **Actions**.
 
 #### Creating a Result
 
 1. Select **+ Create Result**.
 2. Choose the **Student** (entries show name • roll number).
-3. Type the **Exam Name** (e.g. *Mid Term*, *Final Exam*) and the **Class Name** (e.g. *Class 10-A*).
+3. Type the **Exam Name** (e.g. _Mid Term_, _Final Exam_) and the **Class Name** (e.g. _Class 10-A_).
 4. Under **Subjects & Marks Evaluation**, select **+ Add Subject** for each subject and enter:
    - **Subject** (from your Subjects list)
    - **Obtained** marks
@@ -708,14 +711,14 @@ The record is saved as a **Draft**. Percentages, grades and pass/fail are calcul
 
 #### Entering / Correcting Marks
 
-Select **Edit** on a result row. The **Subject Evaluation** table lets you adjust Obtained and Max marks for each subject. As you type, live summary cards update: **Percentage**, **Grade** and **Result Status**. Select **Update Result** to save (*Result updated successfully*).
+Select **Edit** on a result row. The **Subject Evaluation** table lets you adjust Obtained and Max marks for each subject. As you type, live summary cards update: **Percentage**, **Grade** and **Result Status**. Select **Update Result** to save (_Result updated successfully_).
 
 #### Publishing a Result
 
 Drafts are invisible to students. When you're ready:
 
 1. Select **Publish** on the result row.
-2. Confirmation: *Result published successfully*. The badge changes from yellow **Draft** to green **Published**, and the result becomes visible on the student's portal.
+2. Confirmation: _Result published successfully_. The badge changes from yellow **Draft** to green **Published**, and the result becomes visible on the student's portal.
 
 > Publishing is immediate (no confirmation dialog) and **cannot be reversed** from the interface — double-check the marks first.
 
@@ -723,19 +726,19 @@ Drafts are invisible to students. When you're ready:
 
 Select **View** to open the result sheet: student details, summary cards (**Subjects**, **Obtained Marks**, **Total Marks**, **Percentage**), a large **PASS / FAIL** banner, and the **Subject Breakdown** table (subject, code, marks obtained, max marks, grade). Use **Print Result** to print via your browser, or **Close**.
 
-Deleting a result uses the standard confirmation: *"Are you sure you want to delete this result?"*
+Deleting a result uses the standard confirmation: _"Are you sure you want to delete this result?"_
 
 **Grading scale used by the system:**
 
-| Percentage | Grade |
-|---|---|
-| 90% and above | A+ |
-| 80–89% | A |
-| 70–79% | B+ |
-| 60–69% | B |
-| 50–59% | C |
-| 40–49% | D |
-| Below 40% | F (Fail) |
+| Percentage    | Grade    |
+| ------------- | -------- |
+| 90% and above | A+       |
+| 80–89%        | A        |
+| 70–79%        | B+       |
+| 60–69%        | B        |
+| 50–59%        | C        |
+| 40–49%        | D        |
+| Below 40%     | F (Fail) |
 
 Pass = 40% or more overall.
 
@@ -745,21 +748,21 @@ Pass = 40% or more overall.
 
 **How to get there:** Sidebar → **Notifications**.
 
-**What you see:** stat cards (*Total Notices*, *High Priority*, *Last 7 Days*), search box *"Search notices..."*, priority filter (**All Priority** / High / Medium / Low) and the **Notification Center** table.
+**What you see:** stat cards (_Total Notices_, _High Priority_, _Last 7 Days_), search box _"Search notices..."_, priority filter (**All Priority** / High / Medium / Low) and the **Notification Center** table.
 
 #### Sending a Notification
 
 1. Select **+ Add Notice**.
 2. In **Create Notification** fill in:
-   - **Notification Title** *(required)*
-   - **Notification Message** *(required)*
+   - **Notification Title** _(required)_
+   - **Notification Message** _(required)_
    - **Category** — General, Academic, Exam, Fees, Holiday or Emergency
    - **Audience** — All Users, Students, Teachers or Parents
    - **Priority** — Low, Medium or High
-   - **Publish Date** and **Expiry Date** *(optional)*
-3. Select **Create Notification**. Confirmation: *Notification created successfully*.
+   - **Publish Date** and **Expiry Date** _(optional)_
+3. Select **Create Notification**. Confirmation: _Notification created successfully_.
 
-Edit with the pencil icon or delete with the bin icon (*"Are you sure you want to permanently delete this notification?"*).
+Edit with the pencil icon or delete with the bin icon (_"Are you sure you want to permanently delete this notification?"_).
 
 > **Notices vs Notifications:** Use **Notices** for formal announcements pinned to the Notice Board pages; use **Notifications** for short alerts that pop up in the bell.
 
@@ -773,14 +776,14 @@ Edit with the pencil icon or delete with the bin icon (*"Are you sure you want t
 
 1. Select **+ Upload File**.
 2. Choose the file in the **Upload File** window.
-3. Select **Upload** (shows *Uploading...*).
+3. Select **Upload** (shows _Uploading..._).
 
 Any file type can be uploaded. The file appears in the **All Files** table with its name, type and upload date.
 
 #### Working with Files
 
 - **Eye icon** — previews the file: images display directly, PDFs open in a built-in viewer, other types offer a **Download File** link.
-- **Bin icon** — a browser pop-up asks *"Delete file?"*; confirm to remove it permanently.
+- **Bin icon** — a browser pop-up asks _"Delete file?"_; confirm to remove it permanently.
 
 ### 5B.15 Leave Management
 
@@ -788,13 +791,13 @@ Any file type can be uploaded. The file appears in the **All Files** table with 
 
 **How to get there:** Sidebar → **Leave Management**.
 
-**What you see:** stat cards (*Total Requests*, *Pending Requests*, *Approved Requests*, *Rejected Requests*), a **Leave Statistics** bar chart, search box *"Search student or teacher..."*, status filter (**All Requests / Pending / Approved / Rejected**) and the requests table: **User**, **Role**, **Leave Type**, **Dates**, **Duration** ("N Day(s)"), **Status**, **Reason**, **Actions**.
+**What you see:** stat cards (_Total Requests_, _Pending Requests_, _Approved Requests_, _Rejected Requests_), a **Leave Statistics** bar chart, search box _"Search student or teacher..."_, status filter (**All Requests / Pending / Approved / Rejected**) and the requests table: **User**, **Role**, **Leave Type**, **Dates**, **Duration** ("N Day(s)"), **Status**, **Reason**, **Actions**.
 
 #### Approving or Rejecting Leave
 
-1. Find the pending request (status shown in yellow). Pending rows show green **Approve** and red **Reject** buttons; decided rows show *"Action Completed"*.
+1. Find the pending request (status shown in yellow). Pending rows show green **Approve** and red **Reject** buttons; decided rows show _"Action Completed"_.
 2. Select **Approve** or **Reject**.
-3. A **Confirm Action** window asks: *"Are you sure you want to approve (or reject) leave request of {name}?"* — select **Confirm** or **Cancel**.
+3. A **Confirm Action** window asks: _"Are you sure you want to approve (or reject) leave request of {name}?"_ — select **Confirm** or **Cancel**.
 4. The status updates everywhere and the requester sees it in their own leave history.
 
 #### Reading the Reason
@@ -807,7 +810,7 @@ Select the blue **View** link in the Reason column to open **Leave Details**: ap
 
 **How to get there:** Sidebar → **Audit Logs**.
 
-**What you see:** *Today's Activities* counter, stat cards (*Total Activities*, *Create Actions*, *Update Actions*, *Delete Actions*), and filters: *"Search..."* box, **Module** dropdown (All Modules, Students, Teachers, Classes, Attendance, Subjects, Fees, Timetable, Notifications) and **Action** dropdown (All Actions, CREATE, UPDATE, DELETE, LOGIN).
+**What you see:** _Today's Activities_ counter, stat cards (_Total Activities_, _Create Actions_, _Update Actions_, _Delete Actions_), and filters: _"Search..."_ box, **Module** dropdown (All Modules, Students, Teachers, Classes, Attendance, Subjects, Fees, Timetable, Notifications) and **Action** dropdown (All Actions, CREATE, UPDATE, DELETE, LOGIN).
 
 The **Activity Logs** table shows: **#**, **Date & Time**, **User** (+ role), **Module**, **Action** (colour-coded) and **Details**. Ten rows per page. Logs are read-only and cannot be edited or deleted.
 
@@ -821,7 +824,7 @@ The **Activity Logs** table shows: **#**, **Date & Time**, **User** (+ role), **
 
 **How to get there:** Sidebar → **Students**.
 
-- Search box: *"Search by name, roll no, class or email..."*
+- Search box: _"Search by name, roll no, class or email..."_
 - Table **Students List**: **Student**, **Roll No**, **Class**, **Email**, **Actions**.
 - Two buttons per student:
   - **Profile** — opens a read-only **Student Profile** window (Name, Roll, Class, Email, Phone).
@@ -835,7 +838,7 @@ Opens from **Students → Attendance**. Shows the student's photo/details, summa
 
 **How to get there:** Sidebar → **Attendance**.
 
-1. Choose the class from **Select Class** (options look like *ClassName - Section*). If the class has no students you'll see *"No students found — No students are assigned to this class yet."*
+1. Choose the class from **Select Class** (options look like _ClassName - Section_). If the class has no students you'll see _"No students found — No students are assigned to this class yet."_
 2. Check the **Attendance Date** (defaults to today; past dates can be selected).
 3. Every student starts marked **Present**. Adjust anyone using the buttons on their row:
    - **P** = Present (green)
@@ -843,9 +846,9 @@ Opens from **Students → Attendance**. Shows the student's photo/details, summa
    - **L** = Late (yellow)
 4. Or use the bulk buttons: **Mark All Present**, **Mark All Absent**, **Mark All Late**.
 5. Watch the **Attendance Progress** bar (e.g. 34/35 marked).
-6. Select **Save Attendance**. Confirmation: *Attendance saved successfully*.
+6. Select **Save Attendance**. Confirmation: _Attendance saved successfully_.
 
-Stat cards above the list (*Total Students, Present, Absent, Late*) update live as you mark.
+Stat cards above the list (_Total Students, Present, Absent, Late_) update live as you mark.
 
 ### 5C.4 Attendance History
 
@@ -853,11 +856,11 @@ Sidebar → **Attendance History** lists saved attendance records (Student, Stat
 
 ### 5C.5 Timetable
 
-Sidebar → **Timetable** shows **My Timetable** — the teacher's personal weekly schedule, Monday–Saturday, with each period's class, subject and timing. Until administration publishes schedules it shows *"No Timetable Assigned — Your schedule will appear here once assigned by administration."* Read-only.
+Sidebar → **Timetable** shows **My Timetable** — the teacher's personal weekly schedule, Monday–Saturday, with each period's class, subject and timing. Until administration publishes schedules it shows _"No Timetable Assigned — Your schedule will appear here once assigned by administration."_ Read-only.
 
 ### 5C.6 Notices
 
-Sidebar → **Notices** lists announcements from administration (title, date, full text, posted-by). Teachers receive notices addressed to **Teachers** or **All Audience**. Search by title with *"Search notices..."*. Read-only — only administrators can publish notices.
+Sidebar → **Notices** lists announcements from administration (title, date, full text, posted-by). Teachers receive notices addressed to **Teachers** or **All Audience**. Search by title with _"Search notices..."_. Read-only — only administrators can publish notices.
 
 ### 5C.7 Marks
 
@@ -870,12 +873,12 @@ Sidebar → **Notices** lists announcements from administration (title, date, fu
 3. Type each student's score in the **Marks** box (0–100).
 4. Grades and Pass/Fail are calculated automatically as you type (pass mark 35):
    - 90+ = A+, 80+ = A, 70+ = B, 60+ = C, 40+ = D, below 40 = F.
-5. Optionally find a student quickly with *"Search Student..."*.
-6. Select **Save Marks** (shows *Saving...*). Confirmation: *Marks saved successfully*.
+5. Optionally find a student quickly with _"Search Student..."_.
+6. Select **Save Marks** (shows _Saving..._). Confirmation: _Marks saved successfully_.
 
-If you press Save without picking class, subject and exam, a reminder appears: *"Please select Class, Subject and Exam Type"*.
+If you press Save without picking class, subject and exam, a reminder appears: _"Please select Class, Subject and Exam Type"_.
 
-> The toolbar buttons *Download Template*, *Upload Excel* and *Import Previous Exam* are display-only in the current version — marks are typed in directly.
+> The toolbar buttons _Download Template_, _Upload Excel_ and _Import Previous Exam_ are display-only in the current version — marks are typed in directly.
 
 ### 5C.8 Results
 
@@ -886,10 +889,10 @@ Sidebar → **Results** shows **Results & Analytics** for a chosen class (read-o
 **How to get there:** Sidebar → **Report Cards**.
 
 1. Choose the class from the dropdown.
-2. The **Student Report Cards** list appears (every student shows status *Ready*).
+2. The **Student Report Cards** list appears (every student shows status _Ready_).
 3. Select **Download PDF** on a student's row — the report card downloads as `{StudentName}-report-card.pdf`.
 
-> The *Preview* and *Download All PDFs* buttons are display-only in the current version.
+> The _Preview_ and _Download All PDFs_ buttons are display-only in the current version.
 
 ### 5C.10 Leave Requests
 
@@ -900,15 +903,15 @@ Sidebar → **Results** shows **Results & Analytics** for a chosen class (read-o
 1. Under **Apply Leave Request**, choose the **Leave Type**: Sick Leave, Casual Leave, Emergency or Other.
 2. Pick the **From** and **To** dates.
 3. Write the **Reason**.
-4. Select **Submit Leave** (shows *Submitting...*). Confirmation: *Leave request submitted successfully*.
+4. Select **Submit Leave** (shows _Submitting..._). Confirmation: _Leave request submitted successfully_.
 
-Rules enforced: *"Please fill all fields"* if anything is missing; *"To Date cannot be earlier than From Date"* if the dates are reversed.
+Rules enforced: _"Please fill all fields"_ if anything is missing; _"To Date cannot be earlier than From Date"_ if the dates are reversed.
 
-**Tracking:** The same page shows your **Leave History** — every request with its type, dates, reason and status badge (*pending* yellow, *approved* green, *rejected* red). Submitted requests cannot be edited or cancelled; contact administration for changes.
+**Tracking:** The same page shows your **Leave History** — every request with its type, dates, reason and status badge (_pending_ yellow, _approved_ green, _rejected_ red). Submitted requests cannot be edited or cancelled; contact administration for changes.
 
 ### 5C.11 Profile
 
-Sidebar → **Profile**. Update your **photo** (camera icon), name, phone, subject and address, then **Save Profile**. Your email cannot be changed here. Change your password any time under **Change Password** (Old Password + New Password → *Change Password*).
+Sidebar → **Profile**. Update your **photo** (camera icon), name, phone, subject and address, then **Save Profile**. Your email cannot be changed here. Change your password any time under **Change Password** (Old Password + New Password → _Change Password_).
 
 ---
 
@@ -925,16 +928,16 @@ Sidebar → **Student Attendance**.
 - Filter with **This Month / Last 3 Months / This Year**.
 - Summary cards: **Attendance Rate**, **Present**, **Absent**, **Late**.
 - Visual aids: an attendance ring, **Monthly Attendance Trend** line chart, month **calendar** (select a day to see its status) and a 6-month heatmap.
-- **Attendance History** table lists every day: Date, Day, Month, Status (*Present* green / *Absent* red / *Late* yellow).
+- **Attendance History** table lists every day: Date, Day, Month, Status (_Present_ green / _Absent_ red / _Late_ yellow).
 
 ### 5D.3 My Timetable
 
 Sidebar → **Student Timetable** shows your class's weekly schedule.
 
-- Switch between **Weekly View** (grid: time slots × Monday–Saturday; empty slots show *Free Period*) and **Calendar View** (colour-coded cards with room numbers and lunch break).
+- Switch between **Weekly View** (grid: time slots × Monday–Saturday; empty slots show _Free Period_) and **Calendar View** (colour-coded cards with room numbers and lunch break).
 - Select **Print** for a paper copy or **Download PDF** to save `Class-{YourClass}-Timetable.pdf`.
 
-If the school hasn't published it yet you'll see *"No Timetable Available — Timetable has not been published yet."*
+If the school hasn't published it yet you'll see _"No Timetable Available — Timetable has not been published yet."_
 
 ### 5D.4 My Subjects
 
@@ -947,15 +950,15 @@ Sidebar → **Student Fees**.
 **Checking dues:**
 
 - Cards show **Total Fees**, **Paid**, **Pending** and **Paid %**, plus a monthly trend chart.
-- The **Fee Ledger** lists every fee: Month, Fee Type, Amount (₹), Status (*Paid*/​*Pending*), Payment Date.
-- Search with *"Search fees..."* or filter by status.
+- The **Fee Ledger** lists every fee: Month, Fee Type, Amount (₹), Status (_Paid_/​*Pending*), Payment Date.
+- Search with _"Search fees..."_ or filter by status.
 
 **Paying a pending fee:**
 
 1. Select **Pay Now** on the pending row.
 2. The **Fee Payment** screen confirms the Amount, Type and Month.
-3. Select **Pay Now** (shows *Processing...*).
-4. A *"Payment Successful"* message appears and the fee is marked paid.
+3. Select **Pay Now** (shows _Processing..._).
+4. A _"Payment Successful"_ message appears and the fee is marked paid.
 
 **Getting a receipt:** on paid rows select **View Receipt** to open a receipt window with student, month, type, amount, status and date — select **Print** for a hard copy.
 
@@ -965,8 +968,8 @@ Sidebar → **Student Fees**.
 
 Sidebar → **Student Results** lists every **published** exam result:
 
-- Summary tiles: *Total Exams*, *Average Score*, *Passed Exams*, *Highest Score*, *Overall Grade*.
-- Each result card shows the exam name, class, obtained/total marks, percentage, colour-coded grade, a subject-wise marks table, and *Status: Pass/Fail*.
+- Summary tiles: _Total Exams_, _Average Score_, _Passed Exams_, _Highest Score_, _Overall Grade_.
+- Each result card shows the exam name, class, obtained/total marks, percentage, colour-coded grade, a subject-wise marks table, and _Status: Pass/Fail_.
 - Select **View Report Card** for the full formatted report card, then **Download PDF** to save `{YourName}-report-card.pdf`.
 
 Unpublished (draft) results never appear here.
@@ -977,14 +980,14 @@ Sidebar → **Leave Management**.
 
 1. Under **Apply Leave**, pick the type: Sick Leave (default), Casual Leave, Emergency or Other.
 2. Choose **From** and **To** dates.
-3. Write the reason in *"Reason for leave..."*.
-4. Select **Apply Leave** (shows *Submitting...*). Confirmation: *Leave applied successfully*.
+3. Write the reason in _"Reason for leave..."_.
+4. Select **Apply Leave** (shows _Submitting..._). Confirmation: _Leave applied successfully_.
 
-Your **Leave History** table below shows every request (Type, From, Days, To, Reason, Status — *approved* green / *rejected* red / waiting yellow). Applications cannot be withdrawn from the app; speak to the office.
+Your **Leave History** table below shows every request (Type, From, Days, To, Reason, Status — _approved_ green / _rejected_ red / waiting yellow). Applications cannot be withdrawn from the app; speak to the office.
 
 ### 5D.8 Notices
 
-Sidebar → **Student Notices** shows the **Notice Board**: all notices addressed to you, with priority tags (*High* red / *Normal* blue), posting date and publisher. Search with *"Search notices..."*.
+Sidebar → **Student Notices** shows the **Notice Board**: all notices addressed to you, with priority tags (_High_ red / _Normal_ blue), posting date and publisher. Search with _"Search notices..."_.
 
 ---
 
@@ -1007,7 +1010,7 @@ End-to-end recipes for the tasks offices perform most.
 2. **Students** → **+ Add Student**.
 3. Complete the ten wizard steps (Academic → Student → Parents → Address → Bank → Previous School → Facilities → Documents → Notes → Review).
 4. Verify everything on the **Review** step and select **Complete Admission**.
-5. The system generates the **Admission Number** and roll number; the student appears in the Students list as *Active*.
+5. The system generates the **Admission Number** and roll number; the student appears in the Students list as _Active_.
 6. **Fees** → add the applicable fee records for the student (amount, type, month/year).
 7. The student can now log in (if an account was created for them) and view their profile, timetable and notices.
 
@@ -1031,7 +1034,7 @@ Parents/students see the updated record immediately on the student portal.
 2. When a family pays, either:
    - Office: open the record → set **Payment Status** to **Paid** → **Update Fee**; or
    - Student/parent at the counter or portal: **Student Fees → Pay Now** on the pending row.
-3. Verify collection on the dashboard (*Collected*, *Pending*, *Collection Rate*) or the Fees page cards.
+3. Verify collection on the dashboard (_Collected_, _Pending_, _Collection Rate_) or the Fees page cards.
 4. Students download receipts themselves via **View Receipt → Print**.
 
 ## 6.5 Conducting Exams and Declaring Results
@@ -1063,41 +1066,41 @@ Quick reference for the most-used forms.
 
 ### Add/Edit Teacher
 
-| Field | What should be entered? |
-|---|---|
-| Teacher Name | Full name *(required)* |
-| Email | Staff email address *(required)* |
-| Phone | Contact number |
-| Subject | Main subject taught |
-| Experience (Years) | Teaching experience in years |
-| Assigned Classes | Tick every class-section taught |
+| Field              | What should be entered?          |
+| ------------------ | -------------------------------- |
+| Teacher Name       | Full name _(required)_           |
+| Email              | Staff email address _(required)_ |
+| Phone              | Contact number                   |
+| Subject            | Main subject taught              |
+| Experience (Years) | Teaching experience in years     |
+| Assigned Classes   | Tick every class-section taught  |
 
 ### Add Class
 
-| Field | What should be entered? |
-|---|---|
-| Class Name | e.g. "Grade 10" *(required)* |
-| Section | e.g. "A" *(required)* |
-| Class Teacher | Pick from the teacher list *(required)* |
+| Field         | What should be entered?                 |
+| ------------- | --------------------------------------- |
+| Class Name    | e.g. "Grade 10" _(required)_            |
+| Section       | e.g. "A" _(required)_                   |
+| Class Teacher | Pick from the teacher list _(required)_ |
 
 ### Add Subject
 
-| Field | What should be entered? |
-|---|---|
-| Subject Name | e.g. "Mathematics" *(required)* |
-| Subject Code | Short code, e.g. "MATH101" *(required)* |
-| Class | Which class studies it *(required)* |
-| Teacher | Who teaches it *(required)* |
+| Field        | What should be entered?                 |
+| ------------ | --------------------------------------- |
+| Subject Name | e.g. "Mathematics" _(required)_         |
+| Subject Code | Short code, e.g. "MATH101" _(required)_ |
+| Class        | Which class studies it _(required)_     |
+| Teacher      | Who teaches it _(required)_             |
 
 ### Add Fee Record
 
-| Field | What should be entered? |
-|---|---|
-| Student | Pick the student (name • roll • class shown) *(required)* |
-| Amount | Fee amount in ₹ *(required)* |
-| Fee Type | Tuition / Admission / Transport / Exam / Library / Sports / Other |
-| Month & Year | Which month the fee belongs to *(month required)* |
-| Payment Status | Pending (default) or Paid |
+| Field          | What should be entered?                                           |
+| -------------- | ----------------------------------------------------------------- |
+| Student        | Pick the student (name • roll • class shown) _(required)_         |
+| Amount         | Fee amount in ₹ _(required)_                                      |
+| Fee Type       | Tuition / Admission / Transport / Exam / Library / Sports / Other |
+| Month & Year   | Which month the fee belongs to _(month required)_                 |
+| Payment Status | Pending (default) or Paid                                         |
 
 ### Create Notice / Create Notification
 
@@ -1105,11 +1108,11 @@ See sections 5B.8 and 5B.9 for the full field tables.
 
 ### Apply Leave (teachers and students)
 
-| Field | What should be entered? |
-|---|---|
-| Leave Type | Sick Leave / Casual Leave / Emergency / Other |
+| Field           | What should be entered?                                |
+| --------------- | ------------------------------------------------------ |
+| Leave Type      | Sick Leave / Casual Leave / Emergency / Other          |
 | From / To Dates | First and last day of leave (To cannot be before From) |
-| Reason | Brief explanation for the office |
+| Reason          | Brief explanation for the office                       |
 
 ---
 
@@ -1131,18 +1134,18 @@ Almost every list follows the same pattern:
 
 **Finding specific people quickly**
 
-| Looking for… | Go to | Search matches |
-|---|---|---|
-| A student (office) | Students | Student name |
-| A student's fees | Fees | Name or roll number |
-| A teacher | Teachers | Name or email |
-| A subject | Subjects | Subject name or code |
-| A class | Classes | Class name, section or teacher name |
-| An attendance record | Attendance | Student name (+ class/status/date filters) |
-| A notice | Notices / Notifications | Title or description |
-| A leave request | Leave Management | Applicant name |
+| Looking for…         | Go to                   | Search matches                             |
+| -------------------- | ----------------------- | ------------------------------------------ |
+| A student (office)   | Students                | Student name                               |
+| A student's fees     | Fees                    | Name or roll number                        |
+| A teacher            | Teachers                | Name or email                              |
+| A subject            | Subjects                | Subject name or code                       |
+| A class              | Classes                 | Class name, section or teacher name        |
+| An attendance record | Attendance              | Student name (+ class/status/date filters) |
+| A notice             | Notices / Notifications | Title or description                       |
+| A leave request      | Leave Management        | Applicant name                             |
 
-**Sorting/paging:** Lists show a fixed number of rows per page (usually 5–10) with **Prev / Previous**, page-number and **Next / following-page** controls, plus counters like *"Showing X to Y of Z records"*. Move through pages to browse longer lists; sorting by column headers could not be confirmed from the current application.
+**Sorting/paging:** Lists show a fixed number of rows per page (usually 5–10) with **Prev / Previous**, page-number and **Next / following-page** controls, plus counters like _"Showing X to Y of Z records"_. Move through pages to browse longer lists; sorting by column headers could not be confirmed from the current application.
 
 ---
 
@@ -1150,50 +1153,50 @@ Almost every list follows the same pattern:
 
 Messages you may meet and how to respond.
 
-**Message:** *Please fill all fields*
+**Message:** _Please fill all fields_
 **Where:** Login, Signup, Leave forms
 **Meaning:** One or more required boxes are empty.
 **What to do:** Complete every required field and try again.
 
-**Message:** *Password must be at least 6 characters*
+**Message:** _Password must be at least 6 characters_
 **Where:** Signup
 **What to do:** Choose a password of 6 or more characters.
 
-**Message:** *Login failed*
+**Message:** _Login failed_
 **Where:** Login
 **Meaning:** The email/password/school-code combination wasn't accepted.
 **What to do:** Re-check all three entries; ask the administrator if the problem continues.
 
-**Message:** *Admission Date is required* / *Academic Session is required* / *Class is required* / *Section is required* / *Roll Number is required*
+**Message:** _Admission Date is required_ / _Academic Session is required_ / _Class is required_ / _Section is required_ / _Roll Number is required_
 **Where:** Admission wizard, Step 1
 **What to do:** Fill the highlighted field, then select **Next**.
 
-**Message:** *Student Name is required* / *Email is required* / *Gender is required* / *Date of Birth is required*
+**Message:** _Student Name is required_ / _Email is required_ / _Gender is required_ / _Date of Birth is required_
 **Where:** Admission wizard, Step 2
 **What to do:** Complete these basics of the student's identity before continuing.
 
-**Message:** *Guardian Name is required* / *Guardian Phone is required*
+**Message:** _Guardian Name is required_ / _Guardian Phone is required_
 **Where:** Admission wizard, Step 3
 **What to do:** Enter the primary guardian's name and mobile number.
 
-**Message:** *Please select Class, Subject and Exam Type*
+**Message:** _Please select Class, Subject and Exam Type_
 **Where:** Teacher Marks entry
 **What to do:** Choose all three dropdowns before loading/saving marks.
 
-**Message:** *To Date cannot be earlier than From Date*
+**Message:** _To Date cannot be earlier than From Date_
 **Where:** Teacher leave form
 **What to do:** Correct the date order.
 
-**Message:** *No records available to export*
+**Message:** _No records available to export_
 **Where:** Attendance export
 **Meaning:** The current filters match nothing.
 **What to do:** Widen or clear the filters, then export again.
 
-**Message:** *School code already exists*
+**Message:** _School code already exists_
 **Where:** Super Admin creating a school
 **What to do:** Choose a different, unique school code.
 
-**Message:** *"…cannot be undone"*
+**Message:** _"…cannot be undone"_
 **Where:** Every delete confirmation (students, teachers, classes, subjects, notices, fees, timetables, results, files, schools)
 **Meaning:** Deletion is permanent.
 **What to do:** Pause and verify you've selected the right record before confirming **Delete**.
@@ -1206,17 +1209,17 @@ Messages you may meet and how to respond.
 
 # 10. Reports
 
-The school-wide reporting centre lives at Sidebar → **Reports** (*"Reports & Analytics"*). It is one fixed overview page rather than a set of selectable reports.
+The school-wide reporting centre lives at Sidebar → **Reports** (_"Reports & Analytics"_). It is one fixed overview page rather than a set of selectable reports.
 
 ### What's on it
 
-| Block | Information shown |
-|---|---|
-| Six stat cards | **Students**, **Teachers**, **Classes**, **Subjects**, **Total Revenue** (₹), **Collected Revenue** (₹) |
-| Attendance chart | Split of all attendance records: *Present*, *Absent*, *Late* |
-| Fee collection chart | Money *Paid* vs *Pending* |
+| Block                   | Information shown                                                                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Six stat cards          | **Students**, **Teachers**, **Classes**, **Subjects**, **Total Revenue** (₹), **Collected Revenue** (₹)                                           |
+| Attendance chart        | Split of all attendance records: _Present_, _Absent_, _Late_                                                                                      |
+| Fee collection chart    | Money _Paid_ vs _Pending_                                                                                                                         |
 | **Class Summary** table | Each class with its student count and strength badge: **High Strength** (>20 students), **Medium Strength** (>10), **Low Strength** (10 or fewer) |
-| Bottom cards | **Attendance Records** (total count), **Paid Fees**, **Pending Fees** |
+| Bottom cards            | **Attendance Records** (total count), **Paid Fees**, **Pending Fees**                                                                             |
 
 ### Filters and exports
 
@@ -1224,16 +1227,16 @@ There are no date-range or class filters on this page — it reflects the entire
 
 ### Other places data is reported/downloaded
 
-| Need | Where |
-|---|---|
-| Attendance spreadsheet | Attendance → **Export CSV** |
-| Individual result sheet | Results → **View** → **Print Result** |
-| Student report cards (PDF) | Teacher portal → **Report Cards** → **Download PDF** |
-| Student's own report card (PDF) | Student portal → Results → **Download PDF** |
-| Class timetable (PDF/print) | Student portal → Timetable → **Print** / **Download PDF** |
-| Student profile (print) | Students → eye icon → **Print Profile** |
-| Fee receipt (print) | Student portal → Fees → **View Receipt** → **Print** |
-| Activity trail | Audit Logs (on-screen, filterable) |
+| Need                            | Where                                                     |
+| ------------------------------- | --------------------------------------------------------- |
+| Attendance spreadsheet          | Attendance → **Export CSV**                               |
+| Individual result sheet         | Results → **View** → **Print Result**                     |
+| Student report cards (PDF)      | Teacher portal → **Report Cards** → **Download PDF**      |
+| Student's own report card (PDF) | Student portal → Results → **Download PDF**               |
+| Class timetable (PDF/print)     | Student portal → Timetable → **Print** / **Download PDF** |
+| Student profile (print)         | Students → eye icon → **Print Profile**                   |
+| Fee receipt (print)             | Student portal → Fees → **View Receipt** → **Print**      |
+| Activity trail                  | Audit Logs (on-screen, filterable)                        |
 
 ---
 
@@ -1243,21 +1246,21 @@ Sidebar → **Settings** (School Admin only).
 
 ### Your School Code
 
-A large card shows **Your School Code** with a **Copy Code** button (it flashes *"Copied!"* and confirms *"School code copied!"*). Share this code with teachers and students — they must type it on the login screen along with their email and password.
+A large card shows **Your School Code** with a **Copy Code** button (it flashes _"Copied!"_ and confirms _"School code copied!"_). Share this code with teachers and students — they must type it on the login screen along with their email and password.
 
 ### School Details Form
 
-| Field | What should be entered? |
-|---|---|
+| Field           | What should be entered?                                                                |
+| --------------- | -------------------------------------------------------------------------------------- |
 | School Logo URL | Paste a web address (https://…) pointing to your logo image — it previews as you paste |
-| School Name | Official school name |
-| Principal Name | Head of the school |
-| Email | Official contact email |
-| Phone | Official contact number |
-| Academic Year | e.g. 2026-27 |
-| Address | Full postal address |
+| School Name     | Official school name                                                                   |
+| Principal Name  | Head of the school                                                                     |
+| Email           | Official contact email                                                                 |
+| Phone           | Official contact number                                                                |
+| Academic Year   | e.g. 2026-27                                                                           |
+| Address         | Full postal address                                                                    |
 
-Select **Save Settings** to store them (*Settings updated successfully*). These details brand the school's presence in the system.
+Select **Save Settings** to store them (_Settings updated successfully_). These details brand the school's presence in the system.
 
 > Grading scales, fee rules and other advanced policies could not be confirmed from the current application — the settings page covers the school code and the details above.
 
@@ -1273,7 +1276,7 @@ Under **Profile**, any signed-in user can update their photo, basic details and 
 Open **Students** → **+ Add Student** → complete the ten guided steps → **Complete Admission**. The admission number is generated for you.
 
 **How do I find a student?**
-Open **Students**, type the student's name in *"Search by student name..."*, optionally pick a class, and select the student's row (eye icon) to view the full profile.
+Open **Students**, type the student's name in _"Search by student name..."_, optionally pick a class, and select the student's row (eye icon) to view the full profile.
 
 **How do I update student information?**
 Find the student → select the blue pencil icon → correct the details across the wizard steps → **Update Student**.
@@ -1316,23 +1319,23 @@ Either your session ended, or the page you opened belongs to a different role. L
 
 # 13. Troubleshooting
 
-| Problem | What to do |
-|---|---|
-| Cannot log in | Make sure **all three** boxes are filled: email, **School Code** and password. Codes are usually capital letters+digits (e.g. DPS001). |
-| Forgot my password | Ask your school administrator. The *"Forgot password?"* link is not active in the current version. |
-| Signed up but expected a staff account | Self-signup always creates **student** accounts. Ask the administrator to arrange the right account. |
-| A form won't save | Look for highlighted boxes or a red message — a required field is missing or invalid. Fix it and save again. |
-| Student doesn't appear in search | Check spelling; try fewer letters; make sure the class filter is set to **All Classes**. |
-| Class dropdown is empty in the admission wizard | Create the class first under **Classes**, then retry. |
-| Section dropdown stays disabled | Pick the class first — sections load based on it. |
-| "No classes found" when assigning a teacher | No classes exist yet — add them under **Classes**. |
-| Timetable missing for a class/day | The schedule record hasn't been created — add it under **Timetable**. |
-| Student says results aren't visible | The result may still be a **Draft**. Publish it from **Results**. |
-| Print window didn't open (profile/result) | Your browser blocked pop-ups — allow pop-ups for this site and print again. |
-| Export CSV says nothing to export | Clear or widen the attendance filters so at least one record matches. |
-| Deleted something by mistake | Deletions are permanent — re-create the record (and inform affected staff/students). |
-| Wrong-role page bounced me to Login | That's expected protection. Return to your own dashboard and use your menu. |
-| Page looks stuck | Select **↻ Refresh Dashboard** (dashboard) or reload the browser page. |
+| Problem                                         | What to do                                                                                                                             |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Cannot log in                                   | Make sure **all three** boxes are filled: email, **School Code** and password. Codes are usually capital letters+digits (e.g. DPS001). |
+| Forgot my password                              | Ask your school administrator. The _"Forgot password?"_ link is not active in the current version.                                     |
+| Signed up but expected a staff account          | Self-signup always creates **student** accounts. Ask the administrator to arrange the right account.                                   |
+| A form won't save                               | Look for highlighted boxes or a red message — a required field is missing or invalid. Fix it and save again.                           |
+| Student doesn't appear in search                | Check spelling; try fewer letters; make sure the class filter is set to **All Classes**.                                               |
+| Class dropdown is empty in the admission wizard | Create the class first under **Classes**, then retry.                                                                                  |
+| Section dropdown stays disabled                 | Pick the class first — sections load based on it.                                                                                      |
+| "No classes found" when assigning a teacher     | No classes exist yet — add them under **Classes**.                                                                                     |
+| Timetable missing for a class/day               | The schedule record hasn't been created — add it under **Timetable**.                                                                  |
+| Student says results aren't visible             | The result may still be a **Draft**. Publish it from **Results**.                                                                      |
+| Print window didn't open (profile/result)       | Your browser blocked pop-ups — allow pop-ups for this site and print again.                                                            |
+| Export CSV says nothing to export               | Clear or widen the attendance filters so at least one record matches.                                                                  |
+| Deleted something by mistake                    | Deletions are permanent — re-create the record (and inform affected staff/students).                                                   |
+| Wrong-role page bounced me to Login             | That's expected protection. Return to your own dashboard and use your menu.                                                            |
+| Page looks stuck                                | Select **↻ Refresh Dashboard** (dashboard) or reload the browser page.                                                                 |
 
 ---
 
@@ -1340,12 +1343,12 @@ Either your session ended, or the page you opened belongs to a different role. L
 
 For transparency, these controls are visible but not yet active, or absent entirely. Don't rely on them:
 
-- *"Forgot password?"* on the Login page does not perform an action.
+- _"Forgot password?"_ on the Login page does not perform an action.
 - Filter chips on the Students page (**All Students / Active / New Admission / Pending Fees**) are display-only.
-- Some dashboard/student tiles show fixed sample figures rather than live data (e.g. *Class Rank #5*, *Best Streak 15 Days*, teacher's *Average Attendance 92%*, subject-card attendance bars, *Present Today*/*Pending Fees* dashes on the Students page).
+- Some dashboard/student tiles show fixed sample figures rather than live data (e.g. _Class Rank #5_, _Best Streak 15 Days_, teacher's _Average Attendance 92%_, subject-card attendance bars, _Present Today_/_Pending Fees_ dashes on the Students page).
 - Reports page: **Export PDF** / **Export Excel** buttons are display-only.
-- Teacher Marks: *Download Template*, *Upload Excel*, *Import Previous Exam* are display-only; class/subject/exam choices come from preset lists.
-- Teacher Report Cards: *Preview* and *Download All PDFs* buttons are display-only.
+- Teacher Marks: _Download Template_, _Upload Excel_, _Import Previous Exam_ are display-only; class/subject/exam choices come from preset lists.
+- Teacher Report Cards: _Preview_ and _Download All PDFs_ buttons are display-only.
 - Admin attendance marking is one student at a time (bulk marking is on the teacher screen).
 - Fees: no discounts, due-date reminders or printable receipts from the admin screen (receipts print from the student's fee page).
 - Results: publishing cannot be reversed; there is no unpublish button.
@@ -1357,4 +1360,4 @@ For transparency, these controls are visible but not yet active, or absent entir
 
 ---
 
-*This guide describes the application as it exists today. Menu names, buttons and messages quoted above match the on-screen text, so you can follow along directly in the system.*
+_This guide describes the application as it exists today. Menu names, buttons and messages quoted above match the on-screen text, so you can follow along directly in the system._

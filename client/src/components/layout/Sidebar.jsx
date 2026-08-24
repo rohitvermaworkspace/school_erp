@@ -1,5 +1,12 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaSchool, FaSignOutAlt, FaBars, FaChevronRight } from "react-icons/fa";
+import {
+  FaSchool,
+  FaSignOutAlt,
+  FaBars,
+  FaChevronRight,
+  FaChevronDown,
+  FaCircle,
+} from "react-icons/fa";
 
 import { useAuth } from "../../context/AuthContext";
 import { useSidebar } from "../../context/SidebarContext";
@@ -13,6 +20,7 @@ function Sidebar() {
   const { user, logout } = useAuth();
   const { sidebarOpen, setSidebarOpen } = useSidebar();
   const [isMobile, setIsMobile] = useState(false);
+  const [expandedGroups, setExpandedGroups] = useState({});
   const location = useLocation();
 
   useEffect(() => {
@@ -85,6 +93,87 @@ function Sidebar() {
           {menu.map((item, index) => {
             const Icon = item.icon;
 
+            // ---- GROUP (submenu) ITEM ----
+            if (item.children) {
+              const isChildActive = item.children.some((child) =>
+                location.pathname.startsWith(child.path)
+              );
+
+              return (
+                <div key={index} className="mb-1">
+                  {sidebarOpen ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setExpandedGroups((prev) => ({
+                          ...prev,
+                          [item.title]: !(prev[item.title] ?? true),
+                        }))
+                      }
+                      className={`relative w-full flex items-center justify-between px-3 py-1.5 rounded-xl transition-all duration-300 ${
+                        isChildActive
+                          ? "text-white bg-slate-900"
+                          : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${isChildActive ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white" : "bg-slate-800"}`}>
+                          <Icon className="text-sm" />
+                        </div>
+                        <p className="font-medium text-[13px]">{item.title}</p>
+                      </div>
+                      <FaChevronDown
+                        className={`text-[10px] transition-transform duration-300 ${
+                          expandedGroups[item.title] ?? true ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setSidebarOpen(true)}
+                      title={item.title}
+                      className={`relative w-full flex items-center justify-center px-3 py-1.5 rounded-xl transition-all duration-300 ${
+                        isChildActive
+                          ? "text-white bg-slate-900"
+                          : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                      }`}
+                    >
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isChildActive ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white" : "bg-slate-800"}`}>
+                        <Icon className="text-sm" />
+                      </div>
+                    </button>
+                  )}
+
+                  {(expandedGroups[item.title] ?? true) && sidebarOpen && (
+                    <div className="mt-1 ml-6 pl-4 border-l border-slate-800 space-y-0.5">
+                      {item.children.map((child, childIndex) => {
+                        const ChildIcon = child.icon || FaCircle;
+                        return (
+                          <NavLink
+                            key={childIndex}
+                            to={child.path}
+                            onClick={() => window.innerWidth < 1024 && setSidebarOpen(false)}
+                            className={({ isActive }) =>
+                              `relative flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all duration-200 ${
+                                isActive
+                                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md"
+                                  : "text-slate-400 hover:bg-slate-900 hover:text-white"
+                              }`
+                            }
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-current opacity-60" />
+                            <p className="font-medium text-[12.5px]">{child.title}</p>
+                          </NavLink>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            // ---- FLAT ITEM ----
             return (
               <div key={index} className="group relative">
                 <NavLink

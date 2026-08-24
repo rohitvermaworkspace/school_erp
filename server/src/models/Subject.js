@@ -17,7 +17,6 @@ const subjectSchema = new mongoose.Schema(
     subjectCode: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
 
@@ -29,6 +28,13 @@ const subjectSchema = new mongoose.Schema(
     teacher: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Teacher",
+      default: null,
+    },
+
+    status: {
+      type: String,
+      enum: ["Active", "Inactive"],
+      default: "Active",
     },
 
     createdBy: {
@@ -40,6 +46,11 @@ const subjectSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// Codes and class assignments are unique PER SCHOOL (multi-tenant safe),
+// not globally. Replaces the legacy global unique index on subjectCode.
+subjectSchema.index({ schoolId: 1, subjectCode: 1 }, { unique: true });
+subjectSchema.index({ schoolId: 1, className: 1, subjectName: 1 }, { unique: true });
 
 module.exports = mongoose.model(
   "Subject",

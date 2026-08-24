@@ -20,11 +20,16 @@ const classSchema = new mongoose.Schema(
     classTeacher: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Teacher",
-      required: true,
+      default: null,
     },
     totalStudents: {
       type: Number,
       default: 0,
+    },
+    status: {
+      type: String,
+      enum: ["Active", "Inactive"],
+      default: "Active",
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

@@ -26,13 +26,23 @@ function Login() {
       setLoading(true);
       setError("");
 
-      if (!formData.email || !formData.password || !formData.schoolCode) {
+      if (!formData.email.trim() || !formData.password) {
         setError("Please fill all fields");
         setLoading(false);
         return;
       }
 
-      const { data } = await api.post("/auth/loginUser", formData);
+      // School Code is only required for school-scoped accounts.
+      // Super admins leave it blank — the backend resolves their account by email.
+      const payload = {
+        email: formData.email.trim(),
+        password: formData.password,
+      };
+      if (formData.schoolCode.trim()) {
+        payload.schoolCode = formData.schoolCode.trim();
+      }
+
+      const { data } = await api.post("/auth/loginUser", payload);
       login(data.user, data.token);
 
       switch (data.user.role) {
@@ -151,7 +161,7 @@ function Login() {
 
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                School Code
+                School Code <span className="font-normal text-slate-400">(not required for Super Admin)</span>
               </label>
               <input
                 type="text"

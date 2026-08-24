@@ -19,6 +19,12 @@ import Schools from "./pages/superAdmin/Schools";
 import CreateSchool from "./pages/superAdmin/CreateSchool";
 import SchoolDetail from "./pages/superAdmin/SchoolDetail";
 import PlatformUsers from "./pages/superAdmin/PlatformUsers";
+import SuperAdminClasses from "./pages/superAdmin/Classes";
+import SuperAdminSubjects from "./pages/superAdmin/Subjects";
+import ClassSubjects from "./pages/superAdmin/ClassSubjects";
+import SchoolAdmins from "./pages/superAdmin/SchoolAdmins";
+import SuperAdminReports from "./pages/superAdmin/Reports";
+import SuperAdminSettings from "./pages/superAdmin/Settings";
 
 // ADMIN
 import AcademicSessions from "./pages/admin/AcademicSessions";
@@ -84,7 +90,13 @@ function App() {
         <Route path="/super-admin/schools" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><Schools /></AppLayout></ProtectedRoute>} />
         <Route path="/super-admin/schools/create" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><CreateSchool /></AppLayout></ProtectedRoute>} />
         <Route path="/super-admin/schools/:id" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><SchoolDetail /></AppLayout></ProtectedRoute>} />
+        <Route path="/super-admin/classes" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><SuperAdminClasses /></AppLayout></ProtectedRoute>} />
+        <Route path="/super-admin/subjects" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><SuperAdminSubjects /></AppLayout></ProtectedRoute>} />
+        <Route path="/super-admin/class-subjects" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><ClassSubjects /></AppLayout></ProtectedRoute>} />
+        <Route path="/super-admin/school-admins" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><SchoolAdmins /></AppLayout></ProtectedRoute>} />
         <Route path="/super-admin/users" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><PlatformUsers /></AppLayout></ProtectedRoute>} />
+        <Route path="/super-admin/reports" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><SuperAdminReports /></AppLayout></ProtectedRoute>} />
+        <Route path="/super-admin/settings" element={<ProtectedRoute allowedRoles={["super_admin"]}><AppLayout><SuperAdminSettings /></AppLayout></ProtectedRoute>} />
 
         {/* ADMIN */}
         <Route path="/admin/dashboard" element={<ProtectedRoute allowedRoles={["admin"]}><AppLayout><AdminDashboard /></AppLayout></ProtectedRoute>} />

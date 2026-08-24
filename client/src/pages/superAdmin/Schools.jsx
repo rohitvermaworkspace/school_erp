@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import schoolService from "../../services/schoolService";
-import SuperAdminLayout from "./SuperAdminLayout";
 import { FaSchool, FaPlus, FaEye, FaEdit, FaTrash } from "react-icons/fa";
 
 const Schools = () => {
@@ -9,6 +8,8 @@ const Schools = () => {
   const [schools, setSchools] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
 
   useEffect(() => {
     fetchSchools();
@@ -40,15 +41,31 @@ const Schools = () => {
     }
   };
 
-  const filteredSchools = schools.filter(
-    (school) =>
-      school.name?.toLowerCase().includes(search.toLowerCase()) ||
-      school.code?.toLowerCase().includes(search.toLowerCase()) ||
-      school.email?.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredSchools = schools
+    .filter(
+      (school) =>
+        school.name?.toLowerCase().includes(search.toLowerCase()) ||
+        school.code?.toLowerCase().includes(search.toLowerCase()) ||
+        school.email?.toLowerCase().includes(search.toLowerCase())
+    )
+    .filter((school) => !statusFilter || school.status === statusFilter);
+
+  const sortedSchools = useMemo(() => {
+    const copy = [...filteredSchools];
+    switch (sortBy) {
+      case "name":
+        return copy.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+      case "students":
+        return copy.sort((a, b) => (b.studentCount || 0) - (a.studentCount || 0));
+      case "oldest":
+        return copy.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      default:
+        return copy; // newest first (API order)
+    }
+  }, [filteredSchools, sortBy]);
 
   return (
-    <SuperAdminLayout>
+    
       <div className="space-y-6">
         {/* Hero Section */}
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-8 shadow-xl">
@@ -84,7 +101,7 @@ const Schools = () => {
           </div>
         </div>
 
-        {/* Search */}
+        {/* Search + Filter + Sort */}
         <div className="flex flex-col lg:flex-row gap-4">
           <input
             type="text"
@@ -93,6 +110,26 @@ const Schools = () => {
             placeholder="Search by school name, code, or email..."
             className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 dark:text-white"
           />
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-4 py-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 dark:text-white"
+          >
+            <option value="">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+            <option value="Suspended">Suspended</option>
+          </select>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="px-4 py-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 dark:text-white"
+          >
+            <option value="newest">Sort: Newest First</option>
+            <option value="oldest">Sort: Oldest First</option>
+            <option value="name">Sort: Name (A–Z)</option>
+            <option value="students">Sort: Most Students</option>
+          </select>
         </div>
 
         {/* Table */}
@@ -153,7 +190,7 @@ const Schools = () => {
                     </td>
                   </tr>
                 ) : filteredSchools.length > 0 ? (
-                  filteredSchools.map((school) => (
+                  sortedSchools.map((school) => (
                     <tr
                       key={school._id}
                       className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition"
@@ -238,7 +275,7 @@ const Schools = () => {
           </div>
         </div>
       </div>
-    </SuperAdminLayout>
+    
   );
 };
 
